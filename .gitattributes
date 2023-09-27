@@ -1,2 +1,3 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+*.jupyter_notebook linguist-detectable=false
