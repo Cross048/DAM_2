@@ -1,7 +1,5 @@
 package ejercicio1;
 
-import java.lang.IllegalArgumentException;
-
 /**
  *
  * @author Cristian Bernal Méndez
@@ -9,7 +7,7 @@ import java.lang.IllegalArgumentException;
 public class Trabajador {
     private String nombre;
     private int edad;
-    private int categoria;
+    private int categoria = -1;
     private int antiguedad;
 
     public static final int CAT_EMPLEADO = 0;
@@ -20,21 +18,17 @@ public class Trabajador {
     public static final int ANT_EXPERTO = 2;
 
     public Trabajador(String nombre, int edad, int categoria, int antiguedad) {
-        try {
-            this.nombre = nombre;
-            this.edad = edad;
-            if (categoria != CAT_EMPLEADO && categoria != CAT_ENCARGADO && categoria != CAT_DIRECTIVO) {
-                throw new IllegalArgumentException();
-            } else {
-                this.categoria = categoria;
-            }
-            if (antiguedad != ANT_NOVATO && antiguedad != ANT_MADURO && antiguedad != ANT_EXPERTO) {
-                throw new IllegalArgumentException();
-            } else {
-                this.antiguedad = antiguedad;
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println("El valor no esta permitida.");
+        this.nombre = nombre;
+        this.edad = edad;
+        if (categoria != CAT_EMPLEADO && categoria != CAT_ENCARGADO && categoria != CAT_DIRECTIVO) {
+            throw new IllegalArgumentException("Categoria no valida.");
+        } else {
+            this.categoria = categoria;
+        }
+        if (antiguedad != ANT_NOVATO && antiguedad != ANT_MADURO && antiguedad != ANT_EXPERTO) {
+            throw new IllegalArgumentException("Antiguedad no valida.");
+        } else {
+            this.antiguedad = antiguedad;
         }
     }
 
@@ -46,19 +40,53 @@ public class Trabajador {
         return this.edad;
     }
 
-    public int getCategoria() {
-        return this.categoria;
+    public String getCategoria() {
+        String returnCategoria = null;
+
+        switch (this.categoria) {
+            case CAT_EMPLEADO:
+                returnCategoria = "Empleado";
+                break;
+            case CAT_ENCARGADO:
+                returnCategoria = "Encargado";
+                break;
+            case CAT_DIRECTIVO:
+                returnCategoria = "Directivo";
+                break;
+            default:
+                System.out.println("Ha habido un problema.");
+                break;
+        }
+
+        return returnCategoria;
     }
 
-    public int getAntiguedad() {
-        return this.antiguedad;
+    public String getAntiguedad() {
+        String returnAntiguedad = null;
+
+        switch (this.antiguedad) {
+            case ANT_NOVATO:
+                returnAntiguedad = "Novato";
+                break;
+            case ANT_MADURO:
+                returnAntiguedad = "Maduro";
+                break;
+            case ANT_EXPERTO:
+                returnAntiguedad = "Experto";
+                break;
+            default:
+                System.out.println("Ha habido un problema.");
+                break;
+        }
+
+        return returnAntiguedad;
     }
 
     public void setNombre(String nombre) {
         try {
             this.nombre = nombre;
         } catch (IllegalArgumentException e) {
-            System.out.println("El valor no esta permitida.");
+            throw new IllegalArgumentException("El nombre no esta permitido.");
         }
     }
 
@@ -66,46 +94,59 @@ public class Trabajador {
         try {
             this.edad = edad;
         } catch (IllegalArgumentException e) {
-            System.out.println("El valor no esta permitida.");
+            throw new IllegalArgumentException("La edad no esta permitida.");
         }
     }
 
     public void setCategoria(int categoria) {
-        try {
+        if (categoria != CAT_EMPLEADO && categoria != CAT_ENCARGADO && categoria != CAT_DIRECTIVO) {
+            throw new IllegalArgumentException("La categoria no esta permitida.");
+        } else {
             this.categoria = categoria;
-        } catch (IllegalArgumentException e) {
-            System.out.println("El valor no esta permitida.");
         }
     }
 
     public void setAntiguedad(int antiguedad) {
-        try {
+        if (antiguedad != ANT_NOVATO && antiguedad != ANT_MADURO && antiguedad != ANT_EXPERTO) {
+            throw new IllegalArgumentException("La antiguedad no esta permitida.");
+        } else {
             this.antiguedad = antiguedad;
-        } catch (IllegalArgumentException e) {
-            System.out.println("El valor no esta permitida.");
         }
     }
 
     public double calcularSueldo() {
-        double sueldo = 607;
-        // Terminar código V V V
-        switch (nombre) {
-            case value:
-                
-                break;
+        double sueldoBase = 607;
+        double sueldo = 0;
         
+        switch (this.categoria) {
+            case CAT_EMPLEADO:
+                sueldo = sueldoBase + (sueldoBase * 0.15);
+                break;
+            case CAT_ENCARGADO:
+                sueldo = sueldoBase + (sueldoBase * 0.35);
+                break;
+            case CAT_DIRECTIVO:
+                sueldo = sueldoBase + (sueldoBase * 0.60);
+                break;
             default:
+                System.out.println("Ha habido un problema.");
                 break;
         }
-        switch (nombre) {
-            case value:
-                
+        switch (this.antiguedad) {
+            case ANT_NOVATO:
+                sueldo += 150;
                 break;
-        
+            case ANT_MADURO:
+                sueldo += 300;
+                break;
+            case ANT_EXPERTO:
+                sueldo += 600;
+                break;
             default:
+                System.out.println("Ha habido un problema.");
                 break;
         }
-        // Terminar código en casa ^ ^ ^ 
+
         return sueldo;
     }
 }
