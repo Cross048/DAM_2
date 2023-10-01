@@ -40,8 +40,6 @@ public class Main {
                     break;
             }
         }
-
-        sc.close();
     }
     /**
      * Método para la parte Entera
