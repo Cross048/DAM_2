@@ -1,6 +1,9 @@
-import eventos
+# import eventos
 from MainWindow import *
-import sys, var
+import sys, var, eventos
+
+# Instalar PyQt6 con
+# pip install pyqt6
 
 class Main(QtWidgets.QMainWindow):
 
@@ -12,7 +15,7 @@ class Main(QtWidgets.QMainWindow):
         '''
         zona de eventos de botones
         '''
-        var.ui.btnSalir.clicked.connect(eventos.Eventos.saludar)
+        var.ui.btnSalir.clicked.connect(eventos.Eventos.salir)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])

@@ -1,8 +1,8 @@
 import var
 
 class Eventos():
-    def saludar(self):
+    def salir(self):
         try:
-            var.ui.lbTitulo("Hola has pulsado el botón")
+            pass
         except Exception as eror:
             print(error, "en módulo eventos")
