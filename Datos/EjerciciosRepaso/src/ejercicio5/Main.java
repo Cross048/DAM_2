@@ -8,6 +8,10 @@ import java.util.Scanner;
  * @author Cristian Bernal Méndez
  */
 public class Main {
+    /**
+     * Reloj que devuelve la hora actual, un minuto después y dada por el usuario
+     * @param args
+     */
     public static void main(String[] args) {
         Hora miHora = new Hora(horaActual(), minutoActual());
         System.out.println("Hora actual: " + miHora.toString());
