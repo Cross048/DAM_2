@@ -1,10 +1,10 @@
-import var
+import var, sys
 
 class Eventos():
     def salir(self):
         try:
             sys.exit(0)
-        except Exception as eror:
+        except Exception as error:
             print(error, "en módulo eventos")
 
     def abrirCalendar(self):
@@ -13,8 +13,8 @@ class Eventos():
         except Exception as error:
             print('error en abrir calendar', error)
     
-    def acercade():
+    def acercaDe(self):
         try:
             pass
-        except Exception as eror:
+        except Exception as error:
             print("error abrir ventana acerca de", error)
