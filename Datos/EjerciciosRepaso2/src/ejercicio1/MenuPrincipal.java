@@ -61,6 +61,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jButtonGuardarAlumno.setText("Guardar Alumno");
 
         jButtonVerAlumno.setText("Ver Alumno");
+        jButtonVerAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVerAlumnoActionPerformed(evt);
+            }
+        });
 
         jButtonSalvarAlumno.setText("Salvar Alumno");
 
@@ -215,14 +220,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jButtonAnyadirAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnyadirAlumnoActionPerformed
         // TODO add your handling code here:
+        JDAnyadirAlumno jdaa = new JDAnyadirAlumno(this, true);
+        jdaa.setVisible(true);
+        
     }//GEN-LAST:event_jButtonAnyadirAlumnoActionPerformed
 
     private void jMenuItemAnyadirAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAnyadirAlumnoActionPerformed
         // TODO add your handling code here:
+        JDAnyadirAlumno jdaa = new JDAnyadirAlumno(this, true);
+        jdaa.setVisible(true);
     }//GEN-LAST:event_jMenuItemAnyadirAlumnoActionPerformed
 
     private void jMenuItemAnyadirModuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAnyadirModuloActionPerformed
         // TODO add your handling code here:
+        JDAnyadirModulo jdam = new JDAnyadirModulo(this, true);
+        jdam.setVisible(true);
     }//GEN-LAST:event_jMenuItemAnyadirModuloActionPerformed
 
     private void jButtonAnyadirAlumnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAnyadirAlumnoMouseClicked
@@ -245,6 +257,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jButtonAnyadirModuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnyadirModuloActionPerformed
         // TODO add your handling code here:
+        JDAnyadirModulo jdam = new JDAnyadirModulo(this, true);
+        jdam.setVisible(true);
     }//GEN-LAST:event_jButtonAnyadirModuloActionPerformed
 
     private void jMenuModulosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuModulosMouseEntered
@@ -256,6 +270,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jMenuItemGuardarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGuardarAlumnoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemGuardarAlumnoActionPerformed
+
+    private void jButtonVerAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerAlumnoActionPerformed
+        // TODO add your handling code here:
+        JDVerAlumno jdva = new JDVerAlumno(this, true);
+        jdva.setVisible(true);
+    }//GEN-LAST:event_jButtonVerAlumnoActionPerformed
 
     /**
      * @param args the command line arguments
