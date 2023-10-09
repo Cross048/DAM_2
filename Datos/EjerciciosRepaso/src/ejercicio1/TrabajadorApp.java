@@ -7,7 +7,7 @@ import java.util.Scanner;
  *
  * @author Cristian Bernal Méndez
  */
-public class Main {
+public class TrabajadorApp {
     /**
      * Crea un Trabajador con sus valores
      * @param args

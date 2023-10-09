@@ -50,6 +50,9 @@ public class JDVerAlumno extends javax.swing.JFrame {
 
         jPanelDatosAlumno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 153, 255)));
 
+        jTextFieldNombre.setEditable(false);
+
+        jTextFieldLocalidad.setEditable(false);
         jTextFieldLocalidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldLocalidadActionPerformed(evt);
@@ -63,6 +66,7 @@ public class JDVerAlumno extends javax.swing.JFrame {
         jLabelDatos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabelDatos.setText("Datos del alumno");
 
+        jTextFieldHoras.setEditable(false);
         jTextFieldHoras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldHorasActionPerformed(evt);

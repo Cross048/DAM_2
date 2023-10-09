@@ -6,7 +6,7 @@ import java.util.Scanner;
  *
  * @author Cristian Bernal Méndez
  */
-public class Main {
+public class Separar {
     /**
      *  Obtener, la parte entera y la parte decimal de un número en punto flotante
      * @param args

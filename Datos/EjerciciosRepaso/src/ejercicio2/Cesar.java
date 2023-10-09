@@ -6,7 +6,7 @@ import java.util.Scanner;
  *
  * @author Cristian Bernal Méndez
  */
-public class Main {
+public class Cesar {
     /**
      * Cifrado César
      * @param args

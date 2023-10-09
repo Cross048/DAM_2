@@ -1,18 +1,52 @@
 package ejercicio1;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  *
  * @author Cristian Bernal Méndez
  */
 public class MenuPrincipal extends javax.swing.JFrame {
-
+    private static ArrayList<Alumno> listaAlumnos;
+    private static ArrayList<Modulo> listaModulos;
     /**
      * Creates new form MenuPrincipal
      */
     public MenuPrincipal() {
         initComponents();
     }
-
+    
+    /**
+     * Métodos de listaAlumnos
+     */
+    public static void anyadirAlumno(Alumno alumno) {
+        listaAlumnos.add(alumno);
+    }
+    
+    public static Alumno devolverAlumno(int alumno) {
+        return listaAlumnos.get(alumno);
+    }
+    
+    public static int dimensionAlumnos() {
+        return listaAlumnos.size();
+    }
+    
+    /**
+     * Métodos de listaModulos
+     */
+    public static void anyadirModulo(Modulo modulo) {
+        listaModulos.add(modulo);
+    }
+    
+    public static Modulo devolverModulo(int modulo) {
+        return listaModulos.get(modulo);
+    }
+    
+    public static int dimensionModulos() {
+        return listaModulos.size();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -222,7 +256,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         JDAnyadirAlumno jdaa = new JDAnyadirAlumno(this, true);
         jdaa.setVisible(true);
-        
     }//GEN-LAST:event_jButtonAnyadirAlumnoActionPerformed
 
     private void jMenuItemAnyadirAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAnyadirAlumnoActionPerformed

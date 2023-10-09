@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author Cristian Bernal Méndez
  */
-public class Main {
+public class CalcularMenor {
     /**
      * Calcular el menor
      * @param args

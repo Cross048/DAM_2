@@ -7,7 +7,7 @@ import java.util.Scanner;
  *
  * @author Cristian Bernal Méndez
  */
-public class Main {
+public class HoraApp {
     /**
      * Reloj que devuelve la hora actual, un minuto después y dada por el usuario
      * @param args
