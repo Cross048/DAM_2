@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Users\a23cristianbm\Documents\DAM_2\DAM_2\Interfaces\BernalMendez\Calendar.ui'
+# Form implementation generated from reading ui file 'Calendar.ui'
 #
 # Created by: PyQt6 UI code generator 6.5.2
 #

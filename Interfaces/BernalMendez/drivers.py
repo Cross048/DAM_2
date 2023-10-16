@@ -21,6 +21,13 @@ class Drivers():
                 else:
                     var.ui.labelDNI.setStyleSheet('color:red;')
                     var.ui.labelDNI.setText('F')
+                    var.ui.txtDNI.setText(None)
+                    var.ui.txtDNI.setFocus()
+            else:
+                var.ui.labelValidarDNI.setStyleSheet('color:red;')
+                var.ui.lavelValidarDNI.setText('F')
+                var.ui.txtDNI.setText(None)
+                var.ui.txtDNI.setFocus()
         except Exception as error:
             print("error en validar DNI", error)
 
