@@ -1,7 +1,12 @@
 from MainWindow import *
+from windowsaux import *
+from dlgSalir import *
 import sys, var, eventos, drivers
 from Calendar import *
 from datetime import datetime
+import locale
+# Define la máquina en el idioma local (Español)
+locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 
 # Instalar PyQt6 y setuptools
 # pip install pyqt6
@@ -56,9 +61,20 @@ class Main(QtWidgets.QMainWindow):
         # var.ui.actionbarSalir.triggered.connect(eventos.Eventos.mostrarsalir)           # Cerrar programa
         # var.ui.actionlimpiaPaneldriver.triggered.connect(drivers.Drivers.limpiapanel)   # Limpiar panel
         '''
+        Formatear la fecha según el formato deseadofecha_actual.strftime()
+        statusbar
+        '''
+        fecha = datetime.now().strftime("%A - " + "%d/%m/%Y")
+        self.labelstatus = QtWidgets.QLabel(fecha, self)
+        self.labelstatus.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter)
+        var.ui.statusbar.addPermanentWidget(self.labelstatus, 1)
+        self.labelstatusversion = QtWidgets.QLabel("Version: " + var.version, self)
+        self.labelstatusversion.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight)
+        var.ui.statusbar.addPermanentWidget(self.labelstatusversion, 2)
+        '''
         ejecución de diferentes funciones al lanzar la aplicación
         '''
-        #
+        eventos.Eventos.cargastatusbar()
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])

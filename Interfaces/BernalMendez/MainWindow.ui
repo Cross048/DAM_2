@@ -82,8 +82,8 @@
            <item row="4" column="1" colspan="5">
             <widget class="QLineEdit" name="lineDireccion"/>
            </item>
-           <item row="2" column="1" colspan="5">
-            <widget class="QLineEdit" name="lineApellidos"/>
+           <item row="0" column="5">
+            <widget class="QLineEdit" name="lineDNI"/>
            </item>
            <item row="0" column="8">
             <widget class="QLabel" name="labelDNI">
@@ -92,9 +92,6 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="5">
-            <widget class="QLineEdit" name="lineDNI"/>
-           </item>
            <item row="0" column="4">
             <widget class="QLabel" name="txtDNI">
              <property name="text">
@@ -102,17 +99,20 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="txtCodigo">
-             <property name="text">
-              <string>Código</string>
-             </property>
-            </widget>
+           <item row="2" column="1" colspan="5">
+            <widget class="QLineEdit" name="lineApellidos"/>
            </item>
            <item row="0" column="1" colspan="2">
             <widget class="QLineEdit" name="lineCodigo">
              <property name="autoFillBackground">
               <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="txtCodigo">
+             <property name="text">
+              <string>Código</string>
              </property>
             </widget>
            </item>
@@ -137,6 +137,13 @@
              </property>
             </widget>
            </item>
+           <item row="4" column="6">
+            <widget class="QLabel" name="labelProvincia">
+             <property name="text">
+              <string>Provincia:</string>
+             </property>
+            </widget>
+           </item>
            <item row="7" column="1" colspan="3">
             <widget class="QLineEdit" name="lineMovil"/>
            </item>
@@ -150,13 +157,6 @@
              </property>
             </widget>
            </item>
-           <item row="4" column="6">
-            <widget class="QLabel" name="labelProvincia">
-             <property name="text">
-              <string>Provincia:</string>
-             </property>
-            </widget>
-           </item>
            <item row="2" column="6">
             <widget class="QLabel" name="txtNombre">
              <property name="text">
@@ -164,10 +164,16 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="6">
-            <widget class="QLabel" name="txtFechaAlta">
-             <property name="text">
-              <string>Fecha Alta:</string>
+           <item row="0" column="7">
+            <widget class="QLineEdit" name="lineFechaAlta"/>
+           </item>
+           <item row="4" column="7">
+            <widget class="QComboBox" name="comboBoxProvincia">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
             </widget>
            </item>
@@ -189,23 +195,23 @@
                <height>30</height>
               </size>
              </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
             </widget>
-           </item>
-           <item row="0" column="7">
-            <widget class="QLineEdit" name="lineFechaAlta"/>
            </item>
            <item row="2" column="7">
             <widget class="QLineEdit" name="lineNombre"/>
            </item>
-           <item row="4" column="7">
-            <widget class="QComboBox" name="comboBoxProvincia">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
+           <item row="0" column="6">
+            <widget class="QLabel" name="txtFechaAlta">
+             <property name="text">
+              <string>Fecha Alta:</string>
              </property>
             </widget>
+           </item>
+           <item row="7" column="7">
+            <widget class="QComboBox" name="comboBoxLocalidad"/>
            </item>
            <item row="7" column="6">
             <widget class="QLabel" name="labelLocalidad">
@@ -214,8 +220,40 @@
              </property>
             </widget>
            </item>
-           <item row="7" column="7">
-            <widget class="QComboBox" name="comboBoxLocalidad"/>
+           <item row="8" column="1">
+            <widget class="QCheckBox" name="checkBoxA">
+             <property name="text">
+              <string>A</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="2">
+            <widget class="QCheckBox" name="checkBoxB">
+             <property name="text">
+              <string>B</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="4">
+            <widget class="QCheckBox" name="checkBoxC">
+             <property name="text">
+              <string>C</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="5">
+            <widget class="QCheckBox" name="checkBoxD">
+             <property name="text">
+              <string>D</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <widget class="QLabel" name="labelCarnet">
+             <property name="text">
+              <string>Tipo de carnet:</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
