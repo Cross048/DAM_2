@@ -2,6 +2,7 @@ package ficherosaula;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
@@ -22,48 +23,30 @@ public class Practica3 {
      * @param args 
      */
     public static void main(String[] args) {
-        // Cargamos el fichero de texto
-        File fichero = new File("src/ficherosaula/fichero.txt");
-        // Método que conservo porque me sirve para comprobar
-        // si funcionan las cosas
-        comprobarDirectorio(fichero);
+        // El programa muestra como máximo los primeros 2 kilobytes
+        final int MAX_BYTES = 2048;
+        // Lo que va leyendo en el buffer lo almacena en 32 Bytes en 32
+        byte[] buffer = new byte[32];
+        int bytesRead;
+        int totalBytesRead = 0; // Va contando cuántos Bytes ha leído ya
         
-        try {
-            FileReader fr = new FileReader(fichero);
-            BufferedReader br = new BufferedReader(fr);
-            
-            int cont = 1;
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                System.out.println("Línea " + cont + ": " + linea);
-                cont++;
+        // Carga el FileInputStream con args,
+        // que es el archivo cargado en el comando
+        try (FileInputStream fileInputStream = new FileInputStream(args[0])) {
+            // Mientras los Bytes leídos no superen el máximo de Bytes
+            // establecidos, se repite el bucle
+            while (totalBytesRead < MAX_BYTES && (bytesRead = fileInputStream.read(buffer)) != -1) {
+                for (int i = 0; i < bytesRead; i++) {
+                    // Convierte cada byte a su representación hexadecimal de dos carácteres
+                    String hex = String.format("%02X", buffer[i]);
+                    System.out.print(hex);
+                }
+                // Suma al contador de Bytes totales
+                totalBytesRead += bytesRead;
+                System.out.println();
             }
-            // Cerramos Buffer
-            br.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
-    
-    /**
-     * Comprueba si es un directorio u archivo
-     * @param directorio 
-     */
-    public static void comprobarDirectorio(File directorio) {
-            if (directorio.exists()) {
-                System.out.println("El fichero existe.");
-                if (directorio.isDirectory()) {
-                    System.out.println("Ruta: " + directorio.getAbsolutePath());
-                    System.out.println("Es un directorio.");
-                } else {
-                    System.out.println("Ruta: " + directorio.getAbsolutePath());
-                    System.out.println("Es un archivo.");
-                }
-            } else {
-                System.out.println("La ruta proporcionada no es válida.");
-            }
-    }
-    
-    // Escaner
-    static Scanner sc = new Scanner(System.in);
 }
