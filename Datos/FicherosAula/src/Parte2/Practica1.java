@@ -1,4 +1,4 @@
-package Parte1;
+package Parte2;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,17 +10,15 @@ import java.util.Scanner;
  *
  * @author Cristian Bernal Méndez
  */
-public class Practica2 {
+public class Practica1 {
     /**
-     * Crear un programa que muestre los contenidos de un fichero de texto línea
-     * a línea, numerando las líneas. (readLine de BufferedReader)
+     * Crea un programa que lea el contenido de un archivo de texto y cuente el número de líneas en él
      * @param args 
      */
     public static void main(String[] args) {
         // Cargamos el fichero de texto
         File fichero = new File("src/Parte1/fichero.txt");
-        // Método que conservo porque me sirve para comprobar
-        // si funcionan las cosas
+        // Método que conservo porque me sirve para comprobar si funcionan las cosas
         comprobarDirectorio(fichero);
         
         try {
@@ -30,9 +28,12 @@ public class Practica2 {
             int cont = 1;
             String linea;
             while ((linea = br.readLine()) != null) {
-                System.out.println("Línea " + cont + ": " + linea);
                 cont++;
             }
+
+            // Resultado
+            System.out.println("Total de lineas: " + cont);
+            
             // Cerramos Buffer
             br.close();
         } catch (IOException e) {
@@ -59,6 +60,6 @@ public class Practica2 {
             }
     }
     
-    // Escaner
+    /* Escaner */
     static Scanner sc = new Scanner(System.in);
 }
