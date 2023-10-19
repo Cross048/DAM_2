@@ -1,12 +1,10 @@
 package Parte2;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Scanner;
 
 /**
  *
@@ -16,7 +14,7 @@ public class Practica2 {
     /**
      * Crea un programa que lea archivo CSV (valores separados por comas) con datos de estudiantes,
      * calcula el promedio de sus calificaciones y escribe el resultado en otro fichero.
-     * Supondremos que el formato del archivo CSV es: nombre,apellido,nota1,nota2,nota3.
+     * Supondremos que el formato del archivo CSV es: nombre, apellido, nota1, nota2, nota3.
      * @param args 
      */
     public static void main(String[] args) {
@@ -52,6 +50,8 @@ public class Practica2 {
             
             // Confirma que el programa ha terminado con éxito
             System.out.println("El promedio de notas se ha calculado y escrito en " + archivoTXT);
+            reader.close();
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
