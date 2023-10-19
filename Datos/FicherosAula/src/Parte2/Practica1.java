@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  *
@@ -26,8 +25,7 @@ public class Practica1 {
             BufferedReader br = new BufferedReader(fr);
             
             int cont = 1;
-            String linea;
-            while ((linea = br.readLine()) != null) {
+            while (br.readLine() != null) {
                 cont++;
             }
 
@@ -59,7 +57,4 @@ public class Practica1 {
                 System.out.println("La ruta proporcionada no es válida.");
             }
     }
-    
-    /* Escaner */
-    static Scanner sc = new Scanner(System.in);
 }
