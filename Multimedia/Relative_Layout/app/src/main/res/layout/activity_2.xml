@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtHola"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hola"
+        android:textSize="35sp"
+        android:background="@android:color/holo_blue_bright"/>
+
+    <TextView
+        android:id="@+id/txtAdios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adiós"
+        android:textSize="35sp"
+        android:background="@android:color/holo_orange_light"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/txtHola"/>
+
+    <TextView
+        android:id="@+id/txtHastaLuego"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hasta luego"
+        android:textSize="35sp"
+        android:background="@android:color/holo_blue_bright"
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adiós2"
+        android:textSize="35sp"
+        android:background="@android:color/holo_green_light"
+        android:layout_below="@+id/txtHastaLuego"
+        android:layout_alignLeft="@+id/txtHastaLuego"/>
+</RelativeLayout>

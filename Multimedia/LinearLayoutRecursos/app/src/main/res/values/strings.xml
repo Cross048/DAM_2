@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">LinearLayoutRecursos</string>
+    <string name="btn1">Insertar</string>
+    <string name="btn2">Eliminar</string>
+    <string name="btn3">Consultar</string>
+    <string name="btn4">Modificar</string>
+    <string name="btn5">Otra cosa</string>
+</resources>
