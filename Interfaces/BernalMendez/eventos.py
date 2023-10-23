@@ -48,3 +48,5 @@ class Eventos():
             prov = ["A Coruña", "Lugo", "Pontevedra"]
             var.ui.comboBoxProvincia.clear()
             var.ui.comboBoxProvincia.addItem('')
+        except:
+            print('error')

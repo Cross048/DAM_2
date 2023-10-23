@@ -3,7 +3,7 @@ from dlgAcerca import *
 from dlgSalir import *
 from datetime import datetime
 import var, drivers, eventos
-
+from PyQt6 import QtWidgets, QtSql, QtCore
 class DlgSalir(QtWidget.QDialog):
     def __init__(self):
         super(DlgSalir, self).__init__()

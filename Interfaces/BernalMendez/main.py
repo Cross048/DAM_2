@@ -1,36 +1,19 @@
+import sys, var, eventos, drivers, conexion
+from datetime import datetime
+# Importa las ventanas
 from MainWindow import *
 from windowsaux import *
-from dlgSalir import *
-import sys, var, eventos, drivers
 from Calendar import *
-from datetime import datetime
-import locale
+from dlgSalir import *
 # Define la máquina en el idioma local (Español)
+import locale
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 
 # Instalar PyQt6 y setuptools
 # pip install pyqt6
 # pip install setuptools
 
-class Calendar(QtWidgets.QDialog):
-    def __init__(self):
-        super(Calendar, self).__init__()
-        var.calendar = Ui_dlgCalendar()
-        var.calendar.setupUi(self)
-        dia = datetime.now().day
-        mes = datetime.now().month
-        ano = datetime.now().year
-        '''
-        zona de eventos de botones
-        '''
-        var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrirCalendar)   # Abrir Calendario
-        '''
-        zona de eventos de cajas de texto
-        '''
-        var.ui.lineDNI.editingFinished.connect(drivers.Drivers.validarDNI)   # Validar DNI
-
 class Main(QtWidgets.QMainWindow):
-
     def __init__(self):
         super(Main, self).__init__()
         var.ui = Ui_mainWindow()
@@ -39,6 +22,7 @@ class Main(QtWidgets.QMainWindow):
         var.dlgacerca = DlgAcerca()   # Ventana del Acerca De
         var.dlgsalir = DlgSalir()     # Ventana al salir
         self.drivers = Drivers()
+        conexion.Conexion.conexion()
 
     def closeEvent(self, event):
         mbox = QtWidgets.QMessageBox.information(self, 'Salir', '¿Estás seguro de que quieres salir?',
@@ -75,6 +59,23 @@ class Main(QtWidgets.QMainWindow):
         ejecución de diferentes funciones al lanzar la aplicación
         '''
         eventos.Eventos.cargastatusbar()
+
+class Calendar(QtWidgets.QDialog):
+    def __init__(self):
+        super(Calendar, self).__init__()
+        var.calendar = Ui_dlgCalendar()
+        var.calendar.setupUi(self)
+        dia = datetime.now().day
+        mes = datetime.now().month
+        ano = datetime.now().year
+        '''
+        zona de eventos de botones
+        '''
+        var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrirCalendar)   # Abrir Calendario
+        '''
+        zona de eventos de cajas de texto
+        '''
+        var.ui.lineDNI.editingFinished.connect(drivers.Drivers.validarDNI)   # Validar DNI
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])
