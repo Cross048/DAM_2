@@ -17,7 +17,7 @@ public class PromedioXML {
             // Constructor de document
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse("libros2.xml");
+            Document document = builder.parse("EjerciciosXML/src/DOM/libros2.xml");
             
             // Obtiene la raíz del documento
             Element root = document.getDocumentElement();

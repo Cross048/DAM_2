@@ -14,7 +14,7 @@ public class AgregarEstudianteXML {
             // Crear un Document
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(new File("estudiantes.xml"));
+            Document document = builder.parse(new File("EjerciciosXML/src/DOM/estudiantes.xml"));
 
             // Obtener el elemento raíz (estudiantes)
             Element root = document.getDocumentElement();
