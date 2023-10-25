@@ -18,7 +18,7 @@ public class Practica2 {
      */
     public static void main(String[] args) {
         // Cargamos el fichero de texto
-        File fichero = new File("src/Parte1/fichero.txt");
+        File fichero = new File("FicherosAula/src/Parte1/fichero.txt");
         // Método que conservo porque me sirve para comprobar
         // si funcionan las cosas
         comprobarDirectorio(fichero);
