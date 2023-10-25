@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Voy a contar tus clicks..."
+        android:textSize="30sp"/>
+
+    <Button
+        android:id="@+id/pulsador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Púlsame"/>
+
+    <Button
+        android:id="@+id/finalizar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finalizar"/>
+
+    <TextView
+        android:id="@+id/contador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Has pulsado 0 veces"
+        android:textSize="30sp"/>
+
+</LinearLayout>
