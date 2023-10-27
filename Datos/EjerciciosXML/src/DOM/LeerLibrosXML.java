@@ -16,7 +16,7 @@ public class LeerLibrosXML {
             // Constructor de Documentos
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse("EjerciciosXML/src/DOM/libros.xml");
+            Document document = builder.parse("src/DOM/libros.xml");
             
             // Obtiene la raíz del documento
             Element root = document.getDocumentElement();

@@ -1,46 +1,51 @@
-package SAX;
+package sax;
 
 import org.xml.sax.Attributes;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
-import org.xml.sax.helpers.XMLReaderFactory;
 
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
+public class LeerLibrosSax extends DefaultHandler {
+    private StringBuilder value;
 
-public class LeerLibrosSAX extends DefaultHandler{
-    XMLReader LibrosInfoXML = XMLReaderFactory.createXMLReader();
+    public LeerLibrosSax() {
+        this.value = new StringBuilder();
+    }
 
-    public LeerLibrosSAX() {
-        super();
-    }
-    @Override
-    public void startDocument() throws SAXException {
-        super.startDocument();
-        System.out.println("Inicio del documento");
-    }
-    @Override
-    public void endDocument() throws SAXException {
-        super.endDocument();
-        System.out.println("Fin del documento");
-    }
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        super.startElement(uri, localName, qName, attributes);
-        System.out.printf("\t Inicio del Elemento %s %n", localName);
+        this.value.setLength(0);
+        if (qName.equals("libro")) {
+            String anio = attributes.getValue("año");
+            System.out.println("Atributo año: " + anio);
+        }
     }
+
+    @Override
+    public void characters(char ch[], int start, int length) throws SAXException {
+        this.value.append(ch, start, length);
+    }
+
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        super.endElement(uri, localName, qName);
-        System.out.printf("\t Inicio del Elemento %s %n", localName)
-    }
-    @Override
-    public void characters(char[] ch, int start, int length) throws SAXException {
-        super.characters(ch, start, length);
-        String car = new String(ch, start, length);
-        car.replace("[\t\n]", "");
-        System.out.printf("\t Valor del Elemento %s %n", car);
+        switch (qName) {
+            case "libro":
+                System.out.println("");
+                break;
+            case "titulo":
+                System.out.println("Titulo: " + this.value.toString());
+                break;
+            case "apellido":
+                System.out.println("Apellido autor: " + this.value.toString());
+                break;
+            case "nombre":
+                System.out.println("Nombre autor: " + this.value.toString());
+                break;
+            case "editorial":
+                System.out.println("Editorial: " + this.value.toString());
+                break;
+            case "precio":
+                System.out.println("Precio: " + this.value.toString());
+                break;
+        }
     }
 }
