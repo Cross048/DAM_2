@@ -31,23 +31,18 @@ class Main(QtWidgets.QMainWindow):
             app.quit()
         else:
             event.ignore()
-        '''
-        zona de eventos de botones
-        '''
+
+        ''' zona de eventos de botones '''
         var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrirCalendar)   # Abrir calendario
-        '''
-        zona de eventos de botones
-        '''
+
+        ''' zona de eventos de botones '''
         # var.ui.actionSalir.triggered.connect(eventos.Eventos.mostrarSalir)   # Cerrar programa
-        '''
-        eventos del toolbar
-        '''
+
+        ''' eventos del toolbar '''
         # var.ui.actionbarSalir.triggered.connect(eventos.Eventos.mostrarsalir)           # Cerrar programa
         # var.ui.actionlimpiaPaneldriver.triggered.connect(drivers.Drivers.limpiapanel)   # Limpiar panel
-        '''
-        Formatear la fecha según el formato deseadofecha_actual.strftime()
-        statusbar
-        '''
+
+        ''' Formatear la fecha según el formato deseadofecha_actual.strftime() statusbar '''
         fecha = datetime.now().strftime("%A - " + "%d/%m/%Y")
         self.labelstatus = QtWidgets.QLabel(fecha, self)
         self.labelstatus.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter)
@@ -55,9 +50,8 @@ class Main(QtWidgets.QMainWindow):
         self.labelstatusversion = QtWidgets.QLabel("Version: " + var.version, self)
         self.labelstatusversion.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight)
         var.ui.statusbar.addPermanentWidget(self.labelstatusversion, 2)
-        '''
-        ejecución de diferentes funciones al lanzar la aplicación
-        '''
+
+        ''' ejecución de diferentes funciones al lanzar la aplicación '''
         eventos.Eventos.cargastatusbar()
 
 class Calendar(QtWidgets.QDialog):
@@ -68,13 +62,11 @@ class Calendar(QtWidgets.QDialog):
         dia = datetime.now().day
         mes = datetime.now().month
         ano = datetime.now().year
-        '''
-        zona de eventos de botones
-        '''
+
+        ''' zona de eventos de botones '''
         var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrirCalendar)   # Abrir Calendario
-        '''
-        zona de eventos de cajas de texto
-        '''
+
+        ''' zona de eventos de cajas de texto '''
         var.ui.lineDNI.editingFinished.connect(drivers.Drivers.validarDNI)   # Validar DNI
 
 if __name__ == '__main__':

@@ -4,7 +4,7 @@ from dlgSalir import *
 from datetime import datetime
 import var, drivers, eventos
 from PyQt6 import QtWidgets, QtSql, QtCore
-class DlgSalir(QtWidget.QDialog):
+class DlgSalir(QtWidgets.QDialog):
     def __init__(self):
         super(DlgSalir, self).__init__()
         var.dlgsalir = Ui_dlgSalir()

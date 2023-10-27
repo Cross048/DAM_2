@@ -28,10 +28,7 @@ class Eventos():
             print("error en mostrar ventana salir: ", error)
 
     def cargastatusbar(self):
-        '''
-        Formatear la fecha según el formato deseadofecha_actual.strftime()
-        statusbar
-        '''
+        ''' Formatear la fecha según el formato deseadofecha_actual.strftime() statusbar '''
         try:
             fecha = datetime.now().strftime("%A - " + "%d/%m/%Y")
             self.labelstatus = QtWidgets.QLabel(fecha, self)
