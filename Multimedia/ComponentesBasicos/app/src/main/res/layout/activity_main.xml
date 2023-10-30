@@ -28,18 +28,21 @@
 
         <!-- Formulario básico -->
         <EditText
+            android:id="@+id/etNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Introduce nombre"
             android:layout_marginLeft="15dp"/>
 
         <EditText
+            android:id="@+id/etApellidos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Apellidos"
             android:layout_marginLeft="15dp"/>
 
         <EditText
+            android:id="@+id/etEdad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Edad"
@@ -54,6 +57,7 @@
             android:layout_marginBottom="10dp"/>
 
         <Button
+            android:id="@+id/btnConfirmar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Confirmar"
@@ -69,12 +73,14 @@
         <!-- Probando cosas -->
         <Switch
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"/>
 
         <DatePicker
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:datePickerMode="spinner"/>
+            android:datePickerMode="spinner"
+            android:layout_marginLeft="15dp"/>
 
         <View
             android:layout_width="match_parent"
@@ -83,11 +89,18 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"/>
 
-        <ProgressBar
-            android:id="@+id/pb1"
+        <ToggleButton
+            android:id="@+id/toggle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"/>
+
+        <Switch
+            android:id="@+id/swWiFi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Activar Wi-Fi"
+            android:layout_marginLeft="15dp"/>
 
     </LinearLayout>
 
