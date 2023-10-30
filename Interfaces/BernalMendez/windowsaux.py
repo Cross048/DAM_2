@@ -15,7 +15,7 @@ class DlgSalir(QtWidgets.QDialog):
 class DlgAcerca(QtWidgets.QDialog):
     def __init__(self):
         super(DlgAcerca, self).__init__()
-        var.dlgacerca = Ui_dlgAbout()
+        var.dlgacerca = Ui_dlgAcerca()
         var.dglacerca.setupUi(self)
         var.dlgcacerca.btnCerrar.clicked.connect(eventos.Eventos.cerraracercade)
 

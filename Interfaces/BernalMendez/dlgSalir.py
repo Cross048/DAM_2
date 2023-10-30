@@ -12,7 +12,21 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(400, 300)
+        Dialog.resize(176, 62)
+        self.gridLayout_2 = QtWidgets.QGridLayout(Dialog)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.gridLayout = QtWidgets.QGridLayout()
+        self.gridLayout.setObjectName("gridLayout")
+        self.labelTexto = QtWidgets.QLabel(parent=Dialog)
+        self.labelTexto.setObjectName("labelTexto")
+        self.gridLayout.addWidget(self.labelTexto, 0, 0, 1, 2)
+        self.btnSi = QtWidgets.QPushButton(parent=Dialog)
+        self.btnSi.setObjectName("btnSi")
+        self.gridLayout.addWidget(self.btnSi, 1, 0, 1, 1)
+        self.btnNo = QtWidgets.QPushButton(parent=Dialog)
+        self.btnNo.setObjectName("btnNo")
+        self.gridLayout.addWidget(self.btnNo, 1, 1, 1, 1)
+        self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -20,3 +34,6 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        self.labelTexto.setText(_translate("Dialog", "¿Está seguro que desea salir?"))
+        self.btnSi.setText(_translate("Dialog", "Sí"))
+        self.btnNo.setText(_translate("Dialog", "No"))

@@ -36,11 +36,14 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrirCalendar)   # Abrir calendario
 
         ''' zona de eventos de botones '''
-        # var.ui.actionSalir.triggered.connect(eventos.Eventos.mostrarSalir)   # Cerrar programa
+        var.ui.actionSalir.triggered.connect(eventos.Eventos.mostrarSalir)   # Cerrar programa
 
         ''' eventos del toolbar '''
-        # var.ui.actionbarSalir.triggered.connect(eventos.Eventos.mostrarsalir)           # Cerrar programa
-        # var.ui.actionlimpiaPaneldriver.triggered.connect(drivers.Drivers.limpiapanel)   # Limpiar panel
+        var.ui.actionbarSalir.triggered.connect(eventos.Eventos.mostrarsalir)           # Cerrar programa
+        var.ui.actionlimpiaPaneldriver.triggered.connect(drivers.Drivers.limpiapanel)   # Limpiar panel
+
+        ''' eventos comboBox'''
+        var.ui.comboBoxProvincia.currentIndexChanged.connect(conexion.Conexion.selMuni)
 
         ''' Formatear la fecha según el formato deseadofecha_actual.strftime() statusbar '''
         fecha = datetime.now().strftime("%A - " + "%d/%m/%Y")

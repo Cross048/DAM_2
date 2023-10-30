@@ -23,7 +23,7 @@ class Eventos():
 
     def mostrarsalir(self):
         try:
-            var.dlgsalir.show()
+            var.dlgSalir.show()
         except Exception as error:
             print("error en mostrar ventana salir: ", error)
 
