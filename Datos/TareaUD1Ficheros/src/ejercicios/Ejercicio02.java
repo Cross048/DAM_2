@@ -1,36 +1,28 @@
-package ejercicio2;
+package ejercicios;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class EmpleadosAPP {
+public class Ejercicio02 {
     /**
      * Ejercicio 2
      * Gestión de empleados pero con XML y DOM
      * @param args
      */
     public static void main(String[] args) {
-        cargarEmpleadosDesdeArchivo(); // Carga los empleados del fichero
+        leerEmpleadosDOM(); // Carga los empleados del fichero
 
         boolean loop = true;
         do {
@@ -57,7 +49,7 @@ public class EmpleadosAPP {
                         listarEmpleados();
                         break;
                     case 6:
-                        guardarCambios();
+                        guardarCambiosDOM();
                         loop = false;
                         break;
                     default:
@@ -172,33 +164,34 @@ public class EmpleadosAPP {
         }
     }
 
-    /* Cargar fichero */
-    public static void cargarEmpleadosDesdeArchivo() {
+    /* Cargar fichero en DOM */
+    public static void leerEmpleadosDOM() {
         // Abre el fichero para su lectura
-        File archivo = new File("src/ejercicio2/fichero.xml"); // Reemplaza con la ruta correcta del archivo
+        File archivo = new File("src/ejercicios/fichero.xml");
 
         try {
+            // Constructor del documento XML
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(archivo);
+            // Normaliza el documento para asegurar coherencia
             doc.getDocumentElement().normalize();
 
+            // Obtiene una lista de nodos con el nombre "empleado" del documento XML
             NodeList nodeList = doc.getElementsByTagName("empleado");
 
             for (int temp = 0; temp < nodeList.getLength(); temp++) {
                 Node node = nodeList.item(temp);
-
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element elemento = (Element) node;
 
+                    // Obtiene el contenido de los elementos XML y los almacena en variables
                     String DNI = elemento.getElementsByTagName("DNI").item(0).getTextContent();
-
                     String nombre = elemento.getElementsByTagName("Nombre").item(0).getTextContent();
-
                     String apellidos = elemento.getElementsByTagName("Apellidos").item(0).getTextContent();
-
                     double salario = Double.parseDouble(elemento.getElementsByTagName("Salario").item(0).getTextContent());
 
+                    // Crea un objeto Empleado con los datos y lo agrega a la lista empleadosLista
                     Empleado empleado = new Empleado(DNI, nombre, apellidos, salario);
                     empleadosLista.add(empleado);
                 }
@@ -209,22 +202,23 @@ public class EmpleadosAPP {
     }
 
     /* Guardar cambios al fichero */
-    public static void guardarCambios() {
-        /* Iterator<Empleado> iterator = empleadosLista.iterator();
-        while (iterator.hasNext()) {
-        } */
+    public static void guardarCambiosDOM() {
         try {
+            // Constructor de documento XML
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
             Document doc = docBuilder.newDocument();
 
+            // Crea el elemento raíz "empleados" y lo agrega al documento
             Element rootElement = doc.createElement("empleados");
             doc.appendChild(rootElement);
 
             for (Empleado empleado : empleadosLista) {
+                // Crea un elemento "empleado" para cada empleado y lo agrega al elemento raíz
                 Element empleadoElement = doc.createElement("empleado");
                 rootElement.appendChild(empleadoElement);
 
+                // Crea elementos para cada atributo del empleado y los agrega al elemento "empleado"
                 Element dni = doc.createElement("DNI");
                 dni.appendChild(doc.createTextNode(empleado.getDNI()));
                 empleadoElement.appendChild(dni);
@@ -245,13 +239,12 @@ public class EmpleadosAPP {
             // Guarda los cambios en el archivo XML reemplazando el contenido
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
-            transformer.setOutputProperty("indent", "yes");
-
+            transformer.setOutputProperty("indent", "yes"); // Indenta el documento XML
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("src/ejercicio2/fichero.xml"));
+            StreamResult result = new StreamResult(new File("src/ejercicios/fichero.xml"));
             transformer.transform(source, result);
 
-            System.out.println("Guardado con exito!");
+            System.out.println("Guardado con éxito!");
         } catch (Exception e) {
             e.printStackTrace();
         }

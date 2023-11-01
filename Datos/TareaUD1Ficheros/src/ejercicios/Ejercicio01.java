@@ -1,4 +1,4 @@
-package ejercicio1;
+package ejercicios;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
-public class EmpleadosAPP {
+public class Ejercicio01 {
     /**
      * Ejercicio 1
      * Gestión de empleados
@@ -162,7 +162,7 @@ public class EmpleadosAPP {
     public static void cargarEmpleadosDesdeArchivo() {
         try {
             // Abre el fichero para su lectura
-            BufferedReader reader = new BufferedReader(new FileReader("src/ejercicio1/fichero.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("src/ejercicios/fichero.txt"));
             // Comprobamos línea a línea, según la separación por comas, las distintas partes del "Empleado"
             String linea;
             while ((linea = reader.readLine()) != null) {
@@ -187,7 +187,7 @@ public class EmpleadosAPP {
     public static void guardarCambios() {
         try {
             // Abre el fichero para su escritura
-            BufferedWriter writer = new BufferedWriter(new FileWriter("src/ejercicio1/fichero.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("src/ejercicios/fichero.txt"));
             Iterator<Empleado> iterator = empleadosLista.iterator();
             while (iterator.hasNext()) {
                 Empleado empleadoGuardado = iterator.next();

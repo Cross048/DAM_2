@@ -1,4 +1,4 @@
-package ejercicio2;
+package ejercicios;
 
 public class Empleado {
     String DNI;
