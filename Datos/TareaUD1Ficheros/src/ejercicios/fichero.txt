@@ -2,4 +2,3 @@
 11223344B,Marcos,Dominguez,1000.0
 87654321C,Pablo,Torres,1500.0
 12312312D,Paco,Sanchez,2000.0
-20112023Z,Zaira,Paz Osorio,5.0
