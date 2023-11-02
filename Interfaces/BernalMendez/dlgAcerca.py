@@ -9,12 +9,13 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.resize(400, 300)
-        self.pushButton = QtWidgets.QPushButton(parent=Dialog)
-        self.pushButton.setGeometry(QtCore.QRect(120, 30, 151, 121))
+class Ui_dlgAcerca(object):
+    def setupUi(self, dlgAcerca):
+        dlgAcerca.setObjectName("dlgAcerca")
+        dlgAcerca.resize(363, 221)
+        self.gridLayout = QtWidgets.QGridLayout(dlgAcerca)
+        self.gridLayout.setObjectName("gridLayout")
+        self.pushButton = QtWidgets.QPushButton(parent=dlgAcerca)
         self.pushButton.setText("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("img/car_icon.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
@@ -22,10 +23,11 @@ class Ui_Dialog(object):
         self.pushButton.setCheckable(False)
         self.pushButton.setFlat(True)
         self.pushButton.setObjectName("pushButton")
+        self.gridLayout.addWidget(self.pushButton, 0, 0, 1, 1)
 
-        self.retranslateUi(Dialog)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.retranslateUi(dlgAcerca)
+        QtCore.QMetaObject.connectSlotsByName(dlgAcerca)
 
-    def retranslateUi(self, Dialog):
+    def retranslateUi(self, dlgAcerca):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        dlgAcerca.setWindowTitle(_translate("dlgAcerca", "Dialog"))

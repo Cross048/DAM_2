@@ -5,7 +5,11 @@ from datetime import datetime
 class Eventos():
     def salir(self):
         try:
-            sys.exit(0)
+            var.dlgsalir.show()
+            if var.dlgsalir.exec():
+                sys.exit(0)
+            else:
+                var.dlgsalir.hide()
         except Exception as error:
             print(error, "en módulo eventos")
 

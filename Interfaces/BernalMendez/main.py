@@ -5,6 +5,7 @@ from MainWindow import *
 from windowsaux import *
 from Calendar import *
 from dlgSalir import *
+from dlgAcerca import *
 # Define la máquina en el idioma local (Español)
 import locale
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
@@ -19,8 +20,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui = Ui_mainWindow()
         var.ui.setupUi(self)          # Encargado de la interfaz
         var.calendar = Calendar()     # Ventana del Calendario
-        var.dlgacerca = DlgAcerca()   # Ventana del Acerca De
-        var.dlgsalir = DlgSalir()     # Ventana al salir
+        # var.dlgacerca = DlgAcerca()   # Ventana del Acerca De
+        var.dlgsalir = dlgSalir()     # Ventana al salir
         self.drivers = Drivers()
         conexion.Conexion.conexion()
 
@@ -71,6 +72,12 @@ class Calendar(QtWidgets.QDialog):
 
         ''' zona de eventos de cajas de texto '''
         var.ui.lineDNI.editingFinished.connect(drivers.Drivers.validarDNI)   # Validar DNI
+
+class dlgSalir(QtWidgets.QDialog):
+    def __init__(self):
+        super(dlgSalir, self).__init__()
+        var.dlgsalir = Ui_dlgSalir()
+        var.dlgsalir.setupUi(self)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])

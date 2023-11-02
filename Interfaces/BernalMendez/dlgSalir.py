@@ -9,31 +9,37 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.resize(176, 62)
-        self.gridLayout_2 = QtWidgets.QGridLayout(Dialog)
-        self.gridLayout_2.setObjectName("gridLayout_2")
-        self.gridLayout = QtWidgets.QGridLayout()
-        self.gridLayout.setObjectName("gridLayout")
-        self.labelTexto = QtWidgets.QLabel(parent=Dialog)
+class Ui_dlgSalir(object):
+    def setupUi(self, dlgSalir):
+        dlgSalir.setObjectName("dlgSalir")
+        dlgSalir.resize(321, 217)
+        dlgSalir.setSizeGripEnabled(False)
+        dlgSalir.setModal(True)
+        self.formLayout = QtWidgets.QFormLayout(dlgSalir)
+        self.formLayout.setObjectName("formLayout")
+        self.labelImg = QtWidgets.QLabel(parent=dlgSalir)
+        self.labelImg.setText("")
+        self.labelImg.setPixmap(QtGui.QPixmap("img/alert.png"))
+        self.labelImg.setScaledContents(True)
+        self.labelImg.setObjectName("labelImg")
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.ItemRole.LabelRole, self.labelImg)
+        self.btnBox = QtWidgets.QDialogButtonBox(parent=dlgSalir)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.btnBox.sizePolicy().hasHeightForWidth())
+        self.btnBox.setSizePolicy(sizePolicy)
+        self.btnBox.setStandardButtons(QtWidgets.QDialogButtonBox.StandardButton.Cancel|QtWidgets.QDialogButtonBox.StandardButton.Ok)
+        self.btnBox.setObjectName("btnBox")
+        self.formLayout.setWidget(2, QtWidgets.QFormLayout.ItemRole.LabelRole, self.btnBox)
+        self.labelTexto = QtWidgets.QLabel(parent=dlgSalir)
         self.labelTexto.setObjectName("labelTexto")
-        self.gridLayout.addWidget(self.labelTexto, 0, 0, 1, 2)
-        self.btnSi = QtWidgets.QPushButton(parent=Dialog)
-        self.btnSi.setObjectName("btnSi")
-        self.gridLayout.addWidget(self.btnSi, 1, 0, 1, 1)
-        self.btnNo = QtWidgets.QPushButton(parent=Dialog)
-        self.btnNo.setObjectName("btnNo")
-        self.gridLayout.addWidget(self.btnNo, 1, 1, 1, 1)
-        self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.ItemRole.FieldRole, self.labelTexto)
 
-        self.retranslateUi(Dialog)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.retranslateUi(dlgSalir)
+        QtCore.QMetaObject.connectSlotsByName(dlgSalir)
 
-    def retranslateUi(self, Dialog):
+    def retranslateUi(self, dlgSalir):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.labelTexto.setText(_translate("Dialog", "¿Está seguro que desea salir?"))
-        self.btnSi.setText(_translate("Dialog", "Sí"))
-        self.btnNo.setText(_translate("Dialog", "No"))
+        dlgSalir.setWindowTitle(_translate("dlgSalir", "Dialog"))
+        self.labelTexto.setText(_translate("dlgSalir", "¿Quieres salir del programa?"))
