@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package actividad2;
 
 import static java.lang.Thread.sleep;
 
+/* Tic */
 class Hilo1 extends Thread {
 	public void run() {
 		while (true) {
@@ -18,8 +14,9 @@ class Hilo1 extends Thread {
 			}
 		}
 	}
-}//tic
+}
 
+/* Tac */
 class Hilo2 extends Thread {
 	public void run() {
 		while (true) {
@@ -31,12 +28,11 @@ class Hilo2 extends Thread {
 			}
 		}
 	}
-}//tac
+}
 
 public class Actividad2 {
-
     /**
-     * @param args the command line arguments
+     * @param args
      */
     public static void main(String[] args) {
         
@@ -44,6 +40,5 @@ public class Actividad2 {
 		Hilo2 h2 = new Hilo2();
 		h1.start();
 		h2.start();
-	}// main
-
-    }
+	}
+}
