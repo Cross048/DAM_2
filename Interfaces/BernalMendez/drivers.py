@@ -1,3 +1,4 @@
+import conexion
 import var
 
 class Drivers():
@@ -31,3 +32,17 @@ class Drivers():
         except Exception as error:
             print("error en validar DNI", error)
 
+    def cargardriver(self):
+        try:
+            Drivers.limpiapanel()
+            row = var.ui.tabClientes.selectedItems()
+            fila = [ dato.text() for dato in row ]
+            registro = conexion.Conexion.onedriver(fila[0])
+            print(registro)
+            datos = [var.ui.lblcodbd, var.ui.lineDNI, var.ui.txtDataDriver, var.ui.lineApellidos, var.ui.lineNombre,
+            var.ui.txtDirdriver, var.ui.comboBoxProvincia, var.ui.comboBoxLocalidad, var.ui.lineMovil, var.ui.lineSalario]
+            for i in datos:
+                datos[i].setText(str(registro[i]))
+                
+        except Exception as error:
+            print('Error cargar datos de 1 cliente marcando en la tabla: ', error)

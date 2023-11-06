@@ -42,3 +42,17 @@ class Conexion():
                     var.ui.comboBoxLocalidad.addItem(query1.value(0))
         except Exception as error:
             print('error seleccion municipios', error)
+
+    def cargadriver(selfid):
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare('select * from drivers where id= :id')
+            query.bindValue(':id', int(id))
+            if query.exec():
+                while query.next():
+                    for i in range(12):
+                        registo.append(str(query.value(id)))
+            return registro
+        except Exception as error:
+            print('error en fichero conexion datos de 1 driver: ', error)
