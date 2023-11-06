@@ -2,12 +2,7 @@ package mayúsculas;
 
 import java.io.*;
 
-/**
- *
- * @author a12cristiance
- */
 public class Mayúsculas {
-
     public static void main(String[] args) {
         if (args.length < 2) {
             System.err.println("\nSe necesita un programa a ejecutar y un fichero a crear");
@@ -20,7 +15,7 @@ public class Mayúsculas {
 
         try {
             Process hijo = new ProcessBuilder(args[0]).start(); //aquí utilizamos primer argumento recibido
-            fw = new FileWriter(fichero);
+            fw = new FileWriter("./mayusculashijo.exe");
             // definimos los streams para comunicarnos con el proceso hijo
             BufferedReader br = new BufferedReader(new InputStreamReader(hijo.getInputStream()));
             PrintStream ps = new PrintStream(hijo.getOutputStream());
