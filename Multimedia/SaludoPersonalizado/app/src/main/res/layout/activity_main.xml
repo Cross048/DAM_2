@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:ignore="UseSwitchCompatOrMaterialXml, RtlHardcoded, HardcodedText, Autofill, TextFields">
+
+    <!-- Header -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SaludoPersonalizado"
+        android:textSize="30sp"
+        android:padding="10dp"
+        android:gravity="center"
+        android:background="@android:color/holo_purple"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/black"
+        android:layout_marginBottom="10dp"/>
+
+    <!-- Contenido -->
+
+    <EditText
+        android:id="@+id/etNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:hint="Nombre" />
+
+    <EditText
+        android:id="@+id/etNacimiento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:hint="Año de nacimiento" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/btnSr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sr."
+            android:onClick="onRadioButtonClicked"/>/>
+
+        <RadioButton
+            android:id="@+id/btnSra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sra."
+            android:onClick="onRadioButtonClicked"/>/>
+
+    </RadioGroup>
+
+    <CheckBox
+        android:id="@+id/cboxDespedida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¿Desea despedida?"/>
+    <Button
+        android:id="@+id/btnSaludar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Saludar"
+        android:layout_marginLeft="15dp"/>
+
+</LinearLayout>
