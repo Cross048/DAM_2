@@ -1,18 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
+
+    <!-- Header -->
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/header_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="MainActivity"
+        android:textSize="30sp"
+        android:padding="10dp"
+        android:gravity="center"
+        android:background="@android:color/holo_purple"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/black"
+        android:layout_below="@id/header_title"/>
+
+    <!-- Contenido -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/separator"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnLlamarActivity2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Activity 2"
+            android:onClick="onClickCambio"/>
+
+        <Button
+            android:id="@+id/btnLlamarActivity3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Activity 3\n+ datos"
+            android:onClick="onClickCambio"/>
+
+        <Button
+            android:id="@+id/btnLlamarActivity4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Activity 4\n+ Bundle"
+            android:onClick="onClickCambio"/>
+
+        <Button
+            android:id="@+id/btnLlamarActivity5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Activity 5\nesperando\nrespuesta"
+            android:onClick="onClickCambio"/>
+
+        <TextView
+            android:id="@+id/tvMensajeRecibido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_centerInParent="true"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
