@@ -151,7 +151,7 @@
             </widget>
            </item>
            <item row="0" column="4">
-            <widget class="QLabel" name="txtDNI">
+            <widget class="QLabel" name="labelDNI_2">
              <property name="text">
               <string>DNI:</string>
              </property>
@@ -172,14 +172,14 @@
             </widget>
            </item>
            <item row="0" column="0">
-            <widget class="QLabel" name="txtCodigo">
+            <widget class="QLabel" name="labelCodigo">
              <property name="text">
               <string>Código</string>
              </property>
             </widget>
            </item>
            <item row="2" column="0">
-            <widget class="QLabel" name="txtApellidos">
+            <widget class="QLabel" name="labelApellidos">
              <property name="text">
               <string>Apellidos:</string>
              </property>
@@ -260,7 +260,7 @@
             </widget>
            </item>
            <item row="2" column="8">
-            <widget class="QLabel" name="txtNombre">
+            <widget class="QLabel" name="labelNombre">
              <property name="text">
               <string>Nombre</string>
              </property>
@@ -280,7 +280,7 @@
             <widget class="QLineEdit" name="lineNombre"/>
            </item>
            <item row="0" column="8">
-            <widget class="QLabel" name="txtFechaAlta">
+            <widget class="QLabel" name="labelFechaAlta">
              <property name="text">
               <string>Fecha Alta:</string>
              </property>

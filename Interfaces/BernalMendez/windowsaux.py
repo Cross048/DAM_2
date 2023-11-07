@@ -4,7 +4,7 @@ from dlgSalir import *
 from datetime import datetime
 import var, drivers, eventos
 from PyQt6 import QtWidgets, QtSql, QtCore
-'''
+
 class DlgSalir(QtWidgets.QDialog):
     def __init__(self):
         super(DlgSalir, self).__init__()
@@ -12,15 +12,15 @@ class DlgSalir(QtWidgets.QDialog):
         var.dlgsalir.setupUi(self)
         var.dlgsalir.btnSalir.clicked.connect(eventos.Eventos.salir)
         var.dlgsalir.btnCalendar.clicked.connect(eventos.Eventos.cerrarsalir)
-'''
-'''
+
+
 class DlgAcerca(QtWidgets.QDialog):
     def __init__(self):
         super(DlgAcerca, self).__init__()
         var.dlgacerca = Ui_dlgAcerca()
         var.dglacerca.setupUi(self)
         var.dlgcacerca.btnCerrar.clicked.connect(eventos.Eventos.cerraracercade)
-'''
+
 class Calendar(QtWidgets.QDialog):
     def __init__(self):
         super(Calendar, self).__init__()
@@ -31,4 +31,3 @@ class Calendar(QtWidgets.QDialog):
         ano = datetime.now().year
         var.calendar.Calendar.setSelectedDate(QtCore.QDate(ano, mes, dia))
         var.calendar.Calendar.clicked.connect(drivers.Drivers.cargaFecha)
-

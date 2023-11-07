@@ -1,4 +1,6 @@
 from PyQt6 import QtWidgets, QtSql, QtCore
+
+import drivers
 import var
 
 class Conexion():
@@ -7,6 +9,7 @@ class Conexion():
         db.setDatabaseName('bbdd.sqlite')
         if not db.open(self):
             print('error de conexión')
+            return False
         else:
             print('base de datos conectada')
             return True
@@ -43,16 +46,45 @@ class Conexion():
         except Exception as error:
             print('error seleccion municipios', error)
 
-    def cargadriver(selfid):
+    # TODO: completar guardardri()
+    # def guardardri(self):
+
+    def mostrardrivers(selfself):
+        try:
+            registros = []
+            query1 = QtSql.QSqlQuery()
+            query1.prepare('select codigo, apeldri, nombredri, movildri, carnet, bajadri from drivers')
+            if query1.exec():
+                while query1.next():
+                    row = [query1.value(i) for i in range(query1.record().count())]
+                    registros.append(row)
+            drivers.Drivers.cargartabladri(registros)
+        except Exception as error:
+            print('error mostrar resultados ', error)
+
+    def onedriver(codigo):
         try:
             registro = []
             query = QtSql.QSqlQuery()
-            query.prepare('select * from drivers where id= :id')
-            query.bindValue(':id', int(id))
+            query.prepare('select * from drivers where codigo = :codigo')
+            query.bindValue(':codigo', int(codigo))
             if query.exec():
                 while query.next():
                     for i in range(12):
-                        registo.append(str(query.value(id)))
+                        registro.append(str(query.value(i)))
             return registro
         except Exception as error:
             print('error en fichero conexion datos de 1 driver: ', error)
+
+    def codDri(dni):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare('select codigo from drivers where dnidri = :dni')
+            query.bindValue(':dni', str(dni))
+            if query.exec():
+                while query.next():
+                    codigo = query.value(0)
+            registro = Conexion.onedriver(codigo)
+            return registro
+        except Exception as error:
+            print('error en busqueda codigo conductor ', error)

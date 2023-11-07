@@ -51,4 +51,3 @@ class Eventos():
             var.ui.comboBoxProvincia.addItem('')
         except:
             print('error')
-
