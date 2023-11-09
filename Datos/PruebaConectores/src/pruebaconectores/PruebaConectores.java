@@ -5,25 +5,23 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class PruebaConectores {
+    // Inicializa variables
+    private static PreparedStatement consulta = null;
+    private static Connection connection = null;
+    private static ResultSet result = null;
+
+    // Credenciales: BBDD, Usuario y Contraseña
+    private static String url = "jdbc:mysql://localhost:3306/empleados";
+    private static String user = "Cristian";
+    private static String password = "admin";
+    
     /**
      * Prueba de conectores MySQL
      * @param args
      */
     public static void main(String[] args) {
-        // Credenciales: BBDD, Usuario y Contraseña
-        String url = "jdbc:mysql://localhost:3306/empleados";
-        String user = "Cristian";
-        String password = "admin";
-
-        // Inicializa variables
-        PreparedStatement consulta = null;
-        Connection connection = null;
-        ResultSet result = null;
-
         try {
             // Carga el driver de MySQL
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -32,10 +30,33 @@ public class PruebaConectores {
             connection = DriverManager.getConnection(url, user, password);
             System.out.println("Conexion establecida!");
 
+            // Posibles acciones:
+            mostrarResultados(); // Recorre y muestra resultados
+            // TODO: hacer más funciones
+            // Ejemplo 2
+            // Ejemplo 3
+            // Ejemplo 4
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally { // Cerrar las conexiones
+            try {
+                if (consulta != null) { consulta.close(); }
+                if (result != null) { result.close(); }
+                if (connection != null) { connection.close(); }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /* Recorre y muestra resultados */
+    public static void mostrarResultados() {
+        try {
             // Código para trabajar con la base de datos aquí
             String sql = "SELECT * FROM proyecto;";
 
-            // Realiza la consulta
             consulta = connection.prepareStatement(sql);
             result = consulta.executeQuery();
 
@@ -50,22 +71,6 @@ public class PruebaConectores {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally { // Cerrar las conexiones
-            try {
-                if (consulta != null) {
-                    consulta.close();
-                }
-                if (result != null) {
-                    result.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 }
