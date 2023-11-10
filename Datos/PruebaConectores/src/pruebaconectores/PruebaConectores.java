@@ -31,11 +31,14 @@ public class PruebaConectores {
             System.out.println("Conexion establecida!");
 
             // Posibles acciones:
-            mostrarResultados(); // Recorre y muestra resultados
-            // TODO: hacer más funciones
-            // Ejemplo 2
-            // Ejemplo 3
-            // Ejemplo 4
+            // 1. Recorre y muestra resultados
+            mostrarResultados();
+            // 2. Crear DatabaseMetaData
+            crearDatabaseMetaData();
+            // 3. Añadir categorías
+            anyadirCategoria();
+
+            // TODO: Hacer más funciones
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -69,6 +72,44 @@ public class PruebaConectores {
 
                 System.out.println("Numproy: " + numpro + " | Nombreproy: " + nombrep + " | Lugarproy: " + lugarp + " | departamento_Numdep: " + depnumdep);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /* Crear DatabaseMetaData */
+    public static void crearDatabaseMetaData() {
+        try {
+            java.sql.DatabaseMetaData dbmd = connection.getMetaData();
+            String tipos[] = {"Table", "VIEW"};
+            ResultSet tablas = dbmd.getTables(null, null, null, tipos);
+            while (tablas.next()) {
+                System.out.println(
+                    tablas.getString("TABLE_CAT") +
+                    tablas.getString("TABLE_SCHEM") +
+                    tablas.getString("TABLE_NAME") +
+                    tablas.getString("TABLE_TYPE")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /* Añadir categorías */
+    public static void anyadirCategoria() {
+        try {
+            String sql = "INSERT INTO salarios (codigo, categoria)" +
+                "VALUES ('001', 'Programador Junior')," +
+                "('002', 'Programador Senior')," +
+                "('003', 'Programador Junior')," +
+                "('004', 'Programador Senior')," +
+                "('005', 'Programador Junior'),";
+
+            consulta = connection.prepareStatement(sql);
+            int n = consulta.executeUpdate(sql);
+
+            if (n > 0) { System.out.println("Se ha insertado en la BBDD"); }
         } catch (SQLException e) {
             e.printStackTrace();
         }
