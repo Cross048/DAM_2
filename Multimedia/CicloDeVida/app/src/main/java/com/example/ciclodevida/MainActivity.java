@@ -111,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
                 // Operaciones si la actividad llamada finaliza según lo previsto
                 Toast.makeText(this, "Todo ok", Toast.LENGTH_SHORT).show();
                 TextView tvRespuesta = findViewById(R.id.tvRespuesta);
-                // TODO: crear tvRespuesta
             } else {
                 //
             }
