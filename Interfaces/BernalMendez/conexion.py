@@ -3,15 +3,16 @@ from PyQt6 import QtWidgets, QtSql, QtCore
 import drivers
 import var
 
-class Conexion():
+class Conexion:
     def conexion(self = None):
         db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
         db.setDatabaseName('bbdd.sqlite')
-        if not db.open(self):
-            print('error de conexión')
+
+        if not db.open():
+            print('Error de conexión:', db.lastError().text())
             return False
         else:
-            print('base de datos conectada')
+            print('Base de datos conectada')
             return True
 
     def cargaprov(self = None):

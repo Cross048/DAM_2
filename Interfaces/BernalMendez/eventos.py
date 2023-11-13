@@ -11,21 +11,21 @@ class Eventos():
             else:
                 var.dlgsalir.hide()
         except Exception as error:
-            print(error, "en módulo eventos")
+            print("Error en módulo salir: ", error)
 
     def abrirCalendar(self):
         try:
-            var.calendar.show()
+            var.dlgcalendar.show()
         except Exception as error:
             print('error en abrir calendar', error)
     
     def acercaDe(self):
         try:
-            pass
+            var.dlgacerca.show()
         except Exception as error:
             print("error abrir ventana acerca de", error)
 
-    def mostrarsalir(self):
+    def mostrarSalir(self):
         try:
             var.dlgSalir.show()
         except Exception as error:
