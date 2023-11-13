@@ -17,15 +17,16 @@ public class Activity5 extends AppCompatActivity {
         setContentView(R.layout.activity_5);
 
         btnRetornar = findViewById(R.id.btnLlamarActivity1);
-        btnRetornar.setOnClickListener(){ // TODO: rellenar paréntesis
+        btnRetornar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String datoRespuesta = "La actividad 5 envía de vuelta este mensaje a la Act 1";
                 Intent intent = new Intent();
                 intent.putExtra("Mensaje_retornado", datoRespuesta);
                 setResult(RESULT_OK, intent);
+                finish();
             }
+        });
 
-        };
     }
 }
