@@ -8,9 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Objects;
 import java.util.Scanner;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.SAXParser;
@@ -18,14 +16,13 @@ import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.sax.SAXTransformerFactory;
+import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
 
 public class RepasoExamenUD1 {
     /**
@@ -93,11 +90,11 @@ public class RepasoExamenUD1 {
 
             // 2. Creamos el Reader mediante FileReader y BufferedReader
             FileReader fr = new FileReader(file);
-            BufferedReader br = new BufferedReader(fr);
+            BufferedReader reader = new BufferedReader(fr);
 
             // 3. Definimos la línea y empezamos a leer el fichero línea por línea
             String line;
-            while ((line = br.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 // 4. Define que la separación entre elementos es ","
                 String[] partes = line.split(",");
                 if (partes.length == 2) { // Pueden ser las partes que sean
@@ -111,6 +108,9 @@ public class RepasoExamenUD1 {
                 }
             }
 
+            // 7. Cerramos el Reader
+            reader.close();
+
             System.out.println("\nCargado desde "+ direccionArchivoTXT);
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -121,18 +121,18 @@ public class RepasoExamenUD1 {
     public static void guardarFicheroTXT() {
         try {
             // 1. Creamos el Writer
-            FileWriter fw = new FileWriter(direccionArchivoTXT);
+            File file = new File(direccionArchivoTXT);
+            FileWriter fw = new FileWriter(file);
             BufferedWriter writer = new BufferedWriter(fw);
             
             // 2. Iteramos la lista para recorrerla
             Iterator<Elemento> iterator = elementosLista.iterator();
             while (iterator.hasNext()) {
-                // 3. Cogemos el elemento de la lista que toca
-                //   y lo pasamos al formato deseado
+                // 3. Cogemos el elemento de la lista que toca y lo pasamos al formato deseado
                 Elemento elemento = iterator.next();
                 String texto = elemento.toString();
 
-                // 4. Lo escribimos con el BufferedWriter y creamos la siguiente línea en blanco
+                // 4. Lo escribimos con el Writer y creamos la siguiente línea en blanco
                 writer.write(texto);
                 writer.newLine();
             }
@@ -164,19 +164,16 @@ public class RepasoExamenUD1 {
 
             // 5. Recorre cada elemento y extrae sus atributos.
             for (int i = 0; i < nodeList.getLength(); i++) {
-                Node node = nodeList.item(i); // 6. Empieza por elemento "i"
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    // 7. Extrae el elemento padre
-                    Element elemento = (Element) node;
+                // 7. Extrae el elemento que toca
+                Element elemento = (Element) nodeList.item(i);
 
-                    // 8. Carga cada atributo del elemento "i"
-                    String Atributo1 = elemento.getElementsByTagName("Atributo1").item(0).getTextContent();
-                    int Atributo2 = Integer.parseInt(elemento.getElementsByTagName("Atributo2").item(0).getTextContent());
+                // 8. Carga cada atributo del elemento "i"
+                String Atributo1 = elemento.getElementsByTagName("Atributo1").item(0).getTextContent();
+                int Atributo2 = Integer.parseInt(elemento.getElementsByTagName("Atributo2").item(0).getTextContent());
 
-                    // 9. Construye la clase "Elemento" y la añade a la lista
-                    Elemento elementoNuevo = new Elemento(Atributo1, Atributo2);
-                    elementosLista.add(elementoNuevo);
-                }
+                // 9. Construye la clase "Elemento" y la añade a la lista
+                Elemento elementoNuevo = new Elemento(Atributo1, Atributo2);
+                elementosLista.add(elementoNuevo);
             }
 
             System.out.println("\nCargado desde "+ direccionArchivoXML);
@@ -237,21 +234,19 @@ public class RepasoExamenUD1 {
     /* SAX cargar */
     public static void cargarXMLSAX() {
         try {
-            // 1. Construímos el SAXParserFactory
+            // 1. Creamos el SAXParserFactory
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser parser = factory.newSAXParser();
-            File file = new File(direccionArchivoXML);
 
-            // 2. Creamos el manejador SAX creado con antelación
+            // 2. Crear el manejador
             ElementoSAXHandler handler = new ElementoSAXHandler();
 
-            // 3. Parseamos el archivo XML
+            // 3. Parsear el archivo XML
+            File file = new File(direccionArchivoXML);
             parser.parse(file, handler);
 
-            // 4. Obtenemos la lista del handler y la damos a empleadosLista
+            // 4. Obtener la lista de elementos del manejador
             elementosLista = handler.getElementos();
-
-            System.out.println("\nCargado desde "+ direccionArchivoXML);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -260,7 +255,44 @@ public class RepasoExamenUD1 {
     /* SAX guardar */
     public static void guardarXMLSAX() {
         try {
-            //TODO: completar guardarXMLSAX()
+            // 1. Configurar el Transformer y el TransformerHandler
+            SAXTransformerFactory factory = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
+            TransformerHandler handler = factory.newTransformerHandler();
+
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.setOutputProperty(javax.xml.transform.OutputKeys.INDENT, "yes");
+
+            // 2. Configurar la salida para el archivo XML
+            File file = new File("datos.xml");
+            StreamResult result = new StreamResult(file);
+            result.setSystemId(file.toURI().toURL().toString());
+
+            handler.setResult(result);
+
+            // 3. Iniciar el documento XML
+            handler.startDocument();
+            handler.startElement("", "", "Elementos", null);
+
+            // 4. Crear elementos hijo para cada Elemento en la lista
+            for (Elemento elemento : elementosLista) {
+                handler.startElement("", "", "Elemento", null);
+
+                handler.startElement("", "", "Atributo1", null);
+                handler.characters(elemento.getAtributo1().toCharArray(), 0, elemento.getAtributo1().length());
+                handler.endElement("", "", "Atributo1");
+
+                handler.startElement("", "", "Atributo2", null);
+                handler.characters(String.valueOf(elemento.getAtributo2()).toCharArray(), 0, String.valueOf(elemento.getAtributo2()).length());
+                handler.endElement("", "", "Atributo2");
+
+                handler.endElement("", "", "Elemento");
+            }
+
+            // 5. Cerrar el documento
+            handler.endElement("", "", "Elementos");
+            handler.endDocument();
+
+            System.out.println("Guardado en " + file.getAbsolutePath());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -275,108 +307,4 @@ public class RepasoExamenUD1 {
 
     /* Escáner */
     static Scanner sc = new Scanner(System.in);
-}
-
-/* Clase "Elemento" usada de ejemplo */
-class Elemento {
-    private String Atributo1;
-    private int Atributo2;
-
-    public Elemento() {
-    }
-
-    public Elemento(String Atributo1, int Atributo2) {
-        this.Atributo1 = Atributo1;
-        this.Atributo2 = Atributo2;
-    }
-
-    public String getAtributo1() {
-        return this.Atributo1;
-    }
-
-    public void setAtributo1(String Atributo1) {
-        this.Atributo1 = Atributo1;
-    }
-
-    public int getAtributo2() {
-        return this.Atributo2;
-    }
-
-    public void setAtributo2(int Atributo2) {
-        this.Atributo2 = Atributo2;
-    }
-
-    public Elemento Atributo1(String Atributo1) {
-        setAtributo1(Atributo1);
-        return this;
-    }
-
-    public Elemento Atributo2(int Atributo2) {
-        setAtributo2(Atributo2);
-        return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Elemento)) {
-            return false;
-        }
-        Elemento elemento = (Elemento) o;
-        return Objects.equals(Atributo1, elemento.Atributo1) && Atributo2 == elemento.Atributo2;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(Atributo1, Atributo2);
-    }
-
-    @Override
-    public String toString() {
-        return getAtributo1() + "," + getAtributo2();
-    }
-}
-
-/* SAXHandler de Elementos */
-class ElementoSAXHandler extends DefaultHandler {
-    private StringBuilder data;
-    private boolean inElemento = false;
-    private String Atributo1;
-    private int Atributo2;
-    private ArrayList<Elemento> elementosSAX = new ArrayList<>();
-
-    @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        if (qName.equalsIgnoreCase("empleado")) {
-            inElemento = true;
-            Atributo1 = "";
-            Atributo2 = 0;
-        }
-        data = new StringBuilder();
-    }
-
-    @Override
-    public void characters(char[] ch, int start, int length) throws SAXException {
-        data.append(new String(ch, start, length));
-    }
-
-    @Override
-    public void endElement(String uri, String localName, String qName) throws SAXException {
-        if (inElemento) {
-            if (qName.equalsIgnoreCase("Atributo1")) {
-                Atributo1 = data.toString();
-            } else if (qName.equalsIgnoreCase("Atributo2")) {
-                Atributo2 = Integer.parseInt(data.toString());
-            } else if (qName.equalsIgnoreCase("Elemento")) {
-                Elemento elemento = new Elemento(Atributo1, Atributo2);
-                elementosSAX.add(elemento);
-                inElemento = false;
-            }
-        }
-    }
-
-    public ArrayList<Elemento> getElementos() {
-        return elementosSAX;
-    }
 }
