@@ -9,18 +9,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Objects;
+import java.util.Scanner;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 public class RepasoExamenUD1 {
     /**
@@ -29,18 +34,58 @@ public class RepasoExamenUD1 {
      * @param args
      */
     public static void main(String[] args) {
-        // 1. Fichero txt
-        cargarFicheroTXT();
-        guardarFicheroTXT();
-        // 2. DOM
-        cargarXMLDOM();
-        guardarXMLDOM();
-        // 3. SAX
-        cargarXMLSAX(); 
-        guardarXMLSAX();
+        try {
+            boolean loop = true;
+            boolean cargado =false;
+            do {
+                if (cargado == false) {
+                    System.out.println("\nCARGAR:");
+                    System.out.println("1. Fichero\n2. DOM\n3. SAX");
+                    int cargar = sc.nextInt();
+                    switch (cargar) {
+                        case 1:
+                            cargarFicheroTXT();
+                            cargado = true;
+                            break;
+                        case 2:
+                            cargarXMLDOM();
+                            cargado = true;
+                            break;
+                        case 3:
+                            cargarXMLSAX();
+                            cargado = true;
+                            break;
+                        default:
+                            break;
+                    }
+                } else {
+                    System.out.println("\nGUARDAR:");
+                        System.out.println("1. Fichero\n2. DOM\n3. SAX");
+                        int guardar = sc.nextInt();
+                        switch (guardar) {
+                            case 1:
+                                guardarFicheroTXT();
+                                loop = false;
+                                break;
+                            case 2:
+                                guardarXMLDOM();
+                                loop = false;
+                                break;
+                            case 3:
+                                guardarXMLSAX();
+                                loop = false;
+                                break;
+                            default:
+                                break;
+                        }
+                }
+            } while (loop);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    /* Fichero .txt */
+    /* Fichero .txt cargar */
     public static void cargarFicheroTXT() {
         try {
             // 1. Cargar fichero .txt
@@ -65,12 +110,14 @@ public class RepasoExamenUD1 {
                     elementosLista.add(elemento);
                 }
             }
+
+            System.out.println("\nCargado desde "+ direccionArchivoTXT);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    /* Fichero .txt */
+    /* Fichero .txt guardar */
     public static void guardarFicheroTXT() {
         try {
             // 1. Creamos el Writer
@@ -91,10 +138,12 @@ public class RepasoExamenUD1 {
             }
 
             writer.close();
+            System.out.println("\nGuardado en "+ direccionArchivoTXT);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    
     /* DOM cargar */
     public static void cargarXMLDOM() {
         try {
@@ -129,6 +178,8 @@ public class RepasoExamenUD1 {
                     elementosLista.add(elementoNuevo);
                 }
             }
+
+            System.out.println("\nCargado desde "+ direccionArchivoXML);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -176,21 +227,54 @@ public class RepasoExamenUD1 {
             
             // 7. Aplica la transformación para estar bien tabulado
             transformer.transform(source, result);
+
+            System.out.println("\nGuardado en "+ direccionArchivoXML);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void cargarXMLSAX() {}
+    /* SAX cargar */
+    public static void cargarXMLSAX() {
+        try {
+            // 1. Construímos el SAXParserFactory
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            SAXParser parser = factory.newSAXParser();
+            File file = new File(direccionArchivoXML);
 
-    public static void guardarXMLSAX() {}
+            // 2. Creamos el manejador SAX creado con antelación
+            ElementoSAXHandler handler = new ElementoSAXHandler();
+
+            // 3. Parseamos el archivo XML
+            parser.parse(file, handler);
+
+            // 4. Obtenemos la lista del handler y la damos a empleadosLista
+            elementosLista = handler.getElementos();
+
+            System.out.println("\nCargado desde "+ direccionArchivoXML);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /* SAX guardar */
+    public static void guardarXMLSAX() {
+        try {
+            //TODO: completar guardarXMLSAX()
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /* Lista que almacena temporalmente el contenido del XML */
     private static ArrayList<Elemento> elementosLista = new ArrayList<>();
 
     /* Dirección del archivo */
-    private static String direccionArchivoTXT = "";
-    private static String direccionArchivoXML = "";
+    private static String direccionArchivoTXT = "src/UD1/elementos.txt";
+    private static String direccionArchivoXML = "src/UD1/elementos.xml";
+
+    /* Escáner */
+    static Scanner sc = new Scanner(System.in);
 }
 
 /* Clase "Elemento" usada de ejemplo */
@@ -251,5 +335,48 @@ class Elemento {
     @Override
     public String toString() {
         return getAtributo1() + "," + getAtributo2();
+    }
+}
+
+/* SAXHandler de Elementos */
+class ElementoSAXHandler extends DefaultHandler {
+    private StringBuilder data;
+    private boolean inElemento = false;
+    private String Atributo1;
+    private int Atributo2;
+    private ArrayList<Elemento> elementosSAX = new ArrayList<>();
+
+    @Override
+    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+        if (qName.equalsIgnoreCase("empleado")) {
+            inElemento = true;
+            Atributo1 = "";
+            Atributo2 = 0;
+        }
+        data = new StringBuilder();
+    }
+
+    @Override
+    public void characters(char[] ch, int start, int length) throws SAXException {
+        data.append(new String(ch, start, length));
+    }
+
+    @Override
+    public void endElement(String uri, String localName, String qName) throws SAXException {
+        if (inElemento) {
+            if (qName.equalsIgnoreCase("Atributo1")) {
+                Atributo1 = data.toString();
+            } else if (qName.equalsIgnoreCase("Atributo2")) {
+                Atributo2 = Integer.parseInt(data.toString());
+            } else if (qName.equalsIgnoreCase("Elemento")) {
+                Elemento elemento = new Elemento(Atributo1, Atributo2);
+                elementosSAX.add(elemento);
+                inElemento = false;
+            }
+        }
+    }
+
+    public ArrayList<Elemento> getElementos() {
+        return elementosSAX;
     }
 }
