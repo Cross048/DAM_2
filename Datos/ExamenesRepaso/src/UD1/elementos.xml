@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Elementos>
+    <Elemento>
+        <Atributo1>A</Atributo1>
+        <Atributo2>1</Atributo2>
+    </Elemento>
+    <Elemento>
+        <Atributo1>B</Atributo1>
+        <Atributo2>2</Atributo2>
+    </Elemento>
+    <Elemento>
+        <Atributo1>C</Atributo1>
+        <Atributo2>3</Atributo2>
+    </Elemento>
+</Elementos>
