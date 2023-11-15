@@ -2,10 +2,15 @@ package UD1;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.EOFException;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -21,7 +26,6 @@ import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class RepasoExamenUD1 {
@@ -37,7 +41,7 @@ public class RepasoExamenUD1 {
             do {
                 if (cargado == false) {
                     System.out.println("\nCARGAR:");
-                    System.out.println("1. Fichero\n2. DOM\n3. SAX");
+                    System.out.println("1. Fichero .txt\n2. Fichero .dat\n3. DOM\n4. SAX");
                     int cargar = sc.nextInt();
                     switch (cargar) {
                         case 1:
@@ -45,10 +49,14 @@ public class RepasoExamenUD1 {
                             cargado = true;
                             break;
                         case 2:
-                            cargarXMLDOM();
+                            cargarFicheroDAT();
                             cargado = true;
                             break;
                         case 3:
+                            cargarXMLDOM();
+                            cargado = true;
+                            break;
+                        case 4:
                             cargarXMLSAX();
                             cargado = true;
                             break;
@@ -56,27 +64,33 @@ public class RepasoExamenUD1 {
                             break;
                     }
                 } else {
+                    listarElementos();
                     System.out.println("\nGUARDAR:");
-                        System.out.println("1. Fichero\n2. DOM\n3. SAX");
-                        int guardar = sc.nextInt();
-                        switch (guardar) {
-                            case 1:
-                                guardarFicheroTXT();
-                                loop = false;
-                                break;
-                            case 2:
-                                guardarXMLDOM();
-                                loop = false;
-                                break;
-                            case 3:
-                                guardarXMLSAX();
-                                loop = false;
-                                break;
-                            default:
-                                break;
-                        }
+                    System.out.println("1. Fichero .txt\n2. Fichero .dat\n3. DOM\n4. SAX");
+                    int guardar = sc.nextInt();
+                    switch (guardar) {
+                        case 1:
+                            guardarFicheroTXT();
+                            loop = false;
+                            break;
+                        case 2:
+                            guardarFicheroDAT();
+                            loop = false;
+                            break;
+                        case 3:
+                            guardarXMLDOM();
+                            loop = false;
+                            break;
+                        case 4:
+                            guardarXMLSAX();
+                            loop = false;
+                            break;
+                        default:
+                            break;
+                    }
                 }
             } while (loop);
+            sc.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -144,6 +158,49 @@ public class RepasoExamenUD1 {
         }
     }
     
+    /* Fichero .dat cargar */
+    public static void cargarFicheroDAT() {
+        try {
+            // 1. Cargamos el archivo al ObjectInputStream
+            FileInputStream file = new FileInputStream(direccionArchivoDAT);
+            ObjectInputStream oiStream = new ObjectInputStream(file);
+    
+            // 2. Recorremos el archivo objeto a objeto
+            while (true) {
+                try {
+                    // 3. Añadimos el objeto a la lista
+                    Elemento elemento = (Elemento) oiStream.readObject();
+                    elementosLista.add(elemento);
+                } catch (EOFException e) {
+                    // 4. Se alcanzó el final del archivo
+                    break;
+                }
+            }
+    
+            System.out.println("\nCargado desde " + direccionArchivoDAT);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /* Fichero .dat guardar */
+    private static void guardarFicheroDAT() {
+        try {
+            // 1. Cargamos el archivo al ObjectInputStream
+            FileOutputStream file = new FileOutputStream(direccionArchivoDAT);
+            ObjectOutputStream oiStream = new ObjectOutputStream(file);
+
+            // 2. Recorremos la lista y escribimos el objeto en esta
+            for (Elemento elemento : elementosLista) {
+                oiStream.writeObject(elemento);
+            }
+
+            System.out.println("\nGuardado en "+ direccionArchivoDAT);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /* DOM cargar */
     public static void cargarXMLDOM() {
         try {
@@ -194,14 +251,13 @@ public class RepasoExamenUD1 {
             Element rootElement = doc.createElement("Elementos");
             doc.appendChild(rootElement); // Añade
 
-            // 3. Va a ir recorriendo la lista
-            //    y va a ir creando su correspondiente entrada en el XML
+            // 3. Va a ir recorriendo la lista y va a ir creando su correspondiente entrada en el XML
             for (Elemento elemento : elementosLista) {
-                // 3. Crea el primer elemento (Elementos>Elemento)
+                // 4. Crea el primer elemento (Elementos>Elemento)
                 Element elementoElement = doc.createElement("Elemento");
                 rootElement.appendChild(elementoElement);
 
-                // 4. Crea los hijos del primer elemento (Elementos>Elemento>Atributo)
+                // 5. Crea los hijos del primer elemento (Elementos>Elemento>Atributo)
                 Element Atributo1 = doc.createElement("Atributo1");
                 Atributo1.appendChild(doc.createTextNode(elemento.getAtributo1()));
                 elementoElement.appendChild(Atributo1);
@@ -247,6 +303,8 @@ public class RepasoExamenUD1 {
 
             // 4. Obtener la lista de elementos del manejador
             elementosLista = handler.getElementos();
+
+            System.out.println("\nCargado desde "+ direccionArchivoXML);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -292,10 +350,22 @@ public class RepasoExamenUD1 {
             handler.endElement("", "", "Elementos");
             handler.endDocument();
 
-            System.out.println("Guardado en " + file.getAbsolutePath());
+            System.out.println("\nGuardado en " + direccionArchivoXML);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /* Listar elementos */
+    public static void listarElementos() {
+        Iterator<Elemento> iterator = elementosLista.iterator();
+        System.out.println();
+        System.out.println("------");
+        while (iterator.hasNext()) {
+            Elemento elemento = iterator.next();
+            System.out.println(elemento.getAtributo1() + " | " + elemento.getAtributo2());
+        }
+        System.out.println("------");
     }
 
     /* Lista que almacena temporalmente el contenido del XML */
@@ -303,6 +373,7 @@ public class RepasoExamenUD1 {
 
     /* Dirección del archivo */
     private static String direccionArchivoTXT = "src/UD1/elementos.txt";
+    private static String direccionArchivoDAT = "src/UD1/elementos.dat";
     private static String direccionArchivoXML = "src/UD1/elementos.xml";
 
     /* Escáner */

@@ -1,8 +1,9 @@
 package UD1;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Elemento {
+public class Elemento implements Serializable{
     private String Atributo1;
     private int Atributo2;
 
