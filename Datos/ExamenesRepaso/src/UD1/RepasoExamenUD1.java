@@ -97,7 +97,7 @@ public class RepasoExamenUD1 {
     }
 
     /* Fichero .txt cargar */
-    public static void cargarFicheroTXT() {
+    private static void cargarFicheroTXT() {
         try {
             // 1. Cargar fichero .txt
             File file = new File(direccionArchivoTXT);
@@ -132,7 +132,7 @@ public class RepasoExamenUD1 {
     }
 
     /* Fichero .txt guardar */
-    public static void guardarFicheroTXT() {
+    private static void guardarFicheroTXT() {
         try {
             // 1. Creamos el Writer
             File file = new File(direccionArchivoTXT);
@@ -159,7 +159,7 @@ public class RepasoExamenUD1 {
     }
     
     /* Fichero .dat cargar */
-    public static void cargarFicheroDAT() {
+    private static void cargarFicheroDAT() {
         try {
             // 1. Cargamos el archivo al ObjectInputStream
             FileInputStream file = new FileInputStream(direccionArchivoDAT);
@@ -202,7 +202,7 @@ public class RepasoExamenUD1 {
     }
 
     /* DOM cargar */
-    public static void cargarXMLDOM() {
+    private static void cargarXMLDOM() {
         try {
             // 1. Cargar archivo
             File file = new File(direccionArchivoXML);
@@ -240,7 +240,7 @@ public class RepasoExamenUD1 {
     }
 
     /* DOM guardar */
-    public static void guardarXMLDOM() {
+    private static void guardarXMLDOM() {
         try {
             // 1. DocumentBuilderFactory
             DocumentBuilderFactory dBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -288,7 +288,7 @@ public class RepasoExamenUD1 {
     }
 
     /* SAX cargar */
-    public static void cargarXMLSAX() {
+    private static void cargarXMLSAX() {
         try {
             // 1. Creamos el SAXParserFactory
             SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -311,7 +311,7 @@ public class RepasoExamenUD1 {
     }
 
     /* SAX guardar */
-    public static void guardarXMLSAX() {
+    private static void guardarXMLSAX() {
         try {
             // 1. Configurar el Transformer y el TransformerHandler
             SAXTransformerFactory factory = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
@@ -357,7 +357,7 @@ public class RepasoExamenUD1 {
     }
 
     /* Listar elementos */
-    public static void listarElementos() {
+    private static void listarElementos() {
         Iterator<Elemento> iterator = elementosLista.iterator();
         System.out.println();
         System.out.println("------");
