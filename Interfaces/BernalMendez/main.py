@@ -1,14 +1,17 @@
-import sys, var, eventos, drivers, conexion
-from PyQt6 import QtWidgets, QtCore
+import conexion
+import drivers
+import eventos
+import locale
+import sys
+import var
 from datetime import datetime
-
-from MainWindow import *
 from Calendar import *
-from dlgSalir import *
+from MainWindow import *
 from dlgAcerca import *
+from dlgSalir import *
+from windowsaux import FileDialogAbrir
 
 # Define la máquina en el idioma local (Español)
-import locale
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 
 class Main(QtWidgets.QMainWindow):
@@ -20,6 +23,7 @@ class Main(QtWidgets.QMainWindow):
         # var.dlgacerca = DlgAcerca()   # Ventana del Acerca De
         var.dlgsalir = DlgSalir()  # Ventana al salir
         # self.drivers = Drivers()
+        var.dlgabrir = FileDialogAbrir()
         conexion.Conexion.conexion()
 
         def closeEvent(self, event):
@@ -35,6 +39,11 @@ class Main(QtWidgets.QMainWindow):
 
             ''' zona de eventos de botones '''
             var.ui.actionSalir.triggered.connect(eventos.Eventos.mostrarSalir)  # Cerrar programa
+
+            ''' zona de eventos del menubar'''
+            var.ui.actionSalir.triggered.connect(eventos.Eventos.mostrarSalir)
+            var.ui.actionAcerca_de.triggered.connect(eventos.Eventos.acercaDe)
+            var.ui.actionBackup.triggered.connect(eventos.Eventos.crearBackup)
 
             ''' eventos del toolbar '''
             var.ui.actionbarSalir.triggered.connect(eventos.Eventos.mostrarSalir)  # Cerrar programa
