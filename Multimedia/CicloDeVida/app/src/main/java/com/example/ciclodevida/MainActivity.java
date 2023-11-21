@@ -116,4 +116,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    protected void onClickBtn(View view) {
+        if (view.getId() == R.id.btnAlarma) {
+            Toast.makeText(this, "Alarma", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
