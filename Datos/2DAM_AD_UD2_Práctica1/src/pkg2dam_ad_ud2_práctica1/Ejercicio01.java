@@ -33,15 +33,15 @@ public class Ejercicio01 {
             connection = DriverManager.getConnection(url, user, password);
             System.out.println("Conexion establecida!");
 
+            //TODO: Pulir menú
+            
             // 1. Consultar todos los empleados.
             mostrarEmpleados();
             // 2. Consultar empleados por nif/dni.
             mostrarSegunNIF();
             // 3. Consultar empleados que tengan un salario superior al introducido por el usuario.
-            // TODO: Hacer mostrarSalarioSuperior()
             mostrarSalarioSuperior();
             // 4. Consultar empleados que tengan un salario igual o inferior al introducido por el usuario.
-            // TODO: Hacer mostrarSalarioInferior()
             mostrarSalarioInferior();
 
         } catch (SQLException e) {
@@ -86,7 +86,7 @@ public class Ejercicio01 {
             }
             System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Hubo un problema al cargar los empleados: " + e.getMessage());
         }
     }
 
@@ -120,13 +120,77 @@ public class Ejercicio01 {
             }
             System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Hubo un problema al buscar el NIF: " + e.getMessage());
         }
     }
 
-    public static void mostrarSalarioSuperior() {}
+    /* Muestra los empleados con mayor salario al dado */
+    public static void mostrarSalarioSuperior() {
+        try {
+            System.out.println("Dime el salario mayor a buscar: ");
+            int SalarioBuscar = sc.nextInt();
+            String sql = "SELECT * FROM empleados.empleado WHERE Salario>?;";
 
-    public static void mostrarSalarioInferior() {}
+            consulta = connection.prepareStatement(sql);
+            consulta.setInt(1, SalarioBuscar); // Configura el parámetro
+            result = consulta.executeQuery();
+
+            while (result.next()) {
+                int NSS = result.getInt(1);
+                String Nombre = result.getString(2);
+                String Apel1 = result.getString(3);               
+                String Apel2 = result.getString(4);
+                char Sexo = result.getString(5).charAt(0);
+                String Direccion = result.getString(6);
+                Date Nacimiento = result.getDate(7);
+                int Salario = result.getInt(8);
+                int Deparmanteo = result.getInt(9);
+                int Supervisor = result.getInt(10);
+                String NIF = result.getString(11);
+
+                Empleado empleado = new Empleado(NSS, Nombre, Apel1, Apel2, Sexo, Direccion, Nacimiento, Salario, Deparmanteo, Supervisor, NIF);
+                System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.println(empleado.toString());
+            }
+            System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+        } catch (SQLException e) {
+            System.out.println("Hubo un problema al buscar salario mayor: " + e.getMessage());
+        }
+    }
+
+    /* Muestra los empleados con menor o igual salario al dado */
+    public static void mostrarSalarioInferior() {
+        try {
+            System.out.println("Dime el salario menor a buscar: ");
+            int SalarioBuscar = sc.nextInt();
+            String sql = "SELECT * FROM empleados.empleado WHERE Salario<=?;";
+
+            consulta = connection.prepareStatement(sql);
+            consulta.setInt(1, SalarioBuscar); // Configura el parámetro
+            result = consulta.executeQuery();
+
+            while (result.next()) {
+                int NSS = result.getInt(1);
+                String Nombre = result.getString(2);
+                String Apel1 = result.getString(3);               
+                String Apel2 = result.getString(4);
+                char Sexo = result.getString(5).charAt(0);
+                String Direccion = result.getString(6);
+                Date Nacimiento = result.getDate(7);
+                int Salario = result.getInt(8);
+                int Deparmanteo = result.getInt(9);
+                int Supervisor = result.getInt(10);
+                String NIF = result.getString(11);
+
+                Empleado empleado = new Empleado(NSS, Nombre, Apel1, Apel2, Sexo, Direccion, Nacimiento, Salario, Deparmanteo, Supervisor, NIF);
+                System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.println(empleado.toString());
+            }
+            System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+        } catch (SQLException e) {
+            System.out.println("Hubo un problema al buscar salario menor: " + e.getMessage());
+        }
+    }
 
     /* Escáner */
     static Scanner sc = new Scanner(System.in);
