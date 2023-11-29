@@ -188,11 +188,6 @@ public class Empleado {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(NSS, Nombre, Apel1, Apel2, Sexo, Direccion, Nacimiento, Salario, Deparmanteo, Supervisor, NIF);
-    }
-
-    @Override
     public String toString() {
         return "NSS: " + getNSS() + " | " +
             "Nombre: " + getNombre() + " | " +
