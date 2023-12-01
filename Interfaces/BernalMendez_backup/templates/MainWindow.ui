@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>mainWindow</class>
+ <widget class="QMainWindow" name="mainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>9</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>CarTeis</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>120</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>1090</width>
+        <height>850</height>
+       </size>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Conductor</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <widget class="QFrame" name="frame">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Sunken</enum>
+          </property>
+          <property name="lineWidth">
+           <number>2</number>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="8" column="3">
+            <widget class="QCheckBox" name="checkBoxC">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>C</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1" colspan="6">
+            <widget class="QLineEdit" name="lineApellidos">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1" colspan="6">
+            <widget class="QLineEdit" name="lineDireccion"/>
+           </item>
+           <item row="0" column="5" colspan="2">
+            <widget class="QLineEdit" name="lineDNI"/>
+           </item>
+           <item row="0" column="12">
+            <widget class="QPushButton" name="btnCalendar">
+             <property name="autoFillBackground">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>img/calendar-icon.jpg</normaloff>img/calendar-icon.jpg</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>30</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="9">
+            <widget class="QLineEdit" name="lineFechaAlta"/>
+           </item>
+           <item row="7" column="5" colspan="2">
+            <widget class="QLineEdit" name="lineSalario">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="4">
+            <widget class="QCheckBox" name="checkBoxD">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>D</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <widget class="QLabel" name="labelDNI_2">
+             <property name="text">
+              <string>DNI:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="10">
+            <widget class="QLabel" name="labelDNI">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1" colspan="2">
+            <widget class="QLineEdit" name="lineCodigo">
+             <property name="autoFillBackground">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="labelCodigo">
+             <property name="text">
+              <string>Código</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="labelApellidos">
+             <property name="text">
+              <string>Apellidos:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="labelDireccion">
+             <property name="text">
+              <string>Dirección:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QLabel" name="labelMovil">
+             <property name="text">
+              <string>Móvil:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="8">
+            <widget class="QLabel" name="labelProvincia">
+             <property name="text">
+              <string>Provincia:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="2">
+            <widget class="QCheckBox" name="checkBoxB">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>B</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="1">
+            <widget class="QCheckBox" name="checkBoxA">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>A</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <widget class="QLabel" name="labelCarnet">
+             <property name="text">
+              <string>Tipo de carnet:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="9">
+            <widget class="QComboBox" name="comboBoxProvincia">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="1" colspan="3">
+            <widget class="QLineEdit" name="lineMovil"/>
+           </item>
+           <item row="7" column="4">
+            <widget class="QLabel" name="labelSalario">
+             <property name="text">
+              <string>Salario:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="8">
+            <widget class="QLabel" name="labelNombre">
+             <property name="text">
+              <string>Nombre</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="8">
+            <widget class="QLabel" name="labelLocalidad">
+             <property name="text">
+              <string>Localidad:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="9">
+            <widget class="QComboBox" name="comboBoxLocalidad"/>
+           </item>
+           <item row="2" column="9">
+            <widget class="QLineEdit" name="lineNombre"/>
+           </item>
+           <item row="0" column="8">
+            <widget class="QLabel" name="labelFechaAlta">
+             <property name="text">
+              <string>Fecha Alta:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="5">
+            <widget class="QPushButton" name="pushButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Alta</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="6">
+            <widget class="QPushButton" name="pushButton_2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Modificar</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="8">
+            <widget class="QPushButton" name="pushButton_3">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Baja</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="btnSalir">
+          <property name="text">
+           <string>SALIR</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QTableWidget" name="tableDatos">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <column>
+           <property name="text">
+            <string>1</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>2</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>3</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>4</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>5</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>6</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Tab 2</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <widget class="QLabel" name="lblTitulo_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>240</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Segunda pestaña</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuArchivo">
+    <property name="title">
+     <string>Archivo</string>
+    </property>
+    <addaction name="actionSalir_2"/>
+   </widget>
+   <widget class="QMenu" name="menuAyuda">
+    <property name="title">
+     <string>Ayuda</string>
+    </property>
+    <addaction name="actionAcerca_de"/>
+   </widget>
+   <addaction name="menuArchivo"/>
+   <addaction name="menuAyuda"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionSalir">
+   <property name="text">
+    <string>Salir</string>
+   </property>
+  </action>
+  <action name="actionSalir_2">
+   <property name="text">
+    <string>Salir</string>
+   </property>
+  </action>
+  <action name="actionAcerca_de">
+   <property name="text">
+    <string>Acerca de...</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

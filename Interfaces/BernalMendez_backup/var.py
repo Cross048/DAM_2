@@ -1,8 +1,6 @@
-global ui
+global ui, calendar
 global calendar
 global salir
 global acercade
 global dlgabrir
-global bbdd
-version = '0.0.1rc'
-
+version = "0.1.1"
