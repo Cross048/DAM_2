@@ -1,5 +1,4 @@
 from PyQt6 import QtWidgets, QtCore, QtGui
-
 import conexion
 import var
 
@@ -122,8 +121,8 @@ class Drivers():
 
     def cargadriver(self = None):
         try:
-            #var.ui.tabDrivers.clearContents()
-            #Drivers.cargartabladri(conexion.Conexion.mostrardrivers(self))
+            # var.ui.tabDrivers.clearContents()
+            # Drivers.cargartabladri(conexion.Conexion.mostrardrivers(self))
             fila = var.ui.tabDrivers.selectedItems()
             row = [dato.text() for dato in fila]
             registro = conexion.Conexion.onedriver(row[0])
@@ -180,7 +179,7 @@ class Drivers():
                 var.ui.chkD.setChecked(True)
             else:
                 var.ui.chkD.setChecked(False)
-            #Drivers.cargartabladri(conexion.Conexion.mostrardrivers())
+            # Drivers.cargartabladri(conexion.Conexion.mostrardrivers())
         except Exception as error:
             print("cargar datos en panel gestión", error)
 

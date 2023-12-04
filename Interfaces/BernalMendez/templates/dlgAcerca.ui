@@ -38,7 +38,7 @@
   <widget class="QPushButton" name="btnCerrar">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>160</x>
      <y>230</y>
      <width>80</width>
      <height>25</height>
@@ -96,7 +96,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>img/logo.ico</pixmap>
+       <pixmap>../img/logo.ico</pixmap>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -140,8 +140,9 @@
       <property name="font">
        <font>
         <pointsize>10</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
+        <weight>50</weight>
+        <bold>false</bold>
+        <kerning>true</kerning>
        </font>
       </property>
       <property name="text">
@@ -197,7 +198,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Autor: El Profe</string>
+       <string>Autor: Cristian Bernal</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

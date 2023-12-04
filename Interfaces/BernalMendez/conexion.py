@@ -104,7 +104,6 @@ class Conexion():
                 return registros
             else:
                 var.ui.tabDrivers.setRowCount(0)
-
         except Exception as error:
             print('error mostrar resultados', error)
 

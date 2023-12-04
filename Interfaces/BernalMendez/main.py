@@ -19,7 +19,7 @@ class Main(QtWidgets.QMainWindow):
         var.calendar = Calendar()
         var.dlgacerca = DlgAcerca()
         var.dlgabrir = FileDialogAbrir()
-        self.driver = Drivers()
+        # self.driver = Drivers()
         conexion.Conexion.conexion()
         conexion.Conexion.cargaprov()
         estado = 1
@@ -41,7 +41,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionImportar_Datos_XLS.triggered.connect(eventos.Eventos.importardatosxls)
         ''' zona eventos cajas de texto '''
         var.ui.txtDni.editingFinished.connect(lambda: drivers.Drivers.validarDNI(var.ui.txtDni.text()))
-        #var.ui.txtDni.editingFinished.connect(lambda: drivers.Drivers.validarDNI(var.ui.txtDni.displayText()))
+        # var.ui.txtDni.editingFinished.connect(lambda: drivers.Drivers.validarDNI(var.ui.txtDni.displayText()))
 
         var.ui.txtNome.editingFinished.connect(eventos.Eventos.formatCajatexto)
         var.ui.txtApel.editingFinished.connect(eventos.Eventos.formatCajatexto)
@@ -64,7 +64,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.rtbGroup.buttonClicked.connect(drivers.Drivers.selEstado)
 
     def closeEvent(self, event):
-        #event.ignore()
+        # event.ignore()
         # eventos.Eventos.mostrarsalir()
         mbox = QtWidgets.QMessageBox.information(self, 'Salir', '¿Estás seguro de que quieres salir?',
             QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)

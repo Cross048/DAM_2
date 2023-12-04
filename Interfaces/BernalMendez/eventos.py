@@ -1,11 +1,8 @@
 import os.path
 from datetime import datetime
-
 from PyQt6 import QtWidgets, QtCore, QtGui
-
 import locale
 import sys
-
 import drivers
 import var
 import zipfile
