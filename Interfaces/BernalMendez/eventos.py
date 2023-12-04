@@ -21,30 +21,30 @@ class Eventos():
         try:
             var.calendar.show()
         except Exception as error:
-            print('error en abrir calendar: ', error)
+            print("Error al abrir calendario: ", error)
 
     @staticmethod
     def acercade():
         try:
             var.dlgacerca.show()
         except Exception as error:
-            print('error abrir ventana acerca: ', error)
+            print("Error al abrir ventana Acerca de: ", error)
     @staticmethod
     def cerraracercade():
         try:
             var.dlgacerca.hide()
         except Exception as error:
-            print('error abrir ventana acerca: ', error)
+            print("Error al abrir ventana Acerca de: ", error)
 
     def mostrarsalir(self=None):
         mbox = QtWidgets.QMessageBox()
-        mbox.setWindowTitle('Confirmar Salida')
+        mbox.setWindowTitle("Confirmar Salida")
         mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
         mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
-        mbox.setText('¿Está seguro de que desea salir?')
+        mbox.setText("¿Está seguro de que desea salir?")
         mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
-        mbox.button(QtWidgets.QMessageBox.StandardButton.Yes).setText('Si')
-        mbox.button(QtWidgets.QMessageBox.StandardButton.No).setText('No')
+        mbox.button(QtWidgets.QMessageBox.StandardButton.Yes).setText("Si")
+        mbox.button(QtWidgets.QMessageBox.StandardButton.No).setText("No")
         mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Yes)
         mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.No)
         if mbox.exec() == QtWidgets.QMessageBox.StandardButton.Yes:
@@ -62,7 +62,7 @@ class Eventos():
             self.labelstatusversion.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight)
             var.ui.statusbar.addPermanentWidget(self.labelstatusversion, 0)
         except Exception as error:
-            print('Error cargar el statusbar: ', error)
+            print("Error al cargar el statusbar: ", error)
 
     def resizeTabdrivers(self):
         try:
@@ -73,10 +73,10 @@ class Eventos():
                 elif i == 1 or i == 2:
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
         except Exception as error:
-            print('error resize en tab drivers', error)
+            print("Error en el resize en tab drivers: ", error)
 
     @staticmethod
-    def formatCajatexto(self = None):
+    def formatCajatexto():
         try:
             var.ui.txtApel.setText(var.ui.txtApel.text().title())
             var.ui.txtNome.setText(var.ui.txtNome.text().title())
@@ -87,19 +87,19 @@ class Eventos():
                     pass
                 else:
                     msg = QtWidgets.QMessageBox()
-                    msg.setWindowTitle('Aviso')
+                    msg.setWindowTitle("Aviso")
                     msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
                     msg.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
-                    msg.setText('Valor de Salario Incorrecto (00000000.00)')
+                    msg.setText("Valor de Salario Incorrecto (00000000.00)")
                     msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                    msg.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                    msg.button(QtWidgets.QMessageBox.StandardButton.Ok).setText("Aceptar")
                     msg.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                     msg.exec()
                     var.ui.txtSalario.setText("")
                     break
             var.ui.txtSalario.setText(str(locale.currency(round(float(var.ui.txtSalario.text()),2),grouping=True)))
         except Exception as error:
-            print('error poner letra capital cajas text', error)
+            print("Error al poner letra capital en cajas de texto: ", error)
 
     def formatCajamovil(self=None):
         try:
@@ -112,46 +112,45 @@ class Eventos():
                     pass
                 else:
                     msg = QtWidgets.QMessageBox()
-                    msg.setWindowTitle('Aviso')
+                    msg.setWindowTitle("Aviso")
                     msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
                     msg.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
-                    msg.setText('Escriba un número de móvil correcto')
+                    msg.setText("Escriba un número de teléfono correcto")
                     msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                    msg.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                    msg.button(QtWidgets.QMessageBox.StandardButton.Ok).setText("Aceptar")
                     msg.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                     msg.exec()
                     var.ui.txtMovil.setText("")
                     break
         except Exception as error:
-            print('error poner movil', error)
+            print("Error al poner telefono: ", error)
 
     def crearbackup(self):
         try:
             fecha = datetime.today()
             fecha = fecha.strftime('%Y_%m_%d_%H_%M_%S')
             copia = str(fecha)+'_backup.zip'
-            directorio, filename = var.dlgabrir.getSaveFileName(None, 'Guardar Copia Seguridad', copia, '.zip')
+            directorio, filename = var.dlgabrir.getSaveFileName(None, "Guardar Copia Seguridad", copia, '.zip')
             if var.dlgabrir.accept and filename:
                 fichzip = zipfile.ZipFile(copia,'w')
                 fichzip.write(var.bbdd, os.path.basename(var.bbdd), zipfile.ZIP_DEFLATED)
                 fichzip.close()
                 shutil.move(str(copia),str(directorio))
                 msg = QtWidgets.QMessageBox()
-                msg.setWindowTitle('Aviso')
+                msg.setWindowTitle("Aviso")
                 msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                msg.setText('Copia de Seguridad Creada')
+                msg.setText("Copia de Seguridad Creada!")
                 msg.exec()
         except Exception as error:
             msg = QtWidgets.QMessageBox()
-            msg.setWindowTitle('Aviso')
+            msg.setWindowTitle("Aviso")
             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-            msg.setText('Error en Copia de Seguridad', error)
+            msg.setText("Error en la Copia de Seguridad: ", error)
             msg.exec()
 
     def restaurarbackup(self):
         try:
-            filename = var.dlgabrir.getOpenFileName(None,'Restaurar Copia de Seguridad',
-                                                    '','*.zip;;All Files(*)')
+            filename = var.dlgabrir.getOpenFileName(None,"Restaurar Copia de Seguridad", '', '*.zip;;All Files(*)')
             file = filename[0]
             if file:
                 with zipfile.ZipFile(str(file), 'r') as bbdd:
@@ -159,24 +158,24 @@ class Eventos():
                 bbdd.close()
                 msg = QtWidgets.QMessageBox()
                 msg.setModal(True)
-                msg.setWindowTitle('Aviso')
+                msg.setWindowTitle("Aviso")
                 msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                msg.setText('Copia de Seguridad Restaurada')
+                msg.setText("Copia de Seguridad Restaurada!")
                 msg.exec()
                 conexion.Conexion.mostrardrivers(self)
         except Exception as error:
             msg = QtWidgets.QMessageBox()
-            msg.setWindowTitle('Aviso')
+            msg.setWindowTitle("Aviso")
             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-            msg.setText('Error Restauración de la Copia de Seguridad', error)
+            msg.setText("Error al restaurar Copia de Seguridad: ", error)
             msg.exec()
 
-    def exportardatosxls():
+    def exportardatosxls(self):
         try:
             fecha = datetime.today()
             fecha = fecha.strftime('%Y_%m_%d_%H_%M_%S')
             file = (str(fecha)+'_Datos.xls')
-            directorio, filename = var.dlgabrir.getSaveFileName(None, 'Exportar Datos en XLS', file, '.xls')
+            directorio, filename = var.dlgabrir.getSaveFileName(None, "Exportar Datos en XLS", file, '.xls')
             if filename:
                 wb = xlwt.Workbook()
                 sheet1 = wb.add_sheet('Conductores')
@@ -198,23 +197,22 @@ class Eventos():
                 wb.save(directorio)
                 msg = QtWidgets.QMessageBox()
                 msg.setModal(True)
-                msg.setWindowTitle('Aviso')
+                msg.setWindowTitle("Aviso")
                 msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                msg.setText('Exportación de Datos Realizada')
+                msg.setText("Exportación de datos realizada!")
                 msg.exec()
         except Exception as error:
             msg = QtWidgets.QMessageBox()
-            msg.setWindowTitle('Aviso')
+            msg.setWindowTitle("Aviso")
             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-            msg.setText('Error Exportar Datos en Hoja de Cálculo', error)
+            msg.setText("Error al exportar datos en hoja de cálculo: ", error)
             msg.exec()
 
     def importardatosxls(self):
         try:
             estado = 0
             drivers.Drivers.limpiapanel(self)
-            filename, _ = var.dlgabrir.getOpenFileName(None, 'Importar datos',
-                                                    '', '*.xls;;All Files (*)')
+            filename, _ = var.dlgabrir.getOpenFileName(None, "Importar datos", '', '*.xls;;All Files (*)')
             if filename:
                 file = filename
                 documento = xlrd.open_workbook(file)
@@ -239,24 +237,24 @@ class Eventos():
                             estado = 1
                             msg = QtWidgets.QMessageBox()
                             msg.setModal(True)
-                            msg.setWindowTitle('Aviso')
+                            msg.setWindowTitle("Aviso")
                             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-                            msg.setText('Hay DNI incorrectos')
+                            msg.setText("Hay DNIs incorrectos")
                             msg.exec()
                 var.ui.lblValidardni.setText('')
                 var.ui.txtDni.setText('')
                 msg = QtWidgets.QMessageBox()
                 msg.setModal(True)
-                msg.setWindowTitle('Aviso')
+                msg.setWindowTitle("Aviso")
                 msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                msg.setText('Importación de Datos Realizada')
+                msg.setText("Importación de datos realizada!")
                 var.ui.lblValidardni.setText('')
                 msg.exec()
             conexion.Conexion.selectDrivers(1)
         except Exception as error:
             msg = QtWidgets.QMessageBox()
             msg.setModal(True)
-            msg.setWindowTitle('Aviso')
+            msg.setWindowTitle("Aviso")
             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-            msg.setText('Error', error)
+            msg.setText("Error al importar datos en hoja de cálculo: ", error)
             msg.exec()

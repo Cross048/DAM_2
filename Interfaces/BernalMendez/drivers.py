@@ -22,7 +22,7 @@ class Drivers():
                 registros = conexion.Conexion.mostrardrivers(self)
                 Drivers.cargartabladri(registros)
         except Exception as error:
-            print('error limpia panel driver: ', error)
+            print("Error al limpiar panel driver: ", error)
 
     def cargaFecha(qDate):
         try:
@@ -31,7 +31,7 @@ class Drivers():
             return data
             var.calendar.hide()
         except Exception as error:
-            print("error en cargar fecha: ", error)
+            print("Error en cargar fecha: ", error)
 
     def validarDNI(dni):
         try:
@@ -62,7 +62,7 @@ class Drivers():
                 var.ui.txtDni.setFocus()
 
         except Exception as error:
-            print("error en validar dni ", error)
+            print("Error al validar DNI: ", error)
 
     def altadriver(self):
         try:
@@ -84,20 +84,20 @@ class Drivers():
             valor = conexion.Conexion.guardardri(newdriver)
             if valor == True:
                 mbox = QtWidgets.QMessageBox()
-                mbox.setWindowTitle('Aviso')
+                mbox.setWindowTitle("Aviso")
                 mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
                 mbox.setText("Empleado dado de alta")
                 mbox.exec()
             elif valor == False:
                 mbox = QtWidgets.QMessageBox()
-                mbox.setWindowTitle('Aviso')
+                mbox.setWindowTitle("Aviso")
                 mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
                 mbox.setText("Asegúrese de que el conductor no existe")
                 mbox.exec()
         except Exception as error:
-            print("error alta cliente", error)
+            print("Error al dar de alta al cliente: ", error)
 
     def cargartabladri(registros):
         try:
@@ -117,7 +117,7 @@ class Drivers():
                 var.ui.tabDrivers.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 index += 1
         except Exception as error:
-            print("error cargar dato en tabla", error)
+            print("Error al cargar datos en la tabla: ", error)
 
     def cargadriver(self = None):
         try:
@@ -128,7 +128,7 @@ class Drivers():
             registro = conexion.Conexion.onedriver(row[0])
             Drivers.cargardatos(registro)
         except Exception as error:
-            print('error cargar datos de 1 cliente marcando en la tabla: ', error)
+            print("Error al cargar los datos de un cliente marcando en la tabla: ", error)
 
     def buscaDri(self):
         try:
@@ -152,7 +152,7 @@ class Drivers():
                         if item is not None:
                             item.setBackground(QtGui.QColor(255, 241, 150))
         except Exception as error:
-            print(error, "en busca de datos de un conductor")
+            print(error, " en busca de datos de un conductor")
 
     def cargardatos(registro):
         try:
@@ -181,7 +181,7 @@ class Drivers():
                 var.ui.chkD.setChecked(False)
             # Drivers.cargartabladri(conexion.Conexion.mostrardrivers())
         except Exception as error:
-            print("cargar datos en panel gestión", error)
+            print("Error al cargar datos en panel gestión: ", error)
 
     def modifDri(self):
         try:
@@ -203,7 +203,7 @@ class Drivers():
             modifdriver.append('-'.join(licencias))
             conexion.Conexion.modifDriver(modifdriver)
         except Exception as error:
-            print('error en modif drivaer en Drivers', error)
+            print("Error al modificar driver en Drivers", error)
 
     def borraDriv(self):
         try:
@@ -212,9 +212,9 @@ class Drivers():
             conexion.Conexion.selectDrivers(1)
         except Exception as error:
             mbox = QtWidgets.QMessageBox()
-            mbox.setWindowTitle('Aviso')
+            mbox.setWindowTitle("Aviso")
             mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-            mbox.setText('El conductor no existe o no se puede borrar')
+            mbox.setText("El conductor no existe o no se puede borrar")
             mbox.exec()
 
     def selEstado(self):

@@ -39,6 +39,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionRestaurar_Copia_Seguridad.triggered.connect(eventos.Eventos.restaurarbackup)
         var.ui.actionExportar_Datos_Excel.triggered.connect(eventos.Eventos.exportardatosxls)
         var.ui.actionImportar_Datos_XLS.triggered.connect(eventos.Eventos.importardatosxls)
+
         ''' zona eventos cajas de texto '''
         var.ui.txtDni.editingFinished.connect(lambda: drivers.Drivers.validarDNI(var.ui.txtDni.text()))
         # var.ui.txtDni.editingFinished.connect(lambda: drivers.Drivers.validarDNI(var.ui.txtDni.displayText()))
@@ -66,13 +67,13 @@ class Main(QtWidgets.QMainWindow):
     def closeEvent(self, event):
         # event.ignore()
         # eventos.Eventos.mostrarsalir()
-        mbox = QtWidgets.QMessageBox.information(self, 'Salir', '¿Estás seguro de que quieres salir?',
-            QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
+        mbox = QtWidgets.QMessageBox.information(self, "Salir", "¿Estás seguro de que quieres salir?",
+                                                 QtWidgets.QMessageBox.StandardButton.Yes |
+                                                 QtWidgets.QMessageBox.StandardButton.No)
         if mbox == QtWidgets.QMessageBox.StandardButton.Yes:
             event.accept()
         else:
             event.ignore()
-
 
 if __name__ == '__main__':
     try:
