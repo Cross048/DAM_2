@@ -1,92 +1,84 @@
-import conexion
+from drivers import *
+from MainWindow import *
+from windowaux import *
+import var
 import drivers
+import sys
 import eventos
 import locale
-import sys
-import var
-from datetime import datetime
-from Calendar import *
-from MainWindow import *
-from dlgAcerca import *
-from dlgSalir import *
-from windowsaux import FileDialogAbrir
-
-# Define la máquina en el idioma local (Español)
+import conexion
+# Establecer la configuración regional en español
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
 
 class Main(QtWidgets.QMainWindow):
     def __init__(self):
         super(Main, self).__init__()
-        var.ui = Ui_mainWindow()
-        var.ui.setupUi(self)  # Encargado de la interfaz
-        var.calendar = DlgCalendar()  # Ventana del Calendario
-        # var.dlgacerca = DlgAcerca()   # Ventana del Acerca De
-        var.dlgsalir = DlgSalir()  # Ventana al salir
-        # self.drivers = Drivers()
+        var.ui = Ui_MainWindow()
+        var.ui.setupUi(self)
+        var.calendar = Calendar()
+        var.dlgacerca = DlgAcerca()
         var.dlgabrir = FileDialogAbrir()
+        self.driver = Drivers()
         conexion.Conexion.conexion()
-
-        def closeEvent(self, event):
-            mbox = QtWidgets.QMessageBox.information(self, 'Salir', '¿Estás seguro de que quieres salir?',
-                                                     QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
-            if mbox == QtWidgets.QMessageBox.StandardButton.Yes:
-                app.quit()
-            else:
-                event.ignore()
-
-            ''' zona de eventos de botones '''
-            var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrirCalendar)  # Abrir calendario
-
-            ''' zona de eventos de botones '''
-            var.ui.actionSalir.triggered.connect(eventos.Eventos.mostrarSalir)  # Cerrar programa
-
-            ''' zona de eventos del menubar'''
-            var.ui.actionSalir.triggered.connect(eventos.Eventos.mostrarSalir)
-            var.ui.actionAcerca_de.triggered.connect(eventos.Eventos.acercaDe)
-            var.ui.actionBackup.triggered.connect(eventos.Eventos.crearBackup)
-
-            ''' eventos del toolbar '''
-            var.ui.actionbarSalir.triggered.connect(eventos.Eventos.mostrarSalir)  # Cerrar programa
-            var.ui.actionlimpiaPaneldriver.triggered.connect(drivers.Drivers.limpiapanel)  # Limpiar panel
-
-            ''' eventos comboBox'''
-            var.ui.comboBoxProvincia.currentIndexChanged.connect(conexion.Conexion.selMuni)
-
-            ''' Formatear la fecha según el formato deseadofecha_actual.strftime() statusbar '''
-            fecha = datetime.now().strftime("%A - " + "%d/%m/%Y")
-            self.labelstatus = QtWidgets.QLabel(fecha, self)
-            self.labelstatus.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter)
-            var.ui.statusbar.addPermanentWidget(self.labelstatus, 1)
-            self.labelstatusversion = QtWidgets.QLabel("Version: " + var.version, self)
-            self.labelstatusversion.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight)
-            var.ui.statusbar.addPermanentWidget(self.labelstatusversion, 2)
-
-            ''' ejecución de diferentes funciones al lanzar la aplicación '''
-            eventos.Eventos.cargastatusbar()
-
-class DlgCalendar(QtWidgets.QDialog):
-    def __init__(self):
-        super(DlgCalendar, self).__init__()
-        var.dlgcalendar = Ui_dlgCalendar()
-        var.dlgcalendar.setupUi(self)
-        dia = datetime.now().day
-        mes = datetime.now().month
-        ano = datetime.now().year
+        conexion.Conexion.cargaprov()
+        estado = 1
+        conexion.Conexion.selectDrivers(estado)
 
         ''' zona de eventos de botones '''
-        var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrirCalendar)   # Abrir Calendario
+        var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrirCalendar)
+        var.ui.btnAltaDriver.clicked.connect(drivers.Drivers.altadriver)
+        var.ui.btnBuscadri.clicked.connect(drivers.Drivers.buscaDri)
+        var.ui.btnModifDriver.clicked.connect(drivers.Drivers.modifDri)
+        var.ui.btnBajaDriver.clicked.connect(drivers.Drivers.borraDriv)
 
-        ''' zona de eventos de cajas de texto '''
-        var.ui.lineDNI.editingFinished.connect(drivers.Drivers.validarDNI)   # Validar DNI
+        ''' zona de eventos del menubar '''
+        var.ui.actionSalir.triggered.connect(eventos.Eventos.mostrarsalir)
+        var.ui.actionAcerca_de.triggered.connect(eventos.Eventos.acercade)
+        var.ui.actionCrear_Copia_Seguridad.triggered.connect(eventos.Eventos.crearbackup)
+        var.ui.actionRestaurar_Copia_Seguridad.triggered.connect(eventos.Eventos.restaurarbackup)
+        var.ui.actionExportar_Datos_Excel.triggered.connect(eventos.Eventos.exportardatosxls)
+        var.ui.actionImportar_Datos_XLS.triggered.connect(eventos.Eventos.importardatosxls)
+        ''' zona eventos cajas de texto '''
+        var.ui.txtDni.editingFinished.connect(lambda: drivers.Drivers.validarDNI(var.ui.txtDni.text()))
+        #var.ui.txtDni.editingFinished.connect(lambda: drivers.Drivers.validarDNI(var.ui.txtDni.displayText()))
 
-class DlgSalir(QtWidgets.QDialog):
-    def __init__(self):
-        super(DlgSalir, self).__init__()
-        var.dlgsalir = Ui_dlgSalir()
-        var.dlgsalir.setupUi(self)
+        var.ui.txtNome.editingFinished.connect(eventos.Eventos.formatCajatexto)
+        var.ui.txtApel.editingFinished.connect(eventos.Eventos.formatCajatexto)
+        var.ui.txtSalario.editingFinished.connect(eventos.Eventos.formatCajatexto)
+        var.ui.txtMovil.editingFinished.connect(eventos.Eventos.formatCajamovil)
+
+        ''' eventos del toolbar '''
+        var.ui.actionbarSalir.triggered.connect(eventos.Eventos.mostrarsalir)
+        var.ui.actionlimpiaPaneldriver.triggered.connect(drivers.Drivers.limpiapanel)
+        var.ui.actioncrearbackup.triggered.connect(eventos.Eventos.crearbackup)
+        var.ui.actionrestaurarbackup.triggered.connect(eventos.Eventos.restaurarbackup)
+
+
+        ''' eventos de tablas '''
+        eventos.Eventos.resizeTabdrivers(self)
+        var.ui.tabDrivers.clicked.connect(drivers.Drivers.cargadriver)
+
+        ''' eventos combobox '''
+        var.ui.cmbProv.currentIndexChanged.connect(conexion.Conexion.selMuni)
+        var.ui.rtbGroup.buttonClicked.connect(drivers.Drivers.selEstado)
+
+    def closeEvent(self, event):
+        #event.ignore()
+        # eventos.Eventos.mostrarsalir()
+        mbox = QtWidgets.QMessageBox.information(self, 'Salir', '¿Estás seguro de que quieres salir?',
+            QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
+        if mbox == QtWidgets.QMessageBox.StandardButton.Yes:
+            event.accept()
+        else:
+            event.ignore()
+
 
 if __name__ == '__main__':
-    app = QtWidgets.QApplication([])
-    window = Main()
-    window.show()
-    sys.exit(app.exec())
+    try:
+        app = QtWidgets.QApplication([])
+        window = Main()
+        window.showMaximized()
+        sys.exit(app.exec())
+    except Exception as error:
+        print(error)
