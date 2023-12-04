@@ -93,8 +93,7 @@ class Conexion():
                 Conexion.selectDrivers(estado)
             else:
                 query1 = QtSql.QSqlQuery()
-                query1.prepare("SELECT codigo, apeldri, nombredri, movildri, "
-                               " carnet, bajadri FROM drivers")
+                query1.prepare("SELECT codigo, apeldri, nombredri, movildri, carnet, bajadri FROM drivers")
                 if query1.exec():
                     while query1.next():
                         row = [query1.value(i) for i in range(query1.record().count())]  # función lambda
@@ -274,7 +273,7 @@ class Conexion():
                 query.prepare('SELECT codigo, apeldri, nombredri, movildri, carnet, bajadri FROM drivers')
                 if query.exec():
                     while query.next():
-                        row = [query.value(i) for i in range(query.record().count())]   # función lambda
+                        row = [query.value(i) for i in range(query.record().count())]
                         registros.append(row)
                 if registros:
                     drivers.Drivers.cargartabladri(registros)
@@ -285,7 +284,7 @@ class Conexion():
                 query.prepare('SELECT codigo, apeldri, nombredri, movildri, carnet, bajadri FROM drivers WHERE bajadri IS NULL')
                 if query.exec():
                     while query.next():
-                        row = [query.value(i) for i in range(query.record().count())]  # función lambda
+                        row = [query.value(i) for i in range(query.record().count())]
                         registros.append(row)
                 if registros:
                     drivers.Drivers.cargartabladri(registros)
@@ -296,7 +295,7 @@ class Conexion():
                 query.prepare('SELECT codigo, apeldri, nombredri, movildri, carnet, bajadri FROM drivers WHERE bajadri IS NOT NULL')
                 if query.exec():
                     while query.next():
-                        row = [query.value(i) for i in range(query.record().count())]  # función lambda
+                        row = [query.value(i) for i in range(query.record().count())]
                         registros.append(row)
                 if registros:
                     drivers.Drivers.cargartabladri(registros)
@@ -317,7 +316,7 @@ class Conexion():
             query.prepare('SELECT * FROM drivers ORDER BY apeldri')
             if query.exec():
                 while query.next():
-                    row = [query.value(i) for i in range(query.record().count())]  # función lambda
+                    row = [query.value(i) for i in range(query.record().count())]
                     registros.append(row)
             return registros
         except Exception as error:

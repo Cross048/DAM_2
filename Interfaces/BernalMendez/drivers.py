@@ -47,11 +47,11 @@ class Drivers():
                 if dni[0] in dig_ext:
                     dni = dni.replace(dni[0], reemp_dig_ext[dni[0]])
                 if len(dni) == len([n for n in dni if n in numeros]) and tabla[int(dni) % 23] == dig_control:
-                    var.ui.lblValidardni.setStyleSheet('color:green;')  # si es válido se pone una V en color verde
+                    var.ui.lblValidardni.setStyleSheet('color:green;') # DNI válido
                     var.ui.lblValidardni.setText('V')
                     return True
                 else:
-                    var.ui.lblValidardni.setStyleSheet('color:red;')  # y si no un aspa en color rojo
+                    var.ui.lblValidardni.setStyleSheet('color:red;') # DNI no válido
                     var.ui.lblValidardni.setText('X')
                     var.ui.txtDni.setText(None)
                     var.ui.txtDni.setFocus()
@@ -60,7 +60,6 @@ class Drivers():
                 var.ui.lblValidardni.setText('X')
                 var.ui.txtDni.setText(None)
                 var.ui.txtDni.setFocus()
-
         except Exception as error:
             print("Error al validar DNI: ", error)
 
@@ -121,8 +120,6 @@ class Drivers():
 
     def cargadriver(self = None):
         try:
-            # var.ui.tabDrivers.clearContents()
-            # Drivers.cargartabladri(conexion.Conexion.mostrardrivers(self))
             fila = var.ui.tabDrivers.selectedItems()
             row = [dato.text() for dato in fila]
             registro = conexion.Conexion.onedriver(row[0])
