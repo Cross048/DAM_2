@@ -3,18 +3,14 @@ from PyQt6 import QtWidgets, QtCore, QtGui
 import conexion
 import var
 
-
 class Drivers():
-
     @staticmethod
     def limpiapanel(self):
         try:
             listawidgets = [var.ui.lblcodbd, var.ui.txtDni, var.ui.txtDatadriver, var.ui.txtApel, var.ui.txtNome,
                             var.ui.txtDirdriver, var.ui.txtMovil, var.ui.txtSalario, var.ui.lblValidardni]
-
             for i in listawidgets:
                 i.setText(None)
-
             chklicencia = [var.ui.chkA, var.ui.chkB, var.ui.chkC, var.ui.chkD]
             for i in chklicencia:
                 i.setChecked(False)
@@ -149,7 +145,6 @@ class Drivers():
             elif var.ui.rbtBaja.isChecked():
                 estado = 2
                 conexion.Conexion.selectDrivers(estado)
-
             codigo = var.ui.lblcodbd.text()
             for fila in range(var.ui.tabDrivers.rowCount()):
                 if var.ui.tabDrivers.item(fila, 0).text() == str(codigo):
@@ -185,9 +180,7 @@ class Drivers():
                 var.ui.chkD.setChecked(True)
             else:
                 var.ui.chkD.setChecked(False)
-
             #Drivers.cargartabladri(conexion.Conexion.mostrardrivers())
-
         except Exception as error:
             print("cargar datos en panel gestión", error)
 
@@ -235,26 +228,3 @@ class Drivers():
         elif var.ui.rbtBaja.isChecked():
             estado = 2
             conexion.Conexion.selectDrivers(estado)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

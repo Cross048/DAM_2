@@ -5,4 +5,3 @@ global acercade
 global dlgabrir
 global bbdd
 version = '0.0.1rc'
-

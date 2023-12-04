@@ -39,9 +39,7 @@ class Eventos():
         except Exception as error:
             print('error abrir ventana acerca: ', error)
 
-
     def mostrarsalir(self=None):
-
         mbox = QtWidgets.QMessageBox()
         mbox.setWindowTitle('Confirmar Salida')
         mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
@@ -52,12 +50,10 @@ class Eventos():
         mbox.button(QtWidgets.QMessageBox.StandardButton.No).setText('No')
         mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Yes)
         mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.No)
-
         if mbox.exec() == QtWidgets.QMessageBox.StandardButton.Yes:
             sys.exit()
         else:
             mbox.hide()
-
 
     def cargastatusbar(self):
         try:
@@ -71,7 +67,6 @@ class Eventos():
         except Exception as error:
             print('Error cargar el statusbar: ', error)
 
-
     def resizeTabdrivers(self):
         try:
             header = var.ui.tabDrivers.horizontalHeader()
@@ -80,9 +75,9 @@ class Eventos():
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
                 elif i == 1 or i == 2:
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
-
         except Exception as error:
             print('error resize en tab drivers', error)
+
     @staticmethod
     def formatCajatexto(self = None):
         try:
@@ -149,7 +144,6 @@ class Eventos():
                 msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
                 msg.setText('Copia de Seguridad Creada')
                 msg.exec()
-
         except Exception as error:
             msg = QtWidgets.QMessageBox()
             msg.setWindowTitle('Aviso')
@@ -173,7 +167,6 @@ class Eventos():
                 msg.setText('Copia de Seguridad Restaurada')
                 msg.exec()
                 conexion.Conexion.mostrardrivers(self)
-
         except Exception as error:
             msg = QtWidgets.QMessageBox()
             msg.setWindowTitle('Aviso')
@@ -263,7 +256,6 @@ class Eventos():
                 var.ui.lblValidardni.setText('')
                 msg.exec()
             conexion.Conexion.selectDrivers(1)
-
         except Exception as error:
             msg = QtWidgets.QMessageBox()
             msg.setModal(True)
@@ -271,8 +263,3 @@ class Eventos():
             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
             msg.setText('Error', error)
             msg.exec()
-
-
-
-
-

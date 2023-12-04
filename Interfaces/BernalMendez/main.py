@@ -11,7 +11,6 @@ import conexion
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
 
-
 class Main(QtWidgets.QMainWindow):
     def __init__(self):
         super(Main, self).__init__()
@@ -20,36 +19,27 @@ class Main(QtWidgets.QMainWindow):
         var.calendar = Calendar()
         var.dlgacerca = DlgAcerca()
         var.dlgabrir = FileDialogAbrir()
-        #self.driver = Drivers()
+        self.driver = Drivers()
         conexion.Conexion.conexion()
         conexion.Conexion.cargaprov()
         estado = 1
         conexion.Conexion.selectDrivers(estado)
 
-        '''
-       
-        zona de eventos de botones
-        '''
+        ''' zona de eventos de botones '''
         var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrirCalendar)
         var.ui.btnAltaDriver.clicked.connect(drivers.Drivers.altadriver)
         var.ui.btnBuscadri.clicked.connect(drivers.Drivers.buscaDri)
         var.ui.btnModifDriver.clicked.connect(drivers.Drivers.modifDri)
         var.ui.btnBajaDriver.clicked.connect(drivers.Drivers.borraDriv)
 
-        """
-        
-        zona de eventos del menubar
-        """
+        ''' zona de eventos del menubar '''
         var.ui.actionSalir.triggered.connect(eventos.Eventos.mostrarsalir)
         var.ui.actionAcerca_de.triggered.connect(eventos.Eventos.acercade)
         var.ui.actionCrear_Copia_Seguridad.triggered.connect(eventos.Eventos.crearbackup)
         var.ui.actionRestaurar_Copia_Seguridad.triggered.connect(eventos.Eventos.restaurarbackup)
         var.ui.actionExportar_Datos_Excel.triggered.connect(eventos.Eventos.exportardatosxls)
         var.ui.actionImportar_Datos_XLS.triggered.connect(eventos.Eventos.importardatosxls)
-        '''
-        
-        zona eventos cajas de texto
-        '''
+        ''' zona eventos cajas de texto '''
         var.ui.txtDni.editingFinished.connect(lambda: drivers.Drivers.validarDNI(var.ui.txtDni.text()))
         #var.ui.txtDni.editingFinished.connect(lambda: drivers.Drivers.validarDNI(var.ui.txtDni.displayText()))
 
@@ -58,27 +48,18 @@ class Main(QtWidgets.QMainWindow):
         var.ui.txtSalario.editingFinished.connect(eventos.Eventos.formatCajatexto)
         var.ui.txtMovil.editingFinished.connect(eventos.Eventos.formatCajamovil)
 
-        '''
-         eventos del toolbar
-        '''
+        ''' eventos del toolbar '''
         var.ui.actionbarSalir.triggered.connect(eventos.Eventos.mostrarsalir)
         var.ui.actionlimpiaPaneldriver.triggered.connect(drivers.Drivers.limpiapanel)
         var.ui.actioncrearbackup.triggered.connect(eventos.Eventos.crearbackup)
         var.ui.actionrestaurarbackup.triggered.connect(eventos.Eventos.restaurarbackup)
 
 
-        '''
-        
-        eventos de tablas        
-        '''
+        ''' eventos de tablas '''
         eventos.Eventos.resizeTabdrivers(self)
         var.ui.tabDrivers.clicked.connect(drivers.Drivers.cargadriver)
 
-        '''
-        
-        eventos combobox    
-    
-        '''
+        ''' eventos combobox '''
         var.ui.cmbProv.currentIndexChanged.connect(conexion.Conexion.selMuni)
         var.ui.rtbGroup.buttonClicked.connect(drivers.Drivers.selEstado)
 
@@ -87,7 +68,6 @@ class Main(QtWidgets.QMainWindow):
         # eventos.Eventos.mostrarsalir()
         mbox = QtWidgets.QMessageBox.information(self, 'Salir', '¿Estás seguro de que quieres salir?',
             QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
-
         if mbox == QtWidgets.QMessageBox.StandardButton.Yes:
             event.accept()
         else:

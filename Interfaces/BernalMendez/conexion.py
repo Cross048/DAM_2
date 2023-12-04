@@ -4,7 +4,6 @@ from datetime import date, datetime
 import drivers
 import var
 
-
 class Conexion():
     def conexion(self = None):
         var.bbdd = 'bbdd.sqlite'
@@ -77,7 +76,6 @@ class Conexion():
                 query.bindValue(':movil', str(newdriver[7]))
                 query.bindValue(':salario', str(newdriver[8]))
                 query.bindValue(':carnet', str(newdriver[9]))
-
                 if query.exec():
                     return True
                 else:
@@ -85,6 +83,7 @@ class Conexion():
                 Conexion.mostrardrivers(self=None)
         except Exception as e:
                 print("otro error", e)
+
     @staticmethod
     def mostrardrivers(self):
         try:
@@ -184,7 +183,6 @@ class Conexion():
                     data = var.calendar.selectionChanged.connect(drivers.Drivers.cargaFecha(QtCore.QDate))
                     data = drivers.Drivers.cargaFecha(QtCore.QDate)
                     print(data)
-
                     if registro[11] != '':
                         query1 = QtSql.QSqlQuery()
                         query1.prepare('update drivers set bajadri = :data where '
@@ -212,7 +210,6 @@ class Conexion():
                 query.prepare('update drivers set dnidri = :dni, altadri= :alta, apeldri = :apel, nombredri = :nombre, '
                               ' direcciondri = :direccion, provdri = :provincia, munidri = :municipio, '
                               ' movildri = :movil, salario = :salario, carnet = :carnet where codigo = :codigo')
-
                 query.bindValue(':codigo', int(modifdriver[0]))
                 query.bindValue(':dni', str(modifdriver[1]))
                 query.bindValue(':alta', str(modifdriver[2]))
@@ -311,7 +308,6 @@ class Conexion():
                     drivers.Drivers.cargartabladri(registros)
                 else:
                     var.ui.tabDrivers.setRowCount(0)
-
         except Exception as error:
             msg = QtWidgets.QMessageBox()
             msg.setWindowTitle('Aviso')
@@ -332,6 +328,3 @@ class Conexion():
             return registros
         except Exception as error:
             print('error devolver todos los drivers ', error)
-
-
-

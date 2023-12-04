@@ -3,7 +3,6 @@ from dlgAcerca import *
 from datetime import datetime
 import var, drivers, eventos
 
-
 class DlgAcerca(QtWidgets.QDialog):
     def __init__(self):
         super(DlgAcerca, self).__init__()
