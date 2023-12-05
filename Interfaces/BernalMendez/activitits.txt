@@ -1,6 +1,0 @@
-1. baja driver
-2. control tabla según baja o no
-3. tal vez un tooggle
-4. excel para cuando datos
-7. abrir explorador
-8. abrir ventana impresora10. reloj en status

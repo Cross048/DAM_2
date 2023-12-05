@@ -19,7 +19,7 @@ class Main(QtWidgets.QMainWindow):
         var.calendar = Calendar()
         var.dlgacerca = DlgAcerca()
         var.dlgabrir = FileDialogAbrir()
-        # self.driver = Drivers()
+        self.driver = Drivers()
         conexion.Conexion.conexion()
         conexion.Conexion.cargaprov()
         estado = 1
@@ -42,8 +42,6 @@ class Main(QtWidgets.QMainWindow):
 
         ''' zona eventos cajas de texto '''
         var.ui.txtDni.editingFinished.connect(lambda: drivers.Drivers.validarDNI(var.ui.txtDni.text()))
-        # var.ui.txtDni.editingFinished.connect(lambda: drivers.Drivers.validarDNI(var.ui.txtDni.displayText()))
-
         var.ui.txtNome.editingFinished.connect(eventos.Eventos.formatCajatexto)
         var.ui.txtApel.editingFinished.connect(eventos.Eventos.formatCajatexto)
         var.ui.txtSalario.editingFinished.connect(eventos.Eventos.formatCajatexto)
@@ -64,9 +62,17 @@ class Main(QtWidgets.QMainWindow):
         var.ui.cmbProv.currentIndexChanged.connect(conexion.Conexion.selMuni)
         var.ui.rtbGroup.buttonClicked.connect(drivers.Drivers.selEstado)
 
+        ''' eventos EXAMEN '''
+        conexion.Conexion.selectDrivers2(estado)
+        conexion.Conexion.cargaprov2()
+        # var.ui.txtDni.editingFinished.connect(lambda: drivers.Drivers.validarDNI2(var.ui.txtDni.text()))
+        var.ui.txtRazonSocial.editingFinished.connect(eventos.Eventos.formatCajatexto2)
+        var.ui.txtMovil_2.editingFinished.connect(eventos.Eventos.formatCajamovil2)
+        var.ui.cmbProv_2.currentIndexChanged.connect(conexion.Conexion.selMuni2)
+        eventos.Eventos.resizeTabdrivers2(self)
+        var.ui.tabDrivers_2.clicked.connect(drivers.Drivers.cargadriver2)
+
     def closeEvent(self, event):
-        # event.ignore()
-        # eventos.Eventos.mostrarsalir()
         mbox = QtWidgets.QMessageBox.information(self, "Salir", "¿Estás seguro de que quieres salir?",
                                                  QtWidgets.QMessageBox.StandardButton.Yes |
                                                  QtWidgets.QMessageBox.StandardButton.No)

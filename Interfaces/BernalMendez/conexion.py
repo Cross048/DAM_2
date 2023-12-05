@@ -97,7 +97,7 @@ class Conexion():
                                " carnet, bajadri FROM drivers")
                 if query1.exec():
                     while query1.next():
-                        row = [query1.value(i) for i in range(query1.record().count())]  # función lambda
+                        row = [query1.value(i) for i in range(query1.record().count())]
                         registros.append(row)
             if registros:
                 drivers.Drivers.cargartabladri(registros)
@@ -274,7 +274,7 @@ class Conexion():
                 query.prepare('SELECT codigo, apeldri, nombredri, movildri, carnet, bajadri FROM drivers')
                 if query.exec():
                     while query.next():
-                        row = [query.value(i) for i in range(query.record().count())]   # función lambda
+                        row = [query.value(i) for i in range(query.record().count())]
                         registros.append(row)
                 if registros:
                     drivers.Drivers.cargartabladri(registros)
@@ -285,7 +285,7 @@ class Conexion():
                 query.prepare('SELECT codigo, apeldri, nombredri, movildri, carnet, bajadri FROM drivers WHERE bajadri IS NULL')
                 if query.exec():
                     while query.next():
-                        row = [query.value(i) for i in range(query.record().count())]  # función lambda
+                        row = [query.value(i) for i in range(query.record().count())]
                         registros.append(row)
                 if registros:
                     drivers.Drivers.cargartabladri(registros)
@@ -296,7 +296,7 @@ class Conexion():
                 query.prepare('SELECT codigo, apeldri, nombredri, movildri, carnet, bajadri FROM drivers WHERE bajadri IS NOT NULL')
                 if query.exec():
                     while query.next():
-                        row = [query.value(i) for i in range(query.record().count())]  # función lambda
+                        row = [query.value(i) for i in range(query.record().count())]
                         registros.append(row)
                 if registros:
                     drivers.Drivers.cargartabladri(registros)
@@ -317,8 +317,136 @@ class Conexion():
             query.prepare('SELECT * FROM drivers ORDER BY apeldri')
             if query.exec():
                 while query.next():
-                    row = [query.value(i) for i in range(query.record().count())]  # función lambda
+                    row = [query.value(i) for i in range(query.record().count())]
                     registros.append(row)
             return registros
         except Exception as error:
             print("Error al devolver todos los drivers: ", error)
+
+    # Examen
+
+    def cargaprov2(self = None):
+        try:
+            var.ui.cmbProv_2.clear()
+            query = QtSql.QSqlQuery()
+            query.prepare('SELECT provincia FROM provincias')
+            if query.exec():
+                var.ui.cmbProv_2.addItem('')
+                while query.next():
+                    var.ui.cmbProv_2.addItem(query.value(0))
+        except Exception as error:
+            print("Error en la carga del comboBox de provincias: ", error)
+
+    def selMuni2(self=None):
+        try:
+            id = 0
+            var.ui.cmbMuni_2.clear()
+            prov = var.ui.cmbProv_2.currentText()
+            query = QtSql.QSqlQuery()
+            query.prepare('SELECT idprov FROM provincias WHERE provincia = :prov')
+            query.bindValue(':prov', prov)
+            if query.exec():
+                while query.next():
+                    id = query.value(0)
+            query1 = QtSql.QSqlQuery()
+            query1.prepare('SELECT municipio FROM municipios WHERE idprov = :id')
+            query1.bindValue(':id', int(id))
+            if query1.exec():
+                var.ui.cmbMuni_2.addItem('')
+                while query1.next():
+                    var.ui.cmbMuni_2.addItem(query1.value(0))
+        except Exception as error:
+            print("Error en seleccion de municipios: ", error)
+
+    def selectDrivers2(estado):
+        try:
+            registros = []
+            if int(estado) == 0:
+                query = QtSql.QSqlQuery()
+                query.prepare('SELECT Codigo, RazonSocial, Telefono, Provincia FROM ListadoClientes')
+                if query.exec():
+                    while query.next():
+                        row = [query.value(i) for i in range(query.record().count())]
+                        registros.append(row)
+                if registros:
+                    drivers.Drivers.cargartablaclientes(registros)
+                else:
+                    var.ui.tabDrivers_2.setRowCount(0)
+            elif int(estado) == 1:
+                query = QtSql.QSqlQuery()
+                query.prepare('SELECT Codigo, RazonSocial, Telefono, Provincia FROM ListadoClientes WHERE bajadri IS NULL')
+                if query.exec():
+                    while query.next():
+                        row = [query.value(i) for i in range(query.record().count())]
+                        registros.append(row)
+                if registros:
+                    drivers.Drivers.cargartablaclientes(registros)
+                else:
+                    var.ui.tabDrivers_2.setRowCount(0)
+            elif int(estado) == 2:
+                query = QtSql.QSqlQuery()
+                query.prepare('SELECT Codigo, RazonSocial, Telefono, Provincia FROM ListadoClientes WHERE bajadri IS NOT NULL')
+                if query.exec():
+                    while query.next():
+                        row = [query.value(i) for i in range(query.record().count())]
+                        registros.append(row)
+                if registros:
+                    drivers.Drivers.cargartablaclientes(registros)
+                else:
+                    var.ui.tabDrivers_2.setRowCount(0)
+        except Exception as error:
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowTitle("Aviso")
+            msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            msg.setText("Error en cargar tabla o selección de datos")
+            msg.exec()
+
+    @staticmethod
+    def selectDriverstodos2():
+        try:
+            registros = []
+            query = QtSql.QSqlQuery()
+            query.prepare('SELECT * FROM ListadoClientes ORDER BY Codigo')
+            if query.exec():
+                while query.next():
+                    row = [query.value(i) for i in range(query.record().count())]
+                    registros.append(row)
+            return registros
+        except Exception as error:
+            print("Error al devolver todos los drivers: ", error)
+
+    @staticmethod
+    def mostrardrivers2(self):
+        try:
+            registros = []
+            if var.ui.rbtAlta_2.isChecked():
+                estado = 1
+                Conexion.selectDrivers2(estado)
+            else:
+                query1 = QtSql.QSqlQuery()
+                query1.prepare("SELECT Codigo, RazonSocial, Telefono, Provincia FROM ListadoClientes")
+                if query1.exec():
+                    while query1.next():
+                        row = [query1.value(i) for i in range(query1.record().count())]
+                        registros.append(row)
+            if registros:
+                drivers.Drivers.cargartablaclientes(registros)
+                return registros
+            else:
+                var.ui.tabDrivers_2.setRowCount(0)
+        except Exception as error:
+            print("Error al mostrar resultados: ", error)
+
+    def onedriver2(Codigo):
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare('SELECT * FROM ListadoClientes WHERE Codigo = :Codigo')
+            query.bindValue(':Codigo', int(Codigo))
+            if query.exec():
+                while query.next():
+                    for i in range(9):
+                        registro.append(str(query.value(i)))
+            return registro
+        except Exception as error:
+            print("Error en fichero conexion datos de un driver: ", error)

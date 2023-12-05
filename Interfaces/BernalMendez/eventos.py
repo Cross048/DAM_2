@@ -258,3 +258,46 @@ class Eventos():
             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
             msg.setText("Error al importar datos en hoja de cálculo: ", error)
             msg.exec()
+
+    # Examen
+
+    def formatCajamovil2(self=None):
+        try:
+            var.ui.txtApel.setText(var.ui.txtRazonSocial.text().title())
+            movil = var.ui.txtMovil_2.text()
+            valorm = "1234567890"
+            for n in movil:
+                if n in valorm and len(movil) == 9:
+                    pass
+                else:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle("Aviso")
+                    msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                    msg.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
+                    msg.setText("Escriba un número de teléfono correcto")
+                    msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                    msg.button(QtWidgets.QMessageBox.StandardButton.Ok).setText("Aceptar")
+                    msg.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                    msg.exec()
+                    var.ui.txtMovil_2.setText("")
+                    break
+        except Exception as error:
+            print("Error al poner telefono: ", error)
+
+    def resizeTabdrivers2(self):
+        try:
+            header = var.ui.tabDrivers_2.horizontalHeader()
+            for i in range(5):
+                if i == 0 or i == 4 or i == 3:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+                elif i == 1 or i == 2:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+        except Exception as error:
+            print("Error en el resize en tab drivers: ", error)
+
+    @staticmethod
+    def formatCajatexto2():
+        try:
+            var.ui.txtRazonSocial.setText(var.ui.txtRazonSocial.text().title())
+        except Exception as error:
+            print("Error al poner letra capital en cajas de texto: ", error)

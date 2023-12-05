@@ -47,11 +47,11 @@ class Drivers():
                 if dni[0] in dig_ext:
                     dni = dni.replace(dni[0], reemp_dig_ext[dni[0]])
                 if len(dni) == len([n for n in dni if n in numeros]) and tabla[int(dni) % 23] == dig_control:
-                    var.ui.lblValidardni.setStyleSheet('color:green;')  # si es válido se pone una V en color verde
+                    var.ui.lblValidardni.setStyleSheet('color:green;')
                     var.ui.lblValidardni.setText('V')
                     return True
                 else:
-                    var.ui.lblValidardni.setStyleSheet('color:red;')  # y si no un aspa en color rojo
+                    var.ui.lblValidardni.setStyleSheet('color:red;')
                     var.ui.lblValidardni.setText('X')
                     var.ui.txtDni.setText(None)
                     var.ui.txtDni.setFocus()
@@ -104,7 +104,7 @@ class Drivers():
             var.ui.tabDrivers.clearContents()
             index = 0
             for registro in registros:
-                var.ui.tabDrivers.setRowCount(index + 1)  # crea una fila
+                var.ui.tabDrivers.setRowCount(index + 1)
                 var.ui.tabDrivers.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
                 var.ui.tabDrivers.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[1])))
                 var.ui.tabDrivers.setItem(index, 2, QtWidgets.QTableWidgetItem(str(registro[2])))
@@ -121,8 +121,6 @@ class Drivers():
 
     def cargadriver(self = None):
         try:
-            # var.ui.tabDrivers.clearContents()
-            # Drivers.cargartabladri(conexion.Conexion.mostrardrivers(self))
             fila = var.ui.tabDrivers.selectedItems()
             row = [dato.text() for dato in fila]
             registro = conexion.Conexion.onedriver(row[0])
@@ -179,7 +177,6 @@ class Drivers():
                 var.ui.chkD.setChecked(True)
             else:
                 var.ui.chkD.setChecked(False)
-            # Drivers.cargartabladri(conexion.Conexion.mostrardrivers())
         except Exception as error:
             print("Error al cargar datos en panel gestión: ", error)
 
@@ -227,3 +224,73 @@ class Drivers():
         elif var.ui.rbtBaja.isChecked():
             estado = 2
             conexion.Conexion.selectDrivers(estado)
+
+    # Examen
+
+    @staticmethod
+    def limpiapanel2(self):
+        try:
+            listawidgets = [var.ui.lblcodbd_2, var.ui.txtRazonSocial, var.ui.txtMovil_2,
+                            var.ui.txtDirdriver_2, var.ui.lblValidardni_2]
+            for i in listawidgets:
+                i.setText(None)
+            var.ui.cmbProv_2.setCurrentText('')
+            var.ui.cmbMuni_2.setCurrentText('')
+            if var.ui.rbtAlta_2.isChecked():
+                estado = 1
+                conexion.Conexion.selectDrivers2(estado)
+            else:
+                registros = conexion.Conexion.mostrardrivers2(self)
+                Drivers.cargartablaclientes(registros)
+        except Exception as error:
+            print("Error al limpiar panel driver: ", error)
+
+    def cargardatos2(registro):
+        try:
+            datos = [var.ui.lblcodbd_2, var.ui.txtDni_2, var.ui.txtRazonSocial,
+                     var.ui.txtDirdriver_2, var.ui.cmbProv_2, var.ui.cmbMuni_2, var.ui.txtMovil_2]
+            for i, dato in enumerate(datos):
+                if i == 6 or i == 7:
+                    dato.setCurrentText(str(registro[i]))
+                else:
+                    dato.setText(str(registro[i]))
+        except Exception as error:
+            print("Error al cargar datos en panel gestión: ", error)
+
+    def cargadriver2(self = None):
+        try:
+            fila = var.ui.tabDrivers_2.selectedItems()
+            row = [dato.text() for dato in fila]
+            registro = conexion.Conexion.onedriver2(row[0])
+            Drivers.cargardatos2(registro)
+        except Exception as error:
+            print("Error al cargar los datos de un cliente marcando en la tabla: ", error)
+
+    def cargartablaclientes(registros):
+        try:
+            var.ui.tabDrivers_2.clearContents()
+            index = 0
+            for registro in registros:
+                var.ui.tabDrivers_2.setRowCount(index + 1)
+                var.ui.tabDrivers_2.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
+                var.ui.tabDrivers_2.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[1])))
+                var.ui.tabDrivers_2.setItem(index, 2, QtWidgets.QTableWidgetItem(str(registro[2])))
+                var.ui.tabDrivers_2.setItem(index, 3, QtWidgets.QTableWidgetItem(str(registro[3])))
+                var.ui.tabDrivers_2.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tabDrivers_2.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tabDrivers_2.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tabDrivers_2.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                index += 1
+        except Exception as error:
+            print("Error al cargar datos en la tabla: ", error)
+
+    def selEstado2(self):
+        if var.ui.rbtTodos_2.isChecked():
+            estado = 0
+            conexion.Conexion.selectDrivers2(estado)
+        elif var.ui.rbtAlta_2.isChecked():
+            estado = 1
+            conexion.Conexion.selectDrivers2(estado)
+        elif var.ui.rbtBaja_2.isChecked():
+            estado = 2
+            conexion.Conexion.selectDrivers2(estado)
