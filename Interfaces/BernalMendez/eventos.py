@@ -10,7 +10,6 @@ import shutil
 import conexion
 import xlwt
 import xlrd
-
 # Establecer la configuración regional en español
 locale.setlocale(locale.LC_TIME, 'es_ES')
 locale.setlocale(locale.LC_MONETARY, 'es_ES')
@@ -29,6 +28,7 @@ class Eventos():
             var.dlgacerca.show()
         except Exception as error:
             print("Error al abrir ventana Acerca de: ", error)
+
     @staticmethod
     def cerraracercade():
         try:

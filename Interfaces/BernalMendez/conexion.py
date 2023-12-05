@@ -93,8 +93,7 @@ class Conexion():
                 Conexion.selectDrivers(estado)
             else:
                 query1 = QtSql.QSqlQuery()
-                query1.prepare("SELECT codigo, apeldri, nombredri, movildri, "
-                               " carnet, bajadri FROM drivers")
+                query1.prepare("SELECT codigo, apeldri, nombredri, movildri, carnet, bajadri FROM drivers")
                 if query1.exec():
                     while query1.next():
                         row = [query1.value(i) for i in range(query1.record().count())]
