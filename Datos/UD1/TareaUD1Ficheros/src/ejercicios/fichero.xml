@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<empleados>
+    <empleado>
+        <DNI>12345678A</DNI>
+        <Nombre>Juan</Nombre>
+        <Apellidos>Rodriguez</Apellidos>
+        <Salario>750.0</Salario>
+    </empleado>
+    <empleado>
+        <DNI>11223344B</DNI>
+        <Nombre>Marcos</Nombre>
+        <Apellidos>Dominguez</Apellidos>
+        <Salario>1000.0</Salario>
+    </empleado>
+    <empleado>
+        <DNI>87654321C</DNI>
+        <Nombre>Pablo</Nombre>
+        <Apellidos>Torres</Apellidos>
+        <Salario>1500.0</Salario>
+    </empleado>
+    <empleado>
+        <DNI>12312312D</DNI>
+        <Nombre>Paco</Nombre>
+        <Apellidos>Sanchez</Apellidos>
+        <Salario>2000.0</Salario>
+    </empleado>
+    <empleado>
+        <DNI>20112023Z</DNI>
+        <Nombre>Zaira</Nombre>
+        <Apellidos>Paz Osorio</Apellidos>
+        <Salario>5.0</Salario>
+    </empleado>
+</empleados>

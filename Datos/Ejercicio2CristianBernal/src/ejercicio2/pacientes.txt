@@ -1,1 +1,0 @@
-12345678A,Cristian,Bernal Mendez,Calle Inventada,15-11-2023,true,S

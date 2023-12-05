@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Pacientes>
+    <Paciente>
+        <NIF>12345678A</NIF>
+        <Apellidos>Bernal Mendez</Apellidos>
+        <Nombre>Cristian</Nombre>
+        <FechaUltimaVisita>15-11-2023</FechaUltimaVisita>
+        <Alergia>true</Alergia>
+        <Tipo>S</Tipo>
+    </Paciente>
+</Pacientes>
