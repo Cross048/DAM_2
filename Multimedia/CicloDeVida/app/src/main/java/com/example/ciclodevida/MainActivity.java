@@ -2,7 +2,6 @@ package com.example.ciclodevida;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,20 +15,66 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonActivity2;
     private Button buttonActivity3;
     private Button buttonActivity4;
+    private Button buttonActivity5;
     private String datoAEnviar;
+    private String datoRespuesta;
+    private TextView tvRespuesta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toast.makeText(this, "Ejecutando onCreate", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "App iniciada con éxito", Toast.LENGTH_SHORT).show();
         Log.i("ciclo", "Ejecutando onCreate");
 
         buttonActivity2 = findViewById(R.id.btnLlamarActivity2);
         buttonActivity3 = findViewById(R.id.btnLlamarActivity3);
         buttonActivity4 = findViewById(R.id.btnLlamarActivity4);
+        buttonActivity5 = findViewById(R.id.btnLlamarActivity5);
     }
 
+    public void onClickCambio(View view) {
+        if (view.getId() == R.id.btnLlamarActivity2) {
+            Intent intent = new Intent(this, Activity2.class);
+            startActivity(intent);
+        } else if (view.getId() == R.id.btnLlamarActivity3) {
+            Intent intent = new Intent(this, Activity3.class);
+            datoAEnviar = "Activity 1 envia mensaje a Activity 3";
+            intent.putExtra("mensaje", datoAEnviar);
+            startActivity(intent);
+        } else if (view.getId() == R.id.btnLlamarActivity4) {
+            Intent intent = new Intent(this, Activity4.class);
+            datoAEnviar = "Activity 1 envia bundle a Activity 4";
+            Bundle bundle = new Bundle();
+            bundle.putString("mensaje", datoAEnviar);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        } else if (view.getId() == R.id.btnLlamarActivity5) {
+            Intent intent = new Intent(this, Activity5.class);
+            startActivityForResult(intent, CODIGO_LLAMADA_ACT5);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Vemos qué Activity nos está contestando
+        if (requestCode == CODIGO_LLAMADA_ACT5) {
+            // Testeamos el codigo del resultado
+            if (resultCode == RESULT_OK) {
+                // Operaciones si la actividad llamada finaliza según lo previsto
+                datoRespuesta = data.getStringExtra("Mensaje_retornado");
+                Toast.makeText(this, "Todo ok", Toast.LENGTH_SHORT).show();
+                tvRespuesta = findViewById(R.id.tvRespuesta);
+                tvRespuesta.setText(datoRespuesta);
+            } else {
+                // Algo fue mal :(
+            }
+        }
+    }
+
+    /* Mensajes de estado (comprobaciones)
     @Override
     protected void onStart() {
         super.onStart();
@@ -71,55 +116,5 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Ejecutando onDestroy", Toast.LENGTH_SHORT).show();
         Log.i("ciclo", "Ejecutando onDestroy");
     }
-
-    public void onClickCambio(View view) {
-        if (view.getId() == R.id.btnLlamarActivity2) {
-            Intent intent = new Intent(this, Activity2.class);
-
-            startActivity(intent);
-        } else if (view.getId() == R.id.btnLlamarActivity3) {
-            Intent intent = new Intent(this, Activity3.class);
-
-            datoAEnviar = "Activity 1 envia mensaje a Activity 3";
-            intent.putExtra("mensaje", datoAEnviar);
-
-            startActivity(intent);
-        } else if (view.getId() == R.id.btnLlamarActivity4) {
-            Intent intent = new Intent(this, Activity4.class);
-
-            datoAEnviar = "Activity 1 envia bundle a Activity 4";
-            Bundle bundle = new Bundle();
-            intent.putExtra("mensaje", bundle);
-
-            startActivity(intent);
-        } else if (view.getId() == R.id.btnLlamarActivity5) {
-            Intent intent = new Intent(this, Activity5.class);
-
-            // Llamada esperando respuesta
-            startActivityForResult(intent, CODIGO_LLAMADA_ACT5);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Vemos qué Activity nos está contestando
-        if (requestCode == CODIGO_LLAMADA_ACT5) {
-            // Testeamos el codigo del resultado
-            if (resultCode == RESULT_OK) {
-                // Operaciones si la actividad llamada finaliza según lo previsto
-                Toast.makeText(this, "Todo ok", Toast.LENGTH_SHORT).show();
-                TextView tvRespuesta = findViewById(R.id.tvRespuesta);
-            } else {
-                //
-            }
-        }
-    }
-
-    protected void onClickBtn(View view) {
-        if (view.getId() == R.id.btnAlarma) {
-            Toast.makeText(this, "Alarma", Toast.LENGTH_SHORT).show();
-        }
-    }
+    */
 }
