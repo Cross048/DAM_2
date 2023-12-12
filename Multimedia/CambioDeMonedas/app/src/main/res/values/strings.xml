@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CambioAPesetas</string>
+    <string name="txtCambiarPesetas">Realizar cambio</string>
+    <string name="radBtnPstaEu">Pesetas a Euros</string>
+    <string name="radBtnEuAPst">Euros a pesetas</string>
+    <string name="pregunta">Introduce el valor:</string>
+    <string name="btnAceptar">Cambiar</string>
+    <string name="txtCantidad">Cantidad deseada para cambiar</string>
+</resources>

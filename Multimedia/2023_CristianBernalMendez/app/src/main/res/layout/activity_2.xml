@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/borde">
+
+    <!-- Header -->
+
+    <TextView
+        android:id="@+id/header_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Más info."
+        android:textSize="25sp"
+        android:padding="10dp"
+        android:gravity="left"
+        android:background="@color/borde"
+        android:textColor="@color/white"/>
+
+    <!-- Contenido -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/header_title"
+        android:background="@color/interior"
+        android:gravity="center"
+        android:layout_margin="22dp">
+
+        <TextView
+            android:id="@+id/titulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IMC"
+            android:layout_margin="22dp"
+            android:textSize="30sp"/>
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/radioGroup">
+
+            <RadioButton
+                android:id="@+id/radBtnWikipedia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wikipedia - Indice de masa corporal"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/radBtnOMS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OMS Madrid - 915555555"/>
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btnOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:layout_marginTop="22dp"/>
+
+        <Button
+            android:id="@+id/btnVolver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VOLVER ATRÁS"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

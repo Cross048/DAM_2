@@ -1,0 +1,13 @@
+Terminal en inglés
+  borde y texto del título: #ff6200ee
+  interior: #F4E3EC
+
+Terminal en castellano
+  borde y texto del título: #41F11A
+  interior: #F4E3EC
+
+Grosor del borde o marco: 22
+Tamaño de la letra del título: 25
+
+
+ url:  https://es.wikipedia.org/wiki/Indice_de_masa_corporal
