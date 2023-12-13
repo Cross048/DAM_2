@@ -11,7 +11,7 @@ public class Paciente {
     private String Nombre;
     private String Apellidos;
     private String Direccion;
-    private String FechaUltimaVisita; // Uso String al final porque daba problemas de formato :(
+    private String FechaUltimaVisita;
     private Boolean Alergia;
     private char Tipo;
     private static final boolean SiAlergia = true;
@@ -20,10 +20,7 @@ public class Paciente {
     private static final char SeguridadSocial = 'S';
 
     public Paciente(String NIF, String Nombre, String Apellidos,String Direccion, String FechaUltimaVisita, Boolean Alergia, char Tipo) {
-        if (NIF.length() == 9) {
-            this.NIF = NIF;
-            // No se me ocurre cómo detectar la letra :(
-        }
+        this.NIF = NIF;
         this.Nombre = Nombre;
         this.Apellidos = Apellidos;
         this.Direccion = Direccion;
@@ -98,6 +95,16 @@ public class Paciente {
 
     @Override
     public String toString() {
+        return NIF + " | " +
+        Nombre + " | " +
+        Apellidos + " | "+
+        Direccion + " | " +
+        FechaUltimaVisita + " | " +
+        Alergia + " | " +
+        Tipo;
+    }
+
+    public String toFichero() {
         return NIF + "," + Nombre + "," + Apellidos + "," + Direccion + "," + FechaUltimaVisita + "," + Alergia + "," + Tipo;
     }
 

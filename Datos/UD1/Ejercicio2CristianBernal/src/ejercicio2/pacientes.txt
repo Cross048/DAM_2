@@ -1,0 +1,2 @@
+12345678A,Cristian,Bernal Mendez,C/Inventada,12-04-2023,true,S
+88888888B,Zaira,Paz Osorio,Calle NoLoSe,03-10-2023,false,S
