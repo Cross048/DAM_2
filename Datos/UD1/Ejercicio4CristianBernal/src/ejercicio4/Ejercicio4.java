@@ -1,28 +1,36 @@
-package ejercicio2;
+package ejercicio4;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import static java.lang.Boolean.valueOf;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 /**
  *
  * @author Cristian Bernal Méndez
  */
-public class Ejercicio2 {
+public class Ejercicio4 {
     static Scanner sc = new Scanner(System.in);
-    private static String fichero = "src/ejercicio2/pacientes.txt";
+    private static String fichero = "src/ejercicio4/pacientes.xml";
     private static ArrayList<Paciente> pacientesLista = new ArrayList<>();
 
     /**
-     * EJERCICIO 2
+     * EJERCICIO 4
      * @param args
      */
     public static void main(String[] args) {
@@ -55,7 +63,6 @@ public class Ejercicio2 {
                         break;
                 }
             } while (loop);
-            sc.close();
         } catch (Exception e) {
             System.out.println("Valor introducido invalido.");
         } finally {
@@ -184,71 +191,64 @@ public class Ejercicio2 {
     /* Cargar fichero */
     private static void cargarFichero() {
         try {
-            // Cargar fichero .txt
-            File file = new File(fichero);
+            System.out.println("Cargando fichero...");
+            File archivoXML = new File(fichero);
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            SAXParser saxParser = factory.newSAXParser();
 
-            // Creamos el Reader mediante FileReader y BufferedReader
-            FileReader fr = new FileReader(file);
-            BufferedReader reader = new BufferedReader(fr);
+            PacienteSAXHandler handler = new PacienteSAXHandler();
+            saxParser.parse(archivoXML, handler);
 
-            // Definimos la línea y empezamos a leer el fichero línea por línea
-            String line;
-            while ((line = reader.readLine()) != null) {
-                //  que la separación entre elementos es ","
-                String[] partes = line.split(",");
-                if (partes.length == 7) {
-                    // Declaramos a qué corresponde cada parte
-                    String NIF = partes[0];
-                    String Nombre = partes[1];
-                    String Apellidos = partes[2];
-                    String Direccion = partes[3];
-                    String FechaUltimaVisita = partes[4];
-                    Boolean Alergia = Boolean.valueOf(partes[5]);
-                    char Tipo = partes[6].charAt(0);
-
-                    // Creamos el elemento "paciente" y lo añadimos a la lista
-                    Paciente paciente = new Paciente(NIF, Nombre, Apellidos, Direccion, FechaUltimaVisita, Alergia, Tipo);
-                    pacientesLista.add(paciente);
-                }
-            }
-
-            reader.close();
-            System.out.println("\nCargado desde "+ fichero);
-        } catch (IOException e) {
-            System.out.println("Hubo un problema al cargar el fichero.");
+            pacientesLista.addAll(handler.getListaPacientes());
+            System.out.println("Fichero cargado!");
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
         }
     }
     
     /* Guardar fichero */
     private static void guardarFichero() {
         try {
-            // Creamos el Writer
-            File file = new File(fichero);
-            FileWriter fw = new FileWriter(file);
-            BufferedWriter writer = new BufferedWriter(fw);
-            
-            // Iteramos la lista para recorrerla
-            Iterator<Paciente> iterator = pacientesLista.iterator();
-            while (iterator.hasNext()) {
-                // Cogemos el elemento de la lista que toca y lo pasamos al formato deseado
-                Paciente paciente = iterator.next();
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+            Document doc = docBuilder.newDocument();
 
-                if (validarDNI(paciente.getNIF())) {
-                    String texto = paciente.toFichero();
+            Element rootElement = doc.createElement("Pacientes");
+            doc.appendChild(rootElement);
 
-                    // Lo escribimos con el Writer y creamos la siguiente línea en blanco
-                    writer.write(texto);
-                    writer.newLine();
-                }
+            for (Paciente paciente : pacientesLista) {
+                Element pacienteElement = doc.createElement("Paciente");
+
+                pacienteElement.appendChild(crearElemento(doc, "NIF", paciente.getNIF()));
+                pacienteElement.appendChild(crearElemento(doc, "Nombre", paciente.getNombre()));
+                pacienteElement.appendChild(crearElemento(doc, "Apellidos", paciente.getApellidos()));
+                pacienteElement.appendChild(crearElemento(doc, "Direccion", paciente.getDireccion()));
+                pacienteElement.appendChild(crearElemento(doc, "FechaUltimaVisita", paciente.getFechaUltimaVisita()));
+                pacienteElement.appendChild(crearElemento(doc, "Alergia", paciente.getAlergia().toString()));
+                pacienteElement.appendChild(crearElemento(doc, "Tipo", String.valueOf(paciente.getTipo())));
+
+                rootElement.appendChild(pacienteElement);
             }
 
-            writer.close();
-            System.out.println("\nGuardado en "+ fichero);
-        } catch (IOException e) {
-            e.printStackTrace();
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File(fichero));
+            transformer.transform(source, result);
+
+            System.out.println("Archivo XML creado correctamente!");
+        } catch (Exception e) {
+            System.out.println("Error al guardar cambios: " + e.getMessage());
         }
     }
-    
+
+    private static Element crearElemento(Document doc, String nombreElemento, String valor) {
+        Element elemento = doc.createElement(nombreElemento);
+        elemento.appendChild(doc.createTextNode(valor));
+        return elemento;
+    }
+
     /* Validar DNI */
     public static boolean validarDNI(String dni) {
         if (dni.length() != 9) {
@@ -257,5 +257,5 @@ public class Ejercicio2 {
     
         char letra = dni.charAt(8);
         return Character.isLetter(letra);  // Verifica que el último caracter sea una letra
-    }    
+    }  
 }

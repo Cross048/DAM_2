@@ -1,4 +1,4 @@
-package ejercicio3;
+package ejercicio4;
 
 import java.util.Objects;
 
@@ -18,6 +18,9 @@ public class Paciente {
     private static final boolean NoAlergia = false;
     private static final char Privado = 'P';
     private static final char SeguridadSocial = 'S';
+
+    public Paciente() {
+    }
 
     public Paciente(String NIF, String Nombre, String Apellidos,String Direccion, String FechaUltimaVisita, Boolean Alergia, char Tipo) {
         this.NIF = NIF;

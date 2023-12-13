@@ -1,23 +1,20 @@
 package ejercicio3;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import static java.lang.Boolean.valueOf;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
@@ -25,35 +22,37 @@ import org.w3c.dom.NodeList;
  * @author Cristian Bernal Méndez
  */
 public class Ejercicio3 {
+    static Scanner sc = new Scanner(System.in);
+    private static String fichero = "src/ejercicio3/pacientes.xml";
+    private static ArrayList<Paciente> pacientesLista = new ArrayList<>();
+
     /**
-     * EJERCICIO 2
+     * EJERCICIO 3
      * @param args
      */
     public static void main(String[] args) {
         try {
+            cargarFichero(); // Fichero cargado
+
             boolean loop = true;
-            boolean cargado =false;
             do {
                 System.out.println("\nMENU:");
-                System.out.println("1. Cargar fichero .txt\n2. Consultar paciente\n3. Crear paciente\n4. Borrar paciente\n5. Listar pacientes\n6. Guardar fichero");
+                System.out.println("1. Consultar paciente\n2. Crear paciente\n3. Borrar paciente\n4. Listar pacientes\n5. Guardar y salir");
                 int cargar = sc.nextInt();
                 switch (cargar) {
                     case 1:
-                        cargarFichero();
-                        break;
-                    case 2:
                         consultarPaciente();
                         break;
-                    case 3:
+                    case 2:
                         crearPaciente();
                         break;
-                    case 4:
+                    case 3:
                         borrarPaciente();
                         break;
-                    case 5:
+                    case 4:
                         listarPacientes();
                         break;
-                    case 6:
+                    case 5:
                         guardarFichero();
                         loop = false;
                         break;
@@ -61,269 +60,219 @@ public class Ejercicio3 {
                         break;
                 }
             } while (loop);
-            sc.close();
         } catch (Exception e) {
             System.out.println("Valor introducido invalido.");
+        } finally {
+            if (sc != null) {
+                sc.close();
+            }
         }
     }
 
-    /* Consultar un paciente según su NIF */
+    /* 1. Consultar paciente */
     public static void consultarPaciente() {
-        System.out.println("Introduzca NIF que busca: ");
-        String NIF = sc.nextLine();
-
-        // Comprobamos NIF
-        Iterator<Paciente> iterator = pacientesLista.iterator();
-        while (iterator.hasNext()) {
-            Paciente paciente = iterator.next();
-            if (NIF == paciente.getNIF()) {
-                // Imprimimos los datos del paciente
-                System.out.println(paciente.toString());
-                break;
+        try {
+            System.out.println("\nIntroduzca NIF que busca: ");
+            sc.nextLine();
+            String NIF = sc.nextLine();
+            
+            if (validarDNI(NIF)) {
+                Iterator<Paciente> iterator = pacientesLista.iterator();
+                while (iterator.hasNext()) {
+                    Paciente paciente = iterator.next();
+                    if (NIF.equals(paciente.getNIF())) {
+                        // Imprimimos los datos del paciente
+                        System.out.println("\n" + paciente.toString());
+                        return;
+                    }
+                }  
+            } else {
+                throw new Exception();
             }
+        } catch (Exception e) {
+            System.out.println("Hubo un problema al buscar el NIF: " + e.getMessage());
         }
     }
 
-    /* Crear un paciente */
+    /* 2. Crear paciente */
     public static void crearPaciente() {
-        System.out.println("Introduce NIF (8 numeros + 1 letra):");
-        String NIF = sc.nextLine();
-        System.out.println("Introduce Nombre:");
-        String Nombre = sc.nextLine();
-        System.out.println("Introduce Apellidos:");
-        String Apellidos = sc.nextLine();
-        System.out.println("Introduce Direccion:");
-        String Direccion = sc.nextLine();
-        System.out.println("Introduce fecha de ultima visita:");
-        String FechaUltimaVisita = sc.nextLine();
-        System.out.println("Introduce si tiene alergia (true o false):");
-        String Alergiaa = sc.nextLine().toLowerCase();
-        Boolean Alergia = valueOf(Alergiaa);
-        System.out.println("Introduce tipo de servicio:\nP: Privado\nS. Seguridad Social:");
-        char Tipo = sc.nextLine().toUpperCase().charAt(0);
+        try {
+            System.out.println("\nIntroduce NIF (8 numeros + 1 letra):");
+            sc.nextLine();
+            String NIF = sc.nextLine();
+            if (validarDNI(NIF)) {
+                System.out.println("Introduce Nombre:");
+                String Nombre = sc.nextLine();
+                System.out.println("Introduce Apellidos:");
+                String Apellidos = sc.nextLine();
+                System.out.println("Introduce Direccion:");
+                String Direccion = sc.nextLine();
+                System.out.println("Introduce fecha de ultima visita:");
+                String FechaUltimaVisita = sc.nextLine();
+                System.out.println("Introduce si tiene alergia (true o false):");
+                String Alergiaa = sc.nextLine().toLowerCase();
+                Boolean Alergia = valueOf(Alergiaa);
+                System.out.println("Introduce tipo de servicio:\nP: Privado\nS. Seguridad Social:");
+                char Tipo = sc.nextLine().toUpperCase().charAt(0);
 
-        // Comprobamos NIF
-        boolean comprobarNIF = true;
-        Iterator<Paciente> iterator = pacientesLista.iterator();
-        while (iterator.hasNext()) {
-            Paciente paciente = iterator.next();
-            if (paciente.equals(NIF)) {
-                // Si existe, cambiamos el boolean a false y rompemos el bucle
-                System.out.println("Ya existe un paciente con este NIF.");
-                comprobarNIF = false;
-                break;
+                // Comprobamos si el NIF está usado
+                boolean comprobarNIF = true;
+                Iterator<Paciente> iterator = pacientesLista.iterator();
+                while (iterator.hasNext()) {
+                    Paciente paciente = iterator.next();
+                    if (NIF.equals(paciente.getNIF())) {
+                        // Si existe, cambiamos el boolean a false y rompemos el bucle
+                        System.out.println("Ya existe un paciente con este NIF.");
+                        comprobarNIF = false;
+                        break;
+                    }
+                }
+
+                // Si no existe nadie, crear dicho paciente
+                if (comprobarNIF) {
+                    Paciente paciente = new Paciente(NIF, Nombre, Apellidos, Direccion, FechaUltimaVisita, Alergia, Tipo);
+                    pacientesLista.add(paciente);
+                    System.out.println("Paciente creado!");
+                }
+            } else {
+                throw new Exception();
             }
-        }
-
-        // Si no existe nadie, crear dicho paciente
-        if (comprobarNIF) {
-            Paciente paciente = new Paciente(NIF, Nombre, Apellidos, Direccion, FechaUltimaVisita, Alergia, Tipo);
-            pacientesLista.add(paciente);
+        } catch (Exception e) {
+            System.out.println("Dato inválido.");
         }
     }
 
-    /* Borrar paciente según su NIF */
+    /* 3. Borrar paciente */
     public static void borrarPaciente() {
-        System.out.println("Introduzca NIF que quiere eliminar: ");
-        String NIF = sc.nextLine();
-
-        // Comprobamos NIF
-        Iterator<Paciente> iterator = pacientesLista.iterator();
-        while (iterator.hasNext()) {
-            Paciente paciente = iterator.next();
-            if (paciente.equals(NIF)) {
-                System.out.println(paciente.toString());
-                // Borramos con un borrado lógico cambiando su NIF a "-1"
-                paciente.setNIF("-1");
-                // Confirmamos el cambio
-                System.out.println("Borrado!");
-                break;
+        try {
+            System.out.println("\nIntroduzca NIF que quiere eliminar: ");
+            sc.nextLine();
+            String NIF = sc.nextLine();
+            
+            if (validarDNI(NIF)) {
+                Iterator<Paciente> iterator = pacientesLista.iterator();
+                while (iterator.hasNext()) {
+                    Paciente paciente = iterator.next();
+                    if (NIF.equals(paciente.getNIF())) {
+                        System.out.println(paciente.toString());
+                        // Borramos con un borrado lógico cambiando su NIF a "-1"
+                        paciente.setNIF("-1");
+                        // Confirmamos el cambio
+                        System.out.println("Borrado!");
+                        return;
+                    }
+                }  
+            } else {
+                throw new Exception();
             }
+        } catch (Exception e) {
+            System.out.println("Hubo un problema al buscar el NIF: " + e.getMessage());
         }
     }
     
-    /* Listar pacientes */
+    /* 4. Listar pacientes */
     private static void listarPacientes() {
         // Carga el iterator e inicializa las variables
         Iterator<Paciente> iterator = pacientesLista.iterator();
-        boolean total = false;
-        boolean alergias = false;
-        boolean asegurados = false;
-        char tipoSeguro = 0;
         
-        // Menú para que seleccione el usuario
-        System.out.println("Tipo de listado:");
-        System.out.println("1. Total\n 2. Alergias\n3. Asegurados");
-        int optionA = sc.nextInt();
-        switch (optionA) {
-            case 1: // En caso de que se elija Total
-                total = true;
-                break;
-            case 2: // En caso de que se elija Alergias
-                System.out.println("Tipo de listado:");
-                System.out.println("1. Con alergias\n 2. Sin alergias");
-                int optionB = sc.nextInt();
-                switch (optionB) {
-                    case 1:
-                        alergias = true;
-                        break;
-                    case 2:
-                        break;
-                    default:
-                        System.out.print("Dato invalido.");
-                }
-                break;
-            case 3: // En caso de que se elija Asegurados
-                asegurados = true;
-                System.out.println("Tipo de listado:");
-                System.out.println("1. Privado\n 2. Seguridad Social");
-                int optionC = sc.nextInt();
-                switch (optionC) {
-                    case 1:
-                        tipoSeguro = 'P';
-                        break;
-                    case 2:
-                        tipoSeguro = 'S';
-                        break;
-                    default:
-                        System.out.print("Dato invalido.");
-                }
-                break;
-            default:
-                System.out.print("Dato invalido.");
-        }
-        
-        // Se lista el resultado según las condiciones anteriores
-        System.out.println();
-        System.out.println("------");
+        System.out.println("\n------");
         while (iterator.hasNext()) {
             Paciente paciente = iterator.next();
-            
-            if (total) {
-                System.out.println(paciente.toString());
-            } else if (alergias && paciente.getAlergia()) {
-                System.out.println(paciente.toString());
-            } else if (asegurados && paciente.getTipo() == tipoSeguro) {
+            if (validarDNI(paciente.getNIF())) {
                 System.out.println(paciente.toString());
             }
+            System.out.println("------");
         }
-        System.out.println("------");
     }
 
     /* Cargar fichero */
     private static void cargarFichero() {
         try {
-            // Cargar archivo
-            File file = new File(fichero);
+            System.out.println("Cargando fichero...");
 
-            // Constructor del documento
+            File archivoXML = new File(fichero);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(file);
-
-            // Normalizar el documento para que tenga coherencia
+            Document doc = dBuilder.parse(archivoXML);
             doc.getDocumentElement().normalize();
 
-            // Localiza el elemento del que va a sacar sus atributos
-            NodeList nodeList = doc.getElementsByTagName("Pacientes");
+            NodeList nodeList = doc.getElementsByTagName("Paciente");
 
-            // Recorre cada elemento y extrae sus atributos.
             for (int i = 0; i < nodeList.getLength(); i++) {
-                // Extrae el elemento que toca
-                Element elemento = (Element) nodeList.item(i);
+                Node node = nodeList.item(i);
 
-                // Carga cada atributo del elemento "i"
-                String NIF = elemento.getElementsByTagName("NIF").item(0).getTextContent();
-                String Nombre = elemento.getElementsByTagName("Nombre").item(0).getTextContent();
-                String Apellidos = elemento.getElementsByTagName("Apellidos").item(0).getTextContent();
-                String Direccion = elemento.getElementsByTagName("Direccion").item(0).getTextContent();
-                String FechaUltimaVisita = elemento.getElementsByTagName("FechaUltimaVisita").item(0).getTextContent();
-                boolean Alergia = Boolean.parseBoolean(elemento.getElementsByTagName("Alergia").item(0).getTextContent());
-                char Tipo = elemento.getElementsByTagName("Tipo").item(0).getTextContent();
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) node;
 
-                // Construye la clase
-                Paciente paciente = new paciente(NIF, Nombre, Apellido, Direccion, FechaUltimaVisita, Alergia, Tipo);
-                pacientesLista.add(paciente);
+                    String nif = element.getElementsByTagName("NIF").item(0).getTextContent();
+                    String nombre = element.getElementsByTagName("Nombre").item(0).getTextContent();
+                    String apellidos = element.getElementsByTagName("Apellidos").item(0).getTextContent();
+                    String direccion = element.getElementsByTagName("Direccion").item(0).getTextContent();
+                    String fechaUltimaVisita = element.getElementsByTagName("FechaUltimaVisita").item(0).getTextContent();
+                    boolean alergia = Boolean.parseBoolean(element.getElementsByTagName("Alergia").item(0).getTextContent());
+                    char tipo = element.getElementsByTagName("Tipo").item(0).getTextContent().toUpperCase().charAt(0);
+
+                    Paciente paciente = new Paciente(nif, nombre, apellidos, direccion, fechaUltimaVisita, alergia, tipo);
+                    pacientesLista.add(paciente);
+                }
             }
 
-            System.out.println("\nCargado desde "+ direccionArchivoXML);
+            System.out.println("Fichero cargado!");
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error al cargar fichero: " + e.getMessage());
         }
     }
     
-    /* DOM guardar */
+    /* Guardar fichero */
     private static void guardarFichero() {
         try {
-            // DocumentBuilderFactory
-            DocumentBuilderFactory dBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dBuilderFactory.newDocumentBuilder();
-            Document doc = dBuilder.newDocument();
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+            Document doc = docBuilder.newDocument();
 
-            // Crea el elemento raíz
             Element rootElement = doc.createElement("Pacientes");
-            doc.appendChild(rootElement); // Añade
+            doc.appendChild(rootElement);
 
-            // Va a ir recorriendo la lista y va a ir creando su correspondiente entrada en el XML
             for (Paciente paciente : pacientesLista) {
-                // Crea el primer elemento
                 Element pacienteElement = doc.createElement("Paciente");
+
+                pacienteElement.appendChild(crearElemento(doc, "NIF", paciente.getNIF()));
+                pacienteElement.appendChild(crearElemento(doc, "Nombre", paciente.getNombre()));
+                pacienteElement.appendChild(crearElemento(doc, "Apellidos", paciente.getApellidos()));
+                pacienteElement.appendChild(crearElemento(doc, "Direccion", paciente.getDireccion()));
+                pacienteElement.appendChild(crearElemento(doc, "FechaUltimaVisita", paciente.getFechaUltimaVisita()));
+                pacienteElement.appendChild(crearElemento(doc, "Alergia", paciente.getAlergia().toString()));
+                pacienteElement.appendChild(crearElemento(doc, "Tipo", String.valueOf(paciente.getTipo())));
+
                 rootElement.appendChild(pacienteElement);
-
-                // Crea los atributos
-                Element NIF = doc.createElement("NIF");
-                NIF.appendChild(doc.createTextNode(paciente.getNIF()));
-                pacienteElement.appendChild(NIF);
-                
-                Element Nombre = doc.createElement("Nombre");
-                Nombre.appendChild(doc.createTextNode(paciente.getNombre()));
-                pacienteElement.appendChild(Nombre);
-
-                Element Apellidos = doc.createElement("Apellidos");
-                Apellidos.appendChild(doc.createTextNode(paciente.getApellidos()));
-                pacienteElement.appendChild(Apellidos);
-                
-                Element Direccion = doc.createElement("Direccion");
-                Direccion.appendChild(doc.createTextNode(paciente.getDireccion()));
-                pacienteElement.appendChild(Nombre);
-                
-                Element FechaUltimaVisita = doc.createElement("FechaUltimaVisita");
-                FechaUltimaVisita.appendChild(doc.createTextNode(paciente.getFechaUltimaVisita()));
-                pacienteElement.appendChild(FechaUltimaVisita);
-                
-                Element Alergia = doc.createElement("Alergia");
-                Alergia.appendChild(doc.createTextNode(String.valueOf(paciente.getAlergia())));
-                pacienteElement.appendChild(Alergia);
-                
-                Element Tipo = doc.createElement("Tipo");
-                Tipo.appendChild(doc.createTextNode(String.valueOf(paciente.getTipo())));
-                pacienteElement.appendChild(Tipo);
             }
 
-            // Determina la fuente con DOM y la dirección de resultado
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(new File(fichero));
-
-            // Constructor de Transformer
-            TransformerFactory tFactory = TransformerFactory.newInstance();
-            Transformer transformer = tFactory.newTransformer();
-            transformer.setOutputProperty("indent", "yes"); // Tabula el texto
-            
-            // Aplica la transformación para estar bien tabulado
             transformer.transform(source, result);
 
-            System.out.println("\nGuardado en "+ fichero);
+            System.out.println("Archivo XML creado correctamente!");
         } catch (Exception e) {
-            System.out.println("Hubo un problema al guardar en el fichero.");
+            System.out.println("Error al guardar cambios: " + e.getMessage());
         }
     }
+
+    private static Element crearElemento(Document doc, String nombreElemento, String valor) {
+        Element elemento = doc.createElement(nombreElemento);
+        elemento.appendChild(doc.createTextNode(valor));
+        return elemento;
+    }
+
+    /* Validar DNI */
+    public static boolean validarDNI(String dni) {
+        if (dni.length() != 9) {
+            return false;  // Verifica que tenga 9 caracteres
+        }
     
-    /* Lista que almacena temporalmente el contenido del XML */
-    private static ArrayList<Paciente> pacientesLista = new ArrayList<>();
-
-    /* Dirección del archivo */
-    private static String fichero = "src/ejercicio3/pacientes.xml";
-
-    /* Escáner */
-    static Scanner sc = new Scanner(System.in);
+        char letra = dni.charAt(8);
+        return Character.isLetter(letra);  // Verifica que el último caracter sea una letra
+    }  
 }
