@@ -25,6 +25,7 @@ public class Mayusculas {
         ps.println(line); //envio lo leido por teclado al proceso hijo
         ps.flush(); // IMP: Comprueba envío de datos
         line = br.readLine(); //intento leer los datos que el hijo me deja
+        
         if (!(line.equals("kk"))) {
           System.out.println(line);
         }
