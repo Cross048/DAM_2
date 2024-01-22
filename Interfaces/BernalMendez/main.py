@@ -62,7 +62,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.cmbProv.currentIndexChanged.connect(conexion.Conexion.selMuni)
         var.ui.rtbGroup.buttonClicked.connect(drivers.Drivers.selEstado)
 
-        ''' eventos EXAMEN '''
+        ''' eventos EXAMEN 1'''
         conexion.Conexion.selectDrivers2(estado)
         conexion.Conexion.cargaprov2()
         # var.ui.txtDni.editingFinished.connect(lambda: drivers.Drivers.validarDNI2(var.ui.txtDni.text()))
