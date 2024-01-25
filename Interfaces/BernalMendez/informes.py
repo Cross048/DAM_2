@@ -23,7 +23,7 @@ class Informes:
             var.report.drawString(205, 675, str(items[2]))
             var.report.drawString(335, 675, str(items[3]))
             var.report.drawString(450, 675, str(items[4]))
-            var.report.line(50, 670, 525, 670)
+            var.report.line(50, 670, 525, 670) 
             var.report.line(50, 670, 525, 670)
 
             # Obtención de datos de la base de datos
