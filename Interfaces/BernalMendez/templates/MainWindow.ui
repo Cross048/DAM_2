@@ -2155,8 +2155,15 @@ background-color:rgb(100,100,100);
     <addaction name="actionExportar_Datos_Excel"/>
     <addaction name="actionImportar_Datos_XLS"/>
    </widget>
+   <widget class="QMenu" name="menuFormulario">
+    <property name="title">
+     <string>Informes</string>
+    </property>
+    <addaction name="actionGenerar_informe"/>
+   </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuHerramientas"/>
+   <addaction name="menuFormulario"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar">
@@ -2261,6 +2268,11 @@ background-color:rgb(100,100,100);
   <action name="actionImportar_Datos_XLS">
    <property name="text">
     <string>Importar Datos XLS</string>
+   </property>
+  </action>
+  <action name="actionGenerar_informe">
+   <property name="text">
+    <string>Generar informe</string>
    </property>
   </action>
  </widget>
