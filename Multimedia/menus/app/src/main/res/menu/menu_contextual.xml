@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/opc_item_1_contextual"
+        android:icon="@android:drawable/btn_plus"
+        android:title="Context 1"
+        />
+    <item
+        android:id="@+id/opc_item_2_contextual"
+        android:icon="@android:drawable/arrow_up_float"
+        android:title="Contextual 2"
+        />
+
+</menu>
