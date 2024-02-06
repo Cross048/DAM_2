@@ -45,5 +45,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Seleccionado opción 2", Toast.LENGTH_SHORT).show();
                 return true;
         }
+        return super.onContextItemSelected(item);
     }
 }
