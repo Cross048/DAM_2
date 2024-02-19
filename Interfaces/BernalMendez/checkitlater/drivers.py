@@ -1,6 +1,8 @@
-from datetime import datetime
 import var
-import locale, conexion
+import locale
+
+import var
+
 locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
 from PyQt6.QtGui import QPixmap
 from PyQt6 import QtWidgets,QtCore, QtGui

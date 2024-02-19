@@ -1,15 +1,18 @@
-import os.path
-from datetime import datetime
-from PyQt6 import QtWidgets, QtCore, QtGui
 import locale
+import os.path
+import shutil
 import sys
+import zipfile
+from datetime import datetime
+
+import xlrd
+import xlwt
+from PyQt6 import QtWidgets, QtCore, QtGui
+
+import conexion
 import drivers
 import var
-import zipfile
-import shutil
-import conexion
-import xlwt
-import xlrd
+
 # Establecer la configuración regional en español
 locale.setlocale(locale.LC_TIME, 'es_ES')
 locale.setlocale(locale.LC_MONETARY, 'es_ES')
@@ -284,7 +287,7 @@ class Eventos():
         except Exception as error:
             print("Error al poner telefono: ", error)
 
-    def resizeTabdrivers2(self):
+    def resizeTabclientes(self):
         try:
             header = var.ui.tabDrivers_2.horizontalHeader()
             for i in range(5):

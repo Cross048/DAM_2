@@ -1,10 +1,11 @@
-import os, var, shutil
-from PIL import Image
-from PyQt6 import QtSql, QtWidgets
-from reportlab.pdfgen import canvas
+import os
+import var
 from datetime import datetime
-from svglib.svglib import svg2rlg
-import conexion
+
+from PIL import Image
+from PyQt6 import QtSql
+from reportlab.pdfgen import canvas
+
 
 class Informes:
     def reportclientes(self):

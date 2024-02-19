@@ -1,11 +1,15 @@
-import clientes
-import facturas
-from calendarWindow import *
-from acercaWindow import *
-from salirWindow import *
 from datetime import datetime
 
-import sys, var, eventos, drivers
+import clientes
+import drivers
+import eventos
+import facturas
+import var
+from acercaWindow import *
+from calendarWindow import *
+from salirWindow import *
+
+
 class Calendar(QtWidgets.QDialog):
     def __init__(self):
         bool=None

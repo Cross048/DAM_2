@@ -1,8 +1,12 @@
-from PyQt6 import QtWidgets, QtSql, QtGui, QtCore
-from windowaux import *
-from datetime import date, datetime
+from datetime import datetime
+
+from PyQt6 import QtSql
+
+import clientes
 import drivers
 import var
+from windowaux import *
+
 
 class Conexion():
     def conexion(self = None):
@@ -15,6 +19,8 @@ class Conexion():
         else:
             print("Base datos conectada!")
             return True
+
+    # Conductores
 
     def cargaprov(self = None):
         try:
@@ -322,7 +328,7 @@ class Conexion():
         except Exception as error:
             print("Error al devolver todos los drivers: ", error)
 
-    # Examen
+    # Clientes
 
     def cargaprov2(self = None):
         try:
@@ -357,7 +363,7 @@ class Conexion():
         except Exception as error:
             print("Error en seleccion de municipios: ", error)
 
-    def selectDrivers2(estado):
+    def selectClientes(estado):
         try:
             registros = []
             if int(estado) == 0:
@@ -368,7 +374,7 @@ class Conexion():
                         row = [query.value(i) for i in range(query.record().count())]
                         registros.append(row)
                 if registros:
-                    drivers.Drivers.cargartablaclientes(registros)
+                    clientes.Clientes.cargartablaclientes(registros)
                 else:
                     var.ui.tabDrivers_2.setRowCount(0)
             elif int(estado) == 1:
@@ -379,7 +385,7 @@ class Conexion():
                         row = [query.value(i) for i in range(query.record().count())]
                         registros.append(row)
                 if registros:
-                    drivers.Drivers.cargartablaclientes(registros)
+                    clientes.Clientes.cargartablaclientes(registros)
                 else:
                     var.ui.tabDrivers_2.setRowCount(0)
             elif int(estado) == 2:
@@ -390,7 +396,7 @@ class Conexion():
                         row = [query.value(i) for i in range(query.record().count())]
                         registros.append(row)
                 if registros:
-                    drivers.Drivers.cargartablaclientes(registros)
+                    clientes.Clientes.cargartablaclientes(registros)
                 else:
                     var.ui.tabDrivers_2.setRowCount(0)
         except Exception as error:
@@ -401,7 +407,7 @@ class Conexion():
             msg.exec()
 
     @staticmethod
-    def selectDriverstodos2():
+    def selectClientestodos():
         try:
             registros = []
             query = QtSql.QSqlQuery()
@@ -415,12 +421,12 @@ class Conexion():
             print("Error al devolver todos los drivers: ", error)
 
     @staticmethod
-    def mostrardrivers2(self):
+    def mostrarclientes(self):
         try:
             registros = []
             if var.ui.rbtAlta_2.isChecked():
                 estado = 1
-                Conexion.selectDrivers2(estado)
+                Conexion.selectClientes(estado)
             else:
                 query1 = QtSql.QSqlQuery()
                 query1.prepare("SELECT Codigo, RazonSocial, Telefono, Provincia FROM ListadoClientes")
@@ -429,14 +435,14 @@ class Conexion():
                         row = [query1.value(i) for i in range(query1.record().count())]
                         registros.append(row)
             if registros:
-                drivers.Drivers.cargartablaclientes(registros)
+                clientes.Clientes.cargartablaclientes(registros)
                 return registros
             else:
                 var.ui.tabDrivers_2.setRowCount(0)
         except Exception as error:
             print("Error al mostrar resultados: ", error)
 
-    def onedriver2(Codigo):
+    def onecliente(Codigo):
         try:
             registro = []
             query = QtSql.QSqlQuery()

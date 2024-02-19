@@ -3,11 +3,10 @@ import os.path
 
 import xlrd
 
-import clientes
 import conexion
 
 locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
-import sys,zipfile,shutil
+import zipfile,shutil
 from auxiliar import *
 from datetime import  datetime
 import xlwt

@@ -1,11 +1,12 @@
 
-import conexion
+from PyQt6 import QtWidgets, QtCore, QtGui
+
 import clientes
+import conexion
 import eventos
 import informes
 import var
 
-from PyQt6 import QtWidgets, QtCore, QtGui
 
 class Facturas:
 

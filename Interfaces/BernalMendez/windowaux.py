@@ -1,7 +1,11 @@
+from datetime import datetime
+
+import drivers
+import eventos
+import var
 from CalendarWindow import *
 from dlgAcerca import *
-from datetime import datetime
-import var, drivers, eventos
+
 
 class DlgAcerca(QtWidgets.QDialog):
     def __init__(self):

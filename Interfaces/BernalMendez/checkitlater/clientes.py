@@ -1,10 +1,12 @@
 
-from PyQt6.QtGui import QPixmap
 from PyQt6 import QtWidgets, QtCore, QtGui
-from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QPixmap
+
 import conexion
-import var
 import eventos
+import var
+
+
 class Clientes():
     def limpiarPanel2(self=None):
         try:

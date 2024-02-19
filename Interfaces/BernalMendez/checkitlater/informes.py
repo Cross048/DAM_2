@@ -1,10 +1,12 @@
-import os, var
-from PyQt6 import QtSql, QtWidgets, QtGui
-from PIL import Image
-from reportlab.pdfgen import canvas
+import os
+import var
 from datetime import datetime
-import conexion
 
+from PIL import Image
+from PyQt6 import QtSql, QtWidgets, QtGui
+from reportlab.pdfgen import canvas
+
+import conexion
 import eventos
 
 

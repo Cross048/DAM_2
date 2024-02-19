@@ -1,12 +1,12 @@
-import clientes
 import conexion
-import facturas
-import informes
-from mainWindows import *
-from PyQt6.QtCore import QTimer,QSize
-from auxiliar import *
 import locale
 
+from PyQt6.QtCore import QTimer
+
+import conexion
+import informes
+from auxiliar import *
+from mainWindows import *
 
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')

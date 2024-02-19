@@ -1,12 +1,15 @@
-from drivers import *
-from MainWindow import *
-from windowaux import *
-import var
-import drivers
-import sys
-import eventos
 import locale
+import sys
+
+import clientes
 import conexion
+import drivers
+import eventos
+import var
+from MainWindow import *
+from drivers import *
+from windowaux import *
+
 # Establecer la configuración regional en español
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
@@ -24,6 +27,7 @@ class Main(QtWidgets.QMainWindow):
         conexion.Conexion.cargaprov()
         estado = 1
         conexion.Conexion.selectDrivers(estado)
+        conexion.Conexion.selectClientes(estado)
 
         ''' zona de eventos de botones '''
         var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrirCalendar)
@@ -57,20 +61,16 @@ class Main(QtWidgets.QMainWindow):
         ''' eventos de tablas '''
         eventos.Eventos.resizeTabdrivers(self)
         var.ui.tabDrivers.clicked.connect(drivers.Drivers.cargadriver)
+        eventos.Eventos.resizeTabclientes(self)
+        var.ui.tabDrivers_2.clicked.connect(clientes.Clientes.cargacliente)
 
         ''' eventos combobox '''
         var.ui.cmbProv.currentIndexChanged.connect(conexion.Conexion.selMuni)
         var.ui.rtbGroup.buttonClicked.connect(drivers.Drivers.selEstado)
-
-        ''' eventos EXAMEN 1'''
-        conexion.Conexion.selectDrivers2(estado)
         conexion.Conexion.cargaprov2()
-        # var.ui.txtDni.editingFinished.connect(lambda: drivers.Drivers.validarDNI2(var.ui.txtDni.text()))
         var.ui.txtRazonSocial.editingFinished.connect(eventos.Eventos.formatCajatexto2)
         var.ui.txtMovil_2.editingFinished.connect(eventos.Eventos.formatCajamovil2)
         var.ui.cmbProv_2.currentIndexChanged.connect(conexion.Conexion.selMuni2)
-        eventos.Eventos.resizeTabdrivers2(self)
-        var.ui.tabDrivers_2.clicked.connect(drivers.Drivers.cargadriver2)
 
     def closeEvent(self, event):
         mbox = QtWidgets.QMessageBox.information(self, "Salir", "¿Estás seguro de que quieres salir?",
