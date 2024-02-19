@@ -1,0 +1,44 @@
+<!-- 1. Listar el título de todos los libros. -->
+for $libro in /bib/libro
+return $libro/titulo/text()
+
+<!-- 2. Listar año y título de todos los libros, ordenados por el año -->
+for $libro in /bib/libro
+order by xs:integer($libro/@anyo)
+return concat("Año: ", $libro/@anyo, ", Título: ", $libro/titulo/text())
+
+<!-- 3. Listar los libros cuyo precio sea 65.95 -->
+for $libro in /bib/libro
+where $libro/precio/text() = '65.95'
+return $libro
+
+<!-- 4. Listar los libros publicados antes del año 2000 -->
+for $libro in /bib/libro
+where xs:integer($libro/@anyo) < 2000
+return $libro
+
+<!-- 5. Listar año y título de los libros publicados por Addison-Wesley después del año 1992 -->
+for $libro in /bib/libro
+where $libro/editorial/text() = 'Addison-Wesley' and xs:integer($libro/@anyo) > 1992
+return concat("Año: ", $libro/@anyo, ", Título: ", $libro/titulo/text())
+
+<!-- 6. Listar año y título de los libros que tienen más de un autor -->
+for $libro in /bib/libro
+where count($libro/autor) > 1
+return concat("Año: ", $libro/@anyo, ", Título: ", $libro/titulo/text())
+
+<!-- 7. Listar año y título de los libros que no tienen autor -->
+for $libro in /bib/libro
+where not($libro/autor)
+return concat("Año: ", $libro/@anyo, ", Título: ", $libro/titulo/text())
+
+<!-- 8. Mostrar los apellidos de los autores que aparecen en el documento, sin repeticiones, ordenado alfabéticamente -->
+distinct-values(/bib/libro/autor/apellido/text())
+
+<!-- 9. Por cada libro, listar agrupado en un elemento <result> su título y autores -->
+for $libro in /bib/libro
+return <result>{$libro/titulo/text(), $libro/autor}</result>
+
+<!-- 10. Por cada libro, obtener su título y el número de autores, agrupados en un elemento <libro> -->
+for $libro in /bib/libro
+return <libro>{$libro/titulo/text(), count($libro/autor)}</libro>
