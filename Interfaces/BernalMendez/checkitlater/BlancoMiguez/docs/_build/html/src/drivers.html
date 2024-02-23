@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>drivers module &#8212; documentación de CarTeis - 0.1.0</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=514cf933" />
+    
+    <script src="../_static/documentation_options.js?v=ba61de6b"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=efdbd0b9"></script>
+    
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de CarTeis - 0.1.0</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">drivers module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-drivers">
+<span id="drivers-module"></span><h1>drivers module<a class="headerlink" href="#module-drivers" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="drivers.Drivers">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">drivers.</span></span><span class="sig-name descname"><span class="pre">Drivers</span></span><a class="reference internal" href="../_modules/drivers.html#Drivers"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.altaDriver">
+<span class="sig-name descname"><span class="pre">altaDriver</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.altaDriver"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.altaDriver" title="Link to this definition">¶</a></dt>
+<dd><p>Da de alta a un conductor en la base de datos.</p>
+<p>Obtiene los datos del conductor desde los widgets, los valida y los guarda en la base de datos.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.auxiliar">
+<span class="sig-name descname"><span class="pre">auxiliar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.auxiliar"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.auxiliar" title="Link to this definition">¶</a></dt>
+<dd><p>Carga un registro en los widgets del panel de conductores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>registro</strong> (<em>list</em>) – Lista con los datos del conductor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.borraDri">
+<span class="sig-name descname"><span class="pre">borraDri</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.borraDri"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.borraDri" title="Link to this definition">¶</a></dt>
+<dd><p>Borra un conductor de la base de datos.</p>
+<p>Obtiene la fecha seleccionada en el widget, el DNI del conductor y realiza la eliminación en la base de datos.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.buscaDri">
+<span class="sig-name descname"><span class="pre">buscaDri</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.buscaDri"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.buscaDri" title="Link to this definition">¶</a></dt>
+<dd><p>Busca un conductor por su DNI en la base de datos.</p>
+<p>Obtiene el DNI del widget, busca el conductor en la base de datos y carga los datos en el panel.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.cargaFecha">
+<span class="sig-name descname"><span class="pre">cargaFecha</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.cargaFecha"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.cargaFecha" title="Link to this definition">¶</a></dt>
+<dd><p>Carga la fecha seleccionada en el widget de fecha.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>qDate</strong> (<em>QDate</em>) – Fecha seleccionada.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.cargarDriver">
+<span class="sig-name descname"><span class="pre">cargarDriver</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.cargarDriver"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.cargarDriver" title="Link to this definition">¶</a></dt>
+<dd><p>Carga un conductor seleccionado en el panel de conductores.</p>
+<p>Obtiene los datos del conductor seleccionado en la tabla y los carga en los widgets del panel.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.cargarTabladri">
+<span class="sig-name descname"><span class="pre">cargarTabladri</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.cargarTabladri"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.cargarTabladri" title="Link to this definition">¶</a></dt>
+<dd><p>Carga los registros en la tabla de conductores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>registros</strong> (<em>list</em>) – Lista de registros de conductores.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.colorearFila">
+<span class="sig-name descname"><span class="pre">colorearFila</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.colorearFila"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.colorearFila" title="Link to this definition">¶</a></dt>
+<dd><p>Colorea la fila del conductor seleccionado en la tabla.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>codigo</strong> (<em>str</em>) – Código del conductor seleccionado.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.limpiarPanel">
+<span class="sig-name descname"><span class="pre">limpiarPanel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.limpiarPanel"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.limpiarPanel" title="Link to this definition">¶</a></dt>
+<dd><p>Limpia los widgets del panel de conductores.</p>
+<p>Limpia los textos y checkboxes del panel de conductores.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.modifDri">
+<span class="sig-name descname"><span class="pre">modifDri</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.modifDri"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.modifDri" title="Link to this definition">¶</a></dt>
+<dd><p>Modifica los datos de un conductor en la base de datos.</p>
+<p>Obtiene los datos del panel, los valida y los guarda en la base de datos.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.validarDNI">
+<span class="sig-name descname"><span class="pre">validarDNI</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.validarDNI"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.validarDNI" title="Link to this definition">¶</a></dt>
+<dd><p>Valida el formato de un DNI y muestra un ícono de verificación o error.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dni</strong> (<em>str</em>) – Número de DNI a validar.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>True si el DNI es válido, False en caso contrario.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.validarMovil">
+<span class="sig-name descname"><span class="pre">validarMovil</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.validarMovil"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.validarMovil" title="Link to this definition">¶</a></dt>
+<dd><p>Valida el formato de un número de teléfono.</p>
+<p>Valida que el número de teléfono sea una cadena de 9 números enteros.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.validarSalario">
+<span class="sig-name descname"><span class="pre">validarSalario</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.validarSalario"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.validarSalario" title="Link to this definition">¶</a></dt>
+<dd><p>Valida el formato de un salario.</p>
+<p>Valida que el salario sea un valor numérico y lo formatea como una cadena de moneda.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Tabla de contenido</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">drivers module</a><ul>
+<li><a class="reference internal" href="#drivers.Drivers"><code class="docutils literal notranslate"><span class="pre">Drivers</span></code></a><ul>
+<li><a class="reference internal" href="#drivers.Drivers.altaDriver"><code class="docutils literal notranslate"><span class="pre">Drivers.altaDriver()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.auxiliar"><code class="docutils literal notranslate"><span class="pre">Drivers.auxiliar()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.borraDri"><code class="docutils literal notranslate"><span class="pre">Drivers.borraDri()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.buscaDri"><code class="docutils literal notranslate"><span class="pre">Drivers.buscaDri()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.cargaFecha"><code class="docutils literal notranslate"><span class="pre">Drivers.cargaFecha()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.cargarDriver"><code class="docutils literal notranslate"><span class="pre">Drivers.cargarDriver()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.cargarTabladri"><code class="docutils literal notranslate"><span class="pre">Drivers.cargarTabladri()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.colorearFila"><code class="docutils literal notranslate"><span class="pre">Drivers.colorearFila()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.limpiarPanel"><code class="docutils literal notranslate"><span class="pre">Drivers.limpiarPanel()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.modifDri"><code class="docutils literal notranslate"><span class="pre">Drivers.modifDri()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.validarDNI"><code class="docutils literal notranslate"><span class="pre">Drivers.validarDNI()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.validarMovil"><code class="docutils literal notranslate"><span class="pre">Drivers.validarMovil()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.validarSalario"><code class="docutils literal notranslate"><span class="pre">Drivers.validarSalario()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/src/drivers.rst.txt"
+            rel="nofollow">Mostrar el código</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de CarTeis - 0.1.0</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">drivers module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, a22jesusbm.
+      Creado usando <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+global ui
+global calendar
+global salir
+global acercaDe
+global dlgabrir
+global bbdd
+global Baja
+global Bajacli
+global report
+global Altafact

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>facturas &#8212; documentación de CarTeis - 0.1.0</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=514cf933" />
+    
+    <script src="../_static/documentation_options.js?v=ba61de6b"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=efdbd0b9"></script>
+    
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de CarTeis - 0.1.0</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Código de módulo</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">facturas</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para facturas</h1><div class="highlight"><pre>
+<span></span>
+<span class="kn">import</span> <span class="nn">conexion</span>
+<span class="kn">import</span> <span class="nn">clientes</span>
+<span class="kn">import</span> <span class="nn">eventos</span>
+<span class="kn">import</span> <span class="nn">informes</span>
+<span class="kn">import</span> <span class="nn">var</span>
+
+<span class="kn">from</span> <span class="nn">PyQt6</span> <span class="kn">import</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
+
+<div class="viewcode-block" id="Facturas">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas">[documentos]</a>
+<span class="k">class</span> <span class="nc">Facturas</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Facturas.limpiarPanel3">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.limpiarPanel3">[documentos]</a>
+    <span class="k">def</span> <span class="nf">limpiarPanel3</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Limpia los widgets del panel de facturación.</span>
+
+<span class="sd">        Se encarga de resetear los valores de los widgets relacionados con la facturación.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">listawidgets</span><span class="o">=</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblcodfacturacion</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtcifcli</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtfechafact</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtkm</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblsubtotal</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lbliva</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lbltotalfactura</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">listawidgets</span><span class="p">:</span>
+                <span class="n">i</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbCond</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProbVentas</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProbVentas2</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMuniVentas</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMuniVentas2</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; en limpiarpanel 3&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Facturas.validarKm">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.validarKm">[documentos]</a>
+    <span class="k">def</span> <span class="nf">validarKm</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Valida el campo de kilómetros en la facturación.</span>
+
+<span class="sd">        Verifica que el campo de kilómetros contenga solo dígitos.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">km</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtkm</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="n">numeros</span> <span class="o">=</span> <span class="s2">&quot;1234567890&quot;</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtkm</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">km</span><span class="p">)</span>  <span class="c1"># Corrección aquí</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">km</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">km</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">([</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">km</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">numeros</span><span class="p">]):</span>
+                    <span class="k">raise</span> <span class="ne">Exception</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">,</span> <span class="s2">&quot;Los km deben ser de enteros&quot;</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtkm</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Facturas.buscarClifact">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.buscarClifact">[documentos]</a>
+    <span class="k">def</span> <span class="nf">buscarClifact</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Busca un cliente para asociarlo a una factura.</span>
+
+<span class="sd">        Obtiene el DNI del cliente ingresado y busca su código en la base de datos de clientes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dni</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtcifcli</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="n">registro</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">codCli</span><span class="p">(</span><span class="n">dni</span><span class="p">)</span>
+            <span class="n">clientes</span><span class="o">.</span><span class="n">Clientes</span><span class="o">.</span><span class="n">auxiliar</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span>
+            <span class="n">codigo</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblcodbd2</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtTodos2</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">mostrarClientes</span><span class="p">()</span>
+            <span class="n">clientes</span><span class="o">.</span><span class="n">Clientes</span><span class="o">.</span><span class="n">colorearFila</span><span class="p">(</span><span class="n">codigo</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; en cargarcliente clientes&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Facturas.cargaFechafact">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.cargaFechafact">[documentos]</a>
+    <span class="k">def</span> <span class="nf">cargaFechafact</span><span class="p">(</span><span class="n">qDate</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Carga la fecha seleccionada en el widget de fecha de factura.</span>
+
+<span class="sd">        Convierte la fecha seleccionada en el widget de fecha de factura y la carga en el campo correspondiente.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">data</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:02d}</span><span class="s1">/</span><span class="si">{:02d}</span><span class="s1">/</span><span class="si">{:4d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">qDate</span><span class="o">.</span><span class="n">day</span><span class="p">(),</span><span class="n">qDate</span><span class="o">.</span><span class="n">month</span><span class="p">(),</span><span class="n">qDate</span><span class="o">.</span><span class="n">year</span><span class="p">()))</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtfechafact</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">Altafact</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; en cargarfecha fact driver&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Facturas.altafactura">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.altafactura">[documentos]</a>
+    <span class="k">def</span> <span class="nf">altafactura</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Realiza el alta de una factura.</span>
+
+<span class="sd">        Obtiene los datos ingresados en los widgets y realiza el alta de la factura en la base de datos.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">registro</span><span class="o">=</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtcifcli</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtfechafact</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbCond</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">altafacturacion</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error altafact&quot;</span><span class="p">,</span><span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Facturas.cargarTablaFacturas">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.cargarTablaFacturas">[documentos]</a>
+    <span class="k">def</span> <span class="nf">cargarTablaFacturas</span><span class="p">(</span><span class="n">registros</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Carga la tabla de facturas con los registros obtenidos de la base de datos.</span>
+
+<span class="sd">        Llena la tabla de facturas con los registros obtenidos de la base de datos.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">registro</span> <span class="ow">in</span> <span class="n">registros</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaFacturas</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaFacturas</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaFacturas</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaFacturas</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaFacturas</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                <span class="n">btn</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">()</span>
+                <span class="n">btn</span><span class="o">.</span><span class="n">setFixedSize</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">28</span><span class="p">)</span>
+                <span class="n">btn</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="s1">&#39;./img/8medical-report_102120.ico&#39;</span><span class="p">))</span>
+                <span class="n">btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">informes</span><span class="o">.</span><span class="n">Informes</span><span class="o">.</span><span class="n">reportfactura</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaFacturas</span><span class="o">.</span><span class="n">setCellWidget</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">btn</span><span class="p">)</span>
+                <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error en cargarTablafacturas&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Facturas.cargarFactura">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.cargarFactura">[documentos]</a>
+    <span class="k">def</span> <span class="nf">cargarFactura</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Carga los datos de una factura seleccionada en los widgets correspondientes.</span>
+
+<span class="sd">        Obtiene los datos de la factura seleccionada en la tabla y los carga en los widgets correspondientes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">listawidgets</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblsubtotal</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lbliva</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lbltotalfactura</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">listawidgets</span><span class="p">:</span>
+                <span class="n">i</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+            <span class="n">Facturas</span><span class="o">.</span><span class="n">limpiarPanel3</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaFacturas</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
+            <span class="n">fila</span> <span class="o">=</span> <span class="p">[</span><span class="n">dato</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">for</span> <span class="n">dato</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span>
+            <span class="n">registro</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">oneFactura</span><span class="p">(</span><span class="n">fila</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">Facturas</span><span class="o">.</span><span class="n">auxiliar</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span>
+            <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">cargarfacturas</span><span class="p">()</span>
+            <span class="n">Facturas</span><span class="o">.</span><span class="n">colorearFila</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">viajesFactura</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; en cargarfact&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Facturas.auxiliar">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.auxiliar">[documentos]</a>
+    <span class="k">def</span> <span class="nf">auxiliar</span><span class="p">(</span><span class="n">registro</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Carga los datos de un conductor asociado a una factura en los widgets correspondientes.</span>
+
+<span class="sd">        Obtiene los datos del conductor asociado a la factura y carga dichos datos en los widgets.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">registro2</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">oneDriver</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+            <span class="n">driver</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">registro2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">registro2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+            <span class="n">datos</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblcodfacturacion</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtcifcli</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtfechafact</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbCond</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dato</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">datos</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="n">dato</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">driver</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">dato</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">,</span> <span class="s2">&quot;No existe en la base de datos&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Facturas.colorearFila">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.colorearFila">[documentos]</a>
+    <span class="k">def</span> <span class="nf">colorearFila</span><span class="p">(</span><span class="n">numfactura</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Colorea la fila de la tabla de facturas correspondiente al número de factura.</span>
+
+<span class="sd">        Colorea la fila de la tabla de facturas correspondiente al número de factura proporcionado.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaFacturas</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaFacturas</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">fila</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">numfactura</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">columna</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaFacturas</span><span class="o">.</span><span class="n">columnCount</span><span class="p">()):</span>
+                    <span class="n">item</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaFacturas</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">fila</span><span class="p">,</span> <span class="n">columna</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">item</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">item</span><span class="o">.</span><span class="n">setBackground</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">241</span><span class="p">,</span> <span class="mi">150</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Facturas.comprobarTarifa">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.comprobarTarifa">[documentos]</a>
+    <span class="k">def</span> <span class="nf">comprobarTarifa</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Comprueba la tarifa seleccionada en función de la provincia y localidad de origen y destino.</span>
+
+<span class="sd">        Comprueba la tarifa seleccionada en función de la provincia y localidad de origen y destino,</span>
+<span class="sd">        y marca los botones de radio correspondientes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">provinciaOrigen</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProbVentas</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+            <span class="n">provinciaDestino</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProbVentas2</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+            <span class="n">localidadOrigen</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMuniVentas</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+            <span class="n">localidadDestino</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMuniVentas2</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">provinciaOrigen</span> <span class="o">==</span> <span class="n">provinciaDestino</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtProvincial</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">localidadOrigen</span> <span class="o">==</span> <span class="n">localidadDestino</span><span class="p">:</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtLocal</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtNacional</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Facturas.cargaTablaViajes">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.cargaTablaViajes">[documentos]</a>
+    <span class="k">def</span> <span class="nf">cargaTablaViajes</span><span class="p">(</span><span class="n">valores</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Carga la tabla de viajes con los registros obtenidos de la base de datos.</span>
+
+<span class="sd">        Llena la tabla de viajes con los registros obtenidos de la base de datos,</span>
+<span class="sd">        calculando el subtotal, el IVA y el total de la factura.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabViajes</span><span class="o">.</span><span class="n">clearContents</span><span class="p">()</span>
+            <span class="n">subtotal</span><span class="o">=</span><span class="mf">0.0</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">registro</span> <span class="ow">in</span> <span class="n">valores</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabViajes</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabViajes</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabViajes</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabViajes</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">2</span><span class="p">])))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabViajes</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">3</span><span class="p">])))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabViajes</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">4</span><span class="p">])))</span>
+
+                <span class="n">totalViaje</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="mi">2</span><span class="p">)</span>
+                <span class="n">subtotal</span> <span class="o">=</span> <span class="n">subtotal</span> <span class="o">+</span> <span class="n">totalViaje</span>
+                <span class="n">iva</span><span class="o">=</span><span class="n">subtotal</span><span class="o">*</span><span class="mf">0.21</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblsubtotal</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">subtotal</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span> <span class="o">+</span> <span class="s2">&quot; €&quot;</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lbliva</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">iva</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span> <span class="o">+</span> <span class="s2">&quot; €&quot;</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lbltotalfactura</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">subtotal</span> <span class="o">+</span> <span class="n">iva</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span> <span class="o">+</span> <span class="s2">&quot; €&quot;</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabViajes</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">totalViaje</span><span class="p">))))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabViajes</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabViajes</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabViajes</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabViajes</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabViajes</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabViajes</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                <span class="n">btn_borrar</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">()</span>
+                <span class="n">btn_borrar</span><span class="o">.</span><span class="n">setFixedSize</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">28</span><span class="p">)</span>
+                <span class="n">btn_borrar</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="s1">&#39;./img/basura.png&#39;</span><span class="p">))</span>
+                <span class="n">btn_borrar</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Facturas</span><span class="o">.</span><span class="n">borrarViaje</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabViajes</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeMode</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabViajes</span><span class="o">.</span><span class="n">setColumnWidth</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabViajes</span><span class="o">.</span><span class="n">setCellWidget</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">btn_borrar</span><span class="p">)</span>
+                <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; en cargatablviajes facturas&quot;</span><span class="p">)</span></div>
+
+
+
+
+<div class="viewcode-block" id="Facturas.guardarViaje">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.guardarViaje">[documentos]</a>
+    <span class="k">def</span> <span class="nf">guardarViaje</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Guarda un nuevo viaje en la base de datos y actualiza la tabla de viajes y los totales de la factura.</span>
+
+<span class="sd">        Guarda un nuevo viaje en la base de datos y actualiza la tabla de viajes y los totales de la factura.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblcodfacturacion</span><span class="o">.</span><span class="n">text</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtkm</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">str</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMuniVentas</span><span class="o">.</span><span class="n">currentText</span><span class="p">())</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="nb">str</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMuniVentas2</span><span class="o">.</span><span class="n">currentText</span><span class="p">())</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                    <span class="n">tarifa</span> <span class="o">=</span> <span class="s1">&#39;0.80&#39;</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtLocal</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()):</span>
+                        <span class="n">tarifa</span> <span class="o">=</span> <span class="s1">&#39;0.20&#39;</span>
+                    <span class="k">elif</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtProvincial</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()):</span>
+                        <span class="n">tarifa</span> <span class="o">=</span> <span class="s1">&#39;0.40&#39;</span>
+
+                    <span class="n">viaje</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblcodfacturacion</span><span class="o">.</span><span class="n">text</span><span class="p">()),</span> <span class="nb">str</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProbVentas</span><span class="o">.</span><span class="n">currentText</span><span class="p">()),</span>
+                             <span class="nb">str</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMuniVentas</span><span class="o">.</span><span class="n">currentText</span><span class="p">()),</span> <span class="nb">str</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProbVentas2</span><span class="o">.</span><span class="n">currentText</span><span class="p">()),</span>
+                             <span class="nb">str</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMuniVentas2</span><span class="o">.</span><span class="n">currentText</span><span class="p">()),</span> <span class="n">tarifa</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtkm</span><span class="o">.</span><span class="n">text</span><span class="p">())]</span>
+                    <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">guardarViaje</span><span class="p">(</span><span class="n">viaje</span><span class="p">)</span>
+                    <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">viajesFactura</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblcodfacturacion</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">,</span><span class="s2">&quot;Faltan campos obligatorios&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">,</span><span class="s2">&quot;Selecciona primero una factura&quot;</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Facturas.cargarViaje">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.cargarViaje">[documentos]</a>
+    <span class="k">def</span> <span class="nf">cargarViaje</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Carga los datos de un viaje seleccionado en los widgets correspondientes.</span>
+
+<span class="sd">        Obtiene los datos del viaje seleccionado en la tabla y los carga en los widgets correspondientes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabViajes</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
+            <span class="n">fila</span> <span class="o">=</span> <span class="p">[</span><span class="n">dato</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">for</span> <span class="n">dato</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span>
+            <span class="n">registro</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">oneViajes</span><span class="p">(</span><span class="n">fila</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+            <span class="n">provinciaOrigen</span><span class="p">,</span> <span class="n">localidadOrigen</span> <span class="o">=</span> <span class="n">registro</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; - &quot;</span><span class="p">)</span>
+            <span class="n">provinciaDestino</span><span class="p">,</span> <span class="n">localidadDestino</span> <span class="o">=</span> <span class="n">registro</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; - &quot;</span><span class="p">)</span>
+
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProbVentas</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="n">provinciaOrigen</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMuniVentas</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="n">localidadOrigen</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProbVentas2</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="n">provinciaDestino</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMuniVentas2</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="n">localidadDestino</span><span class="p">)</span>
+
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtkm</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; en cargarviaje&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Facturas.borrarViaje">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.borrarViaje">[documentos]</a>
+    <span class="k">def</span> <span class="nf">borrarViaje</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Borra un viaje seleccionado y actualiza la tabla de viajes y los totales de la factura.</span>
+
+<span class="sd">        Borra un viaje seleccionado y actualiza la tabla de viajes y los totales de la factura.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabViajes</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
+            <span class="n">fila</span> <span class="o">=</span> <span class="p">[</span><span class="n">dato</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">for</span> <span class="n">dato</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span>
+            <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">borrarViaje</span><span class="p">(</span><span class="n">fila</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">viajesFactura</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblcodfacturacion</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Facturas.modifViaje">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.modifViaje">[documentos]</a>
+    <span class="k">def</span> <span class="nf">modifViaje</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Modifica la información de un viaje existente.</span>
+
+<span class="sd">        Obtiene los datos del viaje desde los campos de la interfaz y actualiza la información en la base de datos.</span>
+
+<span class="sd">        :raises Exception: Captura cualquier excepción que ocurra durante la ejecución del método.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblcodfacturacion</span><span class="o">.</span><span class="n">text</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtkm</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">str</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMuniVentas</span><span class="o">.</span><span class="n">currentText</span><span class="p">())</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="nb">str</span><span class="p">(</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMuniVentas2</span><span class="o">.</span><span class="n">currentText</span><span class="p">())</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                    <span class="n">tarifa</span> <span class="o">=</span> <span class="s1">&#39;0.80&#39;</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtLocal</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()):</span>
+                        <span class="n">tarifa</span> <span class="o">=</span> <span class="s1">&#39;0.20&#39;</span>
+                    <span class="k">elif</span> <span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtProvincial</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()):</span>
+                        <span class="n">tarifa</span> <span class="o">=</span> <span class="s1">&#39;0.40&#39;</span>
+                    <span class="n">row</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabViajes</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
+                    <span class="n">fila</span> <span class="o">=</span> <span class="p">[</span><span class="n">dato</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">for</span> <span class="n">dato</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">fila</span><span class="p">:</span>
+                        <span class="n">id_viaje</span> <span class="o">=</span> <span class="n">fila</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">km</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtkm</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+
+                    <span class="n">provincia_origen</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProbVentas</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+                    <span class="n">localidad_origen</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMuniVentas</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+                    <span class="n">provincia_destino</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProbVentas2</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+                    <span class="n">localidad_destino</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMuniVentas2</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+
+                    <span class="n">nuevo_origen</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">provincia_origen</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">localidad_origen</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="n">nuevo_destino</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">provincia_destino</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">localidad_destino</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="k">if</span> <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">updateViaje</span><span class="p">(</span><span class="n">id_viaje</span><span class="p">,</span> <span class="n">nuevo_origen</span><span class="p">,</span> <span class="n">nuevo_destino</span><span class="p">,</span> <span class="n">tarifa</span> <span class="p">,</span> <span class="n">km</span><span class="p">):</span>
+                        <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">viajesFactura</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblcodfacturacion</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+                        <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">mensaje</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">,</span> <span class="s2">&quot;Viaje actualizado correctamente&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="s2">&quot;No se pudo actualizar el viaje&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">,</span><span class="s2">&quot;Faltan campos obligatorios&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">,</span><span class="s2">&quot;Selecciona primero una factura&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="s2">&quot; en modifViaje&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Facturas.limpiarViajes">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.limpiarViajes">[documentos]</a>
+    <span class="k">def</span> <span class="nf">limpiarViajes</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Limpia los widgets del panel de facturación.</span>
+
+<span class="sd">        Se encarga de resetear los valores de los widgets relacionados con la facturación.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">listawidgets</span><span class="o">=</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtkm</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">listawidgets</span><span class="p">:</span>
+                <span class="n">i</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProbVentas</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProbVentas2</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMuniVentas</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMuniVentas2</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; en limpiarpanel 3&quot;</span><span class="p">)</span></div>
+</div>
+
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de CarTeis - 0.1.0</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Código de módulo</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">facturas</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, a22jesusbm.
+      Creado usando <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

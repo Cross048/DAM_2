@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>conexion module &#8212; documentación de CarTeis - 0.1.0</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=514cf933" />
+    
+    <script src="../_static/documentation_options.js?v=ba61de6b"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=efdbd0b9"></script>
+    
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de CarTeis - 0.1.0</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">conexion module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-conexion">
+<span id="conexion-module"></span><h1>conexion module<a class="headerlink" href="#module-conexion" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="conexion.Conexion">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">conexion.</span></span><span class="sig-name descname"><span class="pre">Conexion</span></span><a class="reference internal" href="../_modules/conexion.html#Conexion"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.altafacturacion">
+<span class="sig-name descname"><span class="pre">altafacturacion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.altafacturacion"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.altafacturacion" title="Link to this definition">¶</a></dt>
+<dd><p>Realiza el alta de una factura en la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>registro</strong> – Lista con los datos de la factura a dar de alta.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.borrarCli">
+<span class="sig-name descname"><span class="pre">borrarCli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fecha</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.borrarCli"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.borrarCli" title="Link to this definition">¶</a></dt>
+<dd><p>Da de baja a un cliente en la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dni</strong> – DNI del cliente.</p></li>
+<li><p><strong>fecha</strong> – Fecha de baja.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.borrarDri">
+<span class="sig-name descname"><span class="pre">borrarDri</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fecha</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.borrarDri"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.borrarDri" title="Link to this definition">¶</a></dt>
+<dd><p>Da de baja a un conductor en la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dni</strong> – DNI del conductor.</p></li>
+<li><p><strong>fecha</strong> – Fecha de la baja del conductor.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.borrarViaje">
+<span class="sig-name descname"><span class="pre">borrarViaje</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.borrarViaje"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.borrarViaje" title="Link to this definition">¶</a></dt>
+<dd><p>Borra un viaje de la base de datos según el ID proporcionado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> – ID único del viaje.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.cargarLineaViaje">
+<span class="sig-name descname"><span class="pre">cargarLineaViaje</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.cargarLineaViaje"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.cargarLineaViaje" title="Link to this definition">¶</a></dt>
+<dd><p>Carga un nuevo viaje en la base de datos a partir de un registro proporcionado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>registro</strong> – Información del viaje a ser cargado.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.cargarconductor">
+<span class="sig-name descname"><span class="pre">cargarconductor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.cargarconductor"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.cargarconductor" title="Link to this definition">¶</a></dt>
+<dd><p>Carga los conductores disponibles en el combo box cmbCond.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> – Parámetro opcional, puede ser nulo.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.cargarfacturas">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargarfacturas</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.cargarfacturas"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.cargarfacturas" title="Link to this definition">¶</a></dt>
+<dd><p>Carga los números de factura y DNIs de clientes desde la tabla facturas.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.cargarfacturasClientes">
+<span class="sig-name descname"><span class="pre">cargarfacturasClientes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.cargarfacturasClientes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.cargarfacturasClientes" title="Link to this definition">¶</a></dt>
+<dd><p>Carga los números de factura y DNIs de clientes desde la tabla facturas para un DNI específico.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.cargarprov">
+<span class="sig-name descname"><span class="pre">cargarprov</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.cargarprov"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.cargarprov" title="Link to this definition">¶</a></dt>
+<dd><p>Carga las provincias en el combo box correspondiente.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> – Parámetro opcional, puede ser nulo.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.cargarprov2">
+<span class="sig-name descname"><span class="pre">cargarprov2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.cargarprov2"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.cargarprov2" title="Link to this definition">¶</a></dt>
+<dd><p>Carga las provincias en el combo box cmbProv2 que es la de clientes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> – Parámetro opcional, puede ser nulo.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.cargarprov3">
+<span class="sig-name descname"><span class="pre">cargarprov3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.cargarprov3"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.cargarprov3" title="Link to this definition">¶</a></dt>
+<dd><p>Carga las provincias en el combo box cmbProbVentas que es el de origen.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> – Parámetro opcional, puede ser nulo.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.cargarprov4">
+<span class="sig-name descname"><span class="pre">cargarprov4</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.cargarprov4"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.cargarprov4" title="Link to this definition">¶</a></dt>
+<dd><p>Carga las provincias en el combo box cmbProbVentas2 que es el de destino.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> – Parámetro opcional, puede ser nulo.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.codCli">
+<span class="sig-name descname"><span class="pre">codCli</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.codCli"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.codCli" title="Link to this definition">¶</a></dt>
+<dd><p>Recupera los detalles de un cliente según el DNI proporcionado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dni</strong> – DNI del cliente.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Lista con los detalles del cliente.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.codDri">
+<span class="sig-name descname"><span class="pre">codDri</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.codDri"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.codDri" title="Link to this definition">¶</a></dt>
+<dd><p>Recupera los detalles de un conductor según el DNI proporcionado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dni</strong> – DNI del conductor.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Lista con los detalles del conductor.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.conexion">
+<span class="sig-name descname"><span class="pre">conexion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.conexion"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.conexion" title="Link to this definition">¶</a></dt>
+<dd><p>Establece la conexión a la base de datos SQLite.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> – Parámetro opcional, puede ser nulo.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>True si la conexión es exitosa, False en caso contrario.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.datosViaje">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">datosViaje</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.datosViaje"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.datosViaje" title="Link to this definition">¶</a></dt>
+<dd><p>Recupera detalles de viaje basados en parámetros seleccionados y tasas de tarifas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Lista que contiene datos de viaje, incluyendo origen, destino y tarifa aplicable.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.guardarViaje">
+<span class="sig-name descname"><span class="pre">guardarViaje</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.guardarViaje"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.guardarViaje" title="Link to this definition">¶</a></dt>
+<dd><p>Guarda un nuevo viaje en la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>viaje</strong> – Información del viaje a ser guardado.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.guardarcli">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">guardarcli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newCliente</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.guardarcli"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.guardarcli" title="Link to this definition">¶</a></dt>
+<dd><p>Guarda un nuevo cliente en la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newCliente</strong> – Lista con los datos del nuevo cliente.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>True si se guarda correctamente, False si hay algún error.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.guardardri">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">guardardri</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newDriver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.guardardri"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.guardardri" title="Link to this definition">¶</a></dt>
+<dd><p>Guarda un nuevo conductor en la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newDriver</strong> – Lista con los detalles del nuevo conductor.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>True si la inserción es exitosa, False en caso contrario.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.modifCliente">
+<span class="sig-name descname"><span class="pre">modifCliente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.modifCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.modifCliente" title="Link to this definition">¶</a></dt>
+<dd><p>Modifica un cliente en la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>modifCliente</strong> – Lista con los nuevos datos del cliente.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.modifDriver">
+<span class="sig-name descname"><span class="pre">modifDriver</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.modifDriver"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.modifDriver" title="Link to this definition">¶</a></dt>
+<dd><p>Modifica los detalles de un conductor en la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>modifDriver</strong> – Lista con los nuevos detalles del conductor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.mostrarClientes">
+<span class="sig-name descname"><span class="pre">mostrarClientes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.mostrarClientes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.mostrarClientes" title="Link to this definition">¶</a></dt>
+<dd><p>Muestra los clientes en la tabla según la opción seleccionada (todos, alta, baja).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> – Parámetro opcional, puede ser nulo.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.mostrardriver">
+<span class="sig-name descname"><span class="pre">mostrardriver</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.mostrardriver"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.mostrardriver" title="Link to this definition">¶</a></dt>
+<dd><p>Muestra los conductores en la tabla según la opción seleccionada (todos, alta, baja).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> – Parámetro opcional, puede ser nulo.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Lista de listas con los detalles de los conductores.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.oneCliente">
+<span class="sig-name descname"><span class="pre">oneCliente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.oneCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.oneCliente" title="Link to this definition">¶</a></dt>
+<dd><p>Recupera los detalles de un cliente según el código proporcionado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>codigo</strong> – Código único del cliente.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Lista con los detalles del cliente.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.oneDriver">
+<span class="sig-name descname"><span class="pre">oneDriver</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.oneDriver"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.oneDriver" title="Link to this definition">¶</a></dt>
+<dd><p>Recupera los detalles de un conductor según el código proporcionado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>codigo</strong> – Código único del conductor.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Lista con los detalles del conductor.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.oneFactura">
+<span class="sig-name descname"><span class="pre">oneFactura</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.oneFactura"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.oneFactura" title="Link to this definition">¶</a></dt>
+<dd><p>Recupera los detalles de una factura según el código proporcionado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>codigo</strong> – Número de factura.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Lista con los detalles de la factura.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.oneViajes">
+<span class="sig-name descname"><span class="pre">oneViajes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.oneViajes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.oneViajes" title="Link to this definition">¶</a></dt>
+<dd><p>Recupera un registro de un viaje según el código proporcionado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>codigo</strong> – Código único del viaje.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Lista con los detalles del viaje.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.selMuni">
+<span class="sig-name descname"><span class="pre">selMuni</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.selMuni"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.selMuni" title="Link to this definition">¶</a></dt>
+<dd><p>Selecciona y carga los municipios en el combo box correspondiente según la provincia seleccionada.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> – Parámetro opcional, puede ser nulo.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.selMuni2">
+<span class="sig-name descname"><span class="pre">selMuni2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.selMuni2"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.selMuni2" title="Link to this definition">¶</a></dt>
+<dd><p>Selecciona y carga los municipios en el combo box cmbMuni2 según la provincia seleccionada en clientes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> – Parámetro opcional, puede ser nulo.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.selMuni3">
+<span class="sig-name descname"><span class="pre">selMuni3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.selMuni3"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.selMuni3" title="Link to this definition">¶</a></dt>
+<dd><p>Selecciona los municipios según la provincia elegida en cmbProbVentas que es el origen y los carga en cmbMuniVentas que tambien es del origen.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> – Parámetro opcional, puede ser nulo.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.selMuni4">
+<span class="sig-name descname"><span class="pre">selMuni4</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.selMuni4"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.selMuni4" title="Link to this definition">¶</a></dt>
+<dd><p>Selecciona los municipios según la provincia elegida en cmbProbVentas2 que es el destino y los carga en cmbMuniVentas2 que tambien es del destino.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> – Parámetro opcional, puede ser nulo.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.selectClientesstodos">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">selectClientesstodos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.selectClientesstodos"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.selectClientesstodos" title="Link to this definition">¶</a></dt>
+<dd><p>Selecciona todos los clientes y devuelve una lista con sus detalles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Lista de listas con los detalles de todos los clientes.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.selectDriverstodos">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">selectDriverstodos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.selectDriverstodos"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.selectDriverstodos" title="Link to this definition">¶</a></dt>
+<dd><p>Selecciona todos los conductores y devuelve una lista con sus detalles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Lista de listas con los detalles de todos los conductores.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.updateViaje">
+<span class="sig-name descname"><span class="pre">updateViaje</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nuevo_origen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nuevo_destino</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tarifa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">km</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.updateViaje"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.updateViaje" title="Link to this definition">¶</a></dt>
+<dd><p>Actualiza un viaje en la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>viaje_id</strong> – ID del viaje a ser actualizado.</p></li>
+<li><p><strong>nuevo_origen</strong> – Nueva ubicación de origen del viaje.</p></li>
+<li><p><strong>nuevo_destino</strong> – Nueva ubicación de destino del viaje.</p></li>
+<li><p><strong>tarifa</strong> – Nueva tarifa del viaje.</p></li>
+<li><p><strong>km</strong> – Nuevos kilómetros del viaje.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>True si la actualización fue exitosa, False en caso contrario.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.verificarCli">
+<span class="sig-name descname"><span class="pre">verificarCli</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.verificarCli"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.verificarCli" title="Link to this definition">¶</a></dt>
+<dd><p>Verifica si un cliente con el DNI proporcionado ya existe en la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dni</strong> – DNI del cliente a verificar.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>True si el cliente ya existe, False si no.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.verificarClibaja">
+<span class="sig-name descname"><span class="pre">verificarClibaja</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.verificarClibaja"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.verificarClibaja" title="Link to this definition">¶</a></dt>
+<dd><p>Verifica si un cliente con el DNI proporcionado existe y no está dado de baja.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dni</strong> – DNI del cliente a verificar.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>True si el cliente existe y no está dado de baja, False en caso contrario.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.verificarDri">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">verificarDri</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dni</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.verificarDri"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.verificarDri" title="Link to this definition">¶</a></dt>
+<dd><p>Verifica si un conductor con el DNI proporcionado ya existe en la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dni</strong> – DNI del conductor a verificar.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>True si el conductor ya existe, False si no.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.viajesFactura">
+<span class="sig-name descname"><span class="pre">viajesFactura</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.viajesFactura"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.viajesFactura" title="Link to this definition">¶</a></dt>
+<dd><p>Recupera los detalles de los viajes asociados a una factura específica.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dato</strong> – Número de factura.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.volverDarAlta">
+<span class="sig-name descname"><span class="pre">volverDarAlta</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.volverDarAlta"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.volverDarAlta" title="Link to this definition">¶</a></dt>
+<dd><p>Pregunta al usuario si desea dar de alta a un conductor que está dado de baja.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dni</strong> – DNI del conductor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.volverDarAlta2">
+<span class="sig-name descname"><span class="pre">volverDarAlta2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.volverDarAlta2"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.volverDarAlta2" title="Link to this definition">¶</a></dt>
+<dd><p>Pregunta al usuario si desea dar de alta a un cliente que está dado de baja.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dni</strong> – DNI del cliente.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Tabla de contenido</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">conexion module</a><ul>
+<li><a class="reference internal" href="#conexion.Conexion"><code class="docutils literal notranslate"><span class="pre">Conexion</span></code></a><ul>
+<li><a class="reference internal" href="#conexion.Conexion.altafacturacion"><code class="docutils literal notranslate"><span class="pre">Conexion.altafacturacion()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.borrarCli"><code class="docutils literal notranslate"><span class="pre">Conexion.borrarCli()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.borrarDri"><code class="docutils literal notranslate"><span class="pre">Conexion.borrarDri()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.borrarViaje"><code class="docutils literal notranslate"><span class="pre">Conexion.borrarViaje()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.cargarLineaViaje"><code class="docutils literal notranslate"><span class="pre">Conexion.cargarLineaViaje()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.cargarconductor"><code class="docutils literal notranslate"><span class="pre">Conexion.cargarconductor()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.cargarfacturas"><code class="docutils literal notranslate"><span class="pre">Conexion.cargarfacturas()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.cargarfacturasClientes"><code class="docutils literal notranslate"><span class="pre">Conexion.cargarfacturasClientes()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.cargarprov"><code class="docutils literal notranslate"><span class="pre">Conexion.cargarprov()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.cargarprov2"><code class="docutils literal notranslate"><span class="pre">Conexion.cargarprov2()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.cargarprov3"><code class="docutils literal notranslate"><span class="pre">Conexion.cargarprov3()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.cargarprov4"><code class="docutils literal notranslate"><span class="pre">Conexion.cargarprov4()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.codCli"><code class="docutils literal notranslate"><span class="pre">Conexion.codCli()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.codDri"><code class="docutils literal notranslate"><span class="pre">Conexion.codDri()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.conexion"><code class="docutils literal notranslate"><span class="pre">Conexion.conexion()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.datosViaje"><code class="docutils literal notranslate"><span class="pre">Conexion.datosViaje()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.guardarViaje"><code class="docutils literal notranslate"><span class="pre">Conexion.guardarViaje()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.guardarcli"><code class="docutils literal notranslate"><span class="pre">Conexion.guardarcli()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.guardardri"><code class="docutils literal notranslate"><span class="pre">Conexion.guardardri()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.modifCliente"><code class="docutils literal notranslate"><span class="pre">Conexion.modifCliente()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.modifDriver"><code class="docutils literal notranslate"><span class="pre">Conexion.modifDriver()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.mostrarClientes"><code class="docutils literal notranslate"><span class="pre">Conexion.mostrarClientes()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.mostrardriver"><code class="docutils literal notranslate"><span class="pre">Conexion.mostrardriver()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.oneCliente"><code class="docutils literal notranslate"><span class="pre">Conexion.oneCliente()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.oneDriver"><code class="docutils literal notranslate"><span class="pre">Conexion.oneDriver()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.oneFactura"><code class="docutils literal notranslate"><span class="pre">Conexion.oneFactura()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.oneViajes"><code class="docutils literal notranslate"><span class="pre">Conexion.oneViajes()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.selMuni"><code class="docutils literal notranslate"><span class="pre">Conexion.selMuni()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.selMuni2"><code class="docutils literal notranslate"><span class="pre">Conexion.selMuni2()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.selMuni3"><code class="docutils literal notranslate"><span class="pre">Conexion.selMuni3()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.selMuni4"><code class="docutils literal notranslate"><span class="pre">Conexion.selMuni4()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.selectClientesstodos"><code class="docutils literal notranslate"><span class="pre">Conexion.selectClientesstodos()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.selectDriverstodos"><code class="docutils literal notranslate"><span class="pre">Conexion.selectDriverstodos()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.updateViaje"><code class="docutils literal notranslate"><span class="pre">Conexion.updateViaje()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.verificarCli"><code class="docutils literal notranslate"><span class="pre">Conexion.verificarCli()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.verificarClibaja"><code class="docutils literal notranslate"><span class="pre">Conexion.verificarClibaja()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.verificarDri"><code class="docutils literal notranslate"><span class="pre">Conexion.verificarDri()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.viajesFactura"><code class="docutils literal notranslate"><span class="pre">Conexion.viajesFactura()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.volverDarAlta"><code class="docutils literal notranslate"><span class="pre">Conexion.volverDarAlta()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.volverDarAlta2"><code class="docutils literal notranslate"><span class="pre">Conexion.volverDarAlta2()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/src/conexion.rst.txt"
+            rel="nofollow">Mostrar el código</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de CarTeis - 0.1.0</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">conexion module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, a22jesusbm.
+      Creado usando <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>
