@@ -1,0 +1,6 @@
+com\mycompany\hibernate\main\HibernatesRepaso.class
+com\mycompany\hibernate\model\Libro.class
+com\mycompany\hibernate\model\LibroAutor.class
+com\mycompany\hibernate\util\HibernateUtil.class
+com\mycompany\hibernate\model\Telefono.class
+com\mycompany\hibernate\model\Autor.class

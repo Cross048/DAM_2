@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.mycompany.hibernate.model.Autor" table="autores">
+        <id name="dni" type="string">
+            <column name="DniAutor" length="20" not-null="true" unique="true"/>
+        </id>
+        <property name="nombre" type="string">
+            <column name="Nombre" length="50"/>
+        </property>
+        <property name="nacionalidad" type="string">
+            <column name="Nacionalidad" length="50"/>
+        </property>
+
+        <one-to-many name="libros" class="com.mycompany.hibernate.model.Libro" mappedBy="autor"/>
+
+        <one-to-one name="telefono" class="com.mycompany.hibernate.model.Telefono" mappedBy="autor" cascade="all"/>
+    </class>
+</hibernate-mapping>

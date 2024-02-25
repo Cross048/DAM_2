@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.mycompany.hibernate.model.LibroAutor" table="libros_autores">
+        <id name="id" type="int">
+            <column name="IdLibro" not-null="true" unique="true"/>
+            <generator class="identity"/>
+        </id>
+        
+        <many-to-one name="libro" class="com.mycompany.hibernate.model.Libro" fetch="join">
+            <column name="IdLibro" not-null="true"/>
+        </many-to-one>
+        
+        <many-to-one name="autor" class="com.mycompany.hibernate.model.Autor" fetch="join">
+            <column name="DniAutor" not-null="true"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
