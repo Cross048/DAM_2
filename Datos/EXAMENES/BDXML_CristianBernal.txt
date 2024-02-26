@@ -1,0 +1,56 @@
+Cristian Bernal Méndez 2ºDAM
+
+1. Nombres de todos los alumnos.
+    //alumno/nombre
+
+2. Datos de la carrera cuyo id es c02.
+    //carrera[@id = "c02"]
+
+3. Nombre de las asignaturas de la titulación c04.
+    //asignatura[@titulacion = "c04"]/nombre
+
+4. Nombre de los alumnos que matriculados en la asignatura a09.
+    //alumno[estudios//asignatura[@codigo = "a09"]]/nombre
+
+5. Apellidos de todos los hombres.
+    //alumno[sexo = "Hombre"]/concat(apellido1/text(), " ", apellido2/text())
+
+6. Nombre de la carrera que estudia Luisa.
+    //carrera[@id = //alumno[nombre = "Luisa"]//carrera/@codigo]/nombre
+
+7. Nombre de las asignaturas que estudia María.
+    //asignatura[@id = //alumno[nombre = "María"]//asignatura/@codigo]/nombre
+
+8. Nombre de los alumnos matriculados en carreras que no tienen subdirector.
+    //alumno[estudios/carrera/@codigo = //carrera[subdirector]/@id]/nombre
+
+9. Nombre de los alumnos que estudian carreras cuyos planes son anteriores a 2002.
+    //alumno[estudios/carrera/@codigo = //carrera[plan < 2002]/@id]/nombre
+
+10. Seleccionar el nombre de todas las asignaturas que tienen más de 5 créditos prácticos.
+    //asignatura[count(creditos_practicos > 5)]/nombre
+
+11. Seleccionar el nombre de las asignaturas que tienen más créditos teóricos que prácticos.
+    //asignatura[creditos_practicos < creditos_teoricos]/nombre
+
+12. Código de las asignaturas que estudian mujeres.
+    //alumno[sexo = "Mujer"]//asignatura/@codigo
+
+13. Seleccionar el nombre de todas las asignaturas que se imparten en la Facultad de Ciencias Sociales.
+    //asignatura[@titulacion = //carrera[centro = "Facultad de Ciencias Sociales"]/@id]/nombre
+
+14. Encontrar el nombre de los alumnos que están cursando asignaturas en el trimestre 2 y que no tengan 
+proyectos asignados.
+    //alumno[estudios//asignatura/@codigo = //asignaturas/asignatura[trimestre = "2"]/@id]/nombre
+
+X - 15. Obtener el nombre de todas las asignaturas que tienen más créditos prácticos que teóricos.
+    ----------------------------------------------------------------------------------------------
+
+16. Seleccionar los nombres de los alumnos que están cursando más de una carrera.
+    //alumno[count(estudios/carrera) > 1]/nombre
+
+17. Seleccionar los nombres de las asignaturas que están en la misma titulación que la asignatura con id "a07".
+    //asignatura[@titulacion = //carrera[@id = //asignatura[@id = "a07"]/@titulacion]/@id]/nombre
+
+18. Seleccionar los nombres de las asignaturas que son cursadas por alumnos con beca y que pertenecen a la carrera con id "c02"
+    //asignatura[@id = //alumno[@beca]//asignatura/@codigo]/nombre
