@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.mycompany.hibernate.model.Telefono" table="telefonos">
+        <id name="dni" type="string">
+            <column name="DniAutor" length="10" not-null="true" unique="true"/>
+            <generator class="identity"/>
+        </id>
+        
+        <property name="numero" type="string">
+            <column name="NumeroTf" length="15" not-null="true" unique="true"/>
+        </property>
+        
+        <one-to-one name="autor" class="com.mycompany.hibernate.model.Autor" constrained="true"/>
+    </class>
+</hibernate-mapping>
