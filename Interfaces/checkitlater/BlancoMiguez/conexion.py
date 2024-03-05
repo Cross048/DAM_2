@@ -238,6 +238,7 @@ class Conexion():
                     eventos.Eventos.mensaje("Aviso", "Conductor dado de baja")
         except Exception as error:
             print('error modifdriver', error)
+
     @staticmethod
     def selectDriverstodos():
         """
@@ -394,6 +395,7 @@ class Conexion():
 
         except Exception as error:
             print(error, " en selMuni2")
+
     def cargarprov2(self=None):
         """
         Carga las provincias en el combo box cmbProv2 que es la de clientes.
@@ -569,6 +571,7 @@ class Conexion():
         except Exception as error:
 
             print('error selectDrivertodos', error)
+
     def codCli(dni):
         """
         Recupera los detalles de un cliente según el DNI proporcionado.
@@ -629,6 +632,7 @@ class Conexion():
 
         except Exception as error:
             print("Error:", str(error))
+
     def altafacturacion(registro):
         """
         Realiza el alta de una factura en la base de datos.
@@ -672,6 +676,7 @@ class Conexion():
 
         except Exception as error:
             print(error, "cargarfacturas")
+
     def oneFactura(codigo):
         """
         Recupera los detalles de una factura según el código proporcionado.
@@ -720,6 +725,7 @@ class Conexion():
 
         except Exception as error:
             print(error, " en selMuni2")
+
     def cargarprov3(self=None):
         """
         Carga las provincias en el combo box cmbProbVentas que es el de origen.
@@ -737,6 +743,7 @@ class Conexion():
                     var.ui.cmbProbVentas.addItem(query.value(0))
         except Exception as error:
             print(error, " en cargarprov")
+
     def selMuni4(self=None):
         """
         Selecciona los municipios según la provincia elegida en cmbProbVentas2 que es el destino y los carga en cmbMuniVentas2 que tambien es del destino.
@@ -764,6 +771,7 @@ class Conexion():
 
         except Exception as error:
             print(error, " en selMuni2")
+
     def cargarprov4(self=None):
         """
         Carga las provincias en el combo box cmbProbVentas2 que es el de destino.
@@ -829,8 +837,6 @@ class Conexion():
         except Exception as error:
             print("ERROR CARGAR viaje a la vista", error)
 
-
-
     def cargarLineaViaje(registro):
         """
         Carga un nuevo viaje en la base de datos a partir de un registro proporcionado.
@@ -875,7 +881,6 @@ class Conexion():
                 eventos.Eventos.error('Aviso',"Error al guardar el viaje")
         except Exception as error:
             print(error)
-
 
     def oneViajes(codigo):
         """

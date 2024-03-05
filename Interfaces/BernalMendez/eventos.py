@@ -9,8 +9,8 @@ import xlrd
 import xlwt
 from PyQt6 import QtWidgets, QtCore, QtGui
 
+import clientes
 import conexion
-import drivers
 import var
 
 # Establecer la configuración regional en español
@@ -128,141 +128,97 @@ class Eventos():
         except Exception as error:
             print("Error al poner telefono: ", error)
 
-    def crearbackup(self):
+    @staticmethod
+    def crearbackup():
         try:
             fecha = datetime.today()
             fecha = fecha.strftime('%Y_%m_%d_%H_%M_%S')
-            copia = str(fecha)+'_backup.zip'
-            directorio, filename = var.dlgabrir.getSaveFileName(None, "Guardar Copia Seguridad", copia, '.zip')
-            if var.dlgabrir.accept and filename:
-                fichzip = zipfile.ZipFile(copia,'w')
-                fichzip.write(var.bbdd, os.path.basename(var.bbdd), zipfile.ZIP_DEFLATED)
-                fichzip.close()
-                shutil.move(str(copia),str(directorio))
-                msg = QtWidgets.QMessageBox()
-                msg.setWindowTitle("Aviso")
-                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                msg.setText("Copia de Seguridad Creada!")
-                msg.exec()
+            copia = str(fecha) + '_backup.zip'
+            directorio, filename = var.dlgabrir.getSaveFileName(None, 'Guardar copia de seguridad', copia, '.zip')
+            if var.dlgabrir.accept and filename != '':
+                fichZip = zipfile.ZipFile(copia, 'w')
+                fichZip.write(var.bbdd, os.path.basename(var.bbdd), zipfile.ZIP_DEFLATED)
+                fichZip.close()
+                shutil.move(str(copia), str(directorio))
+                eventos.Eventos.mensaje("Aviso", "Copia de seguridad creada")
+
         except Exception as error:
-            msg = QtWidgets.QMessageBox()
-            msg.setWindowTitle("Aviso")
-            msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-            msg.setText("Error en la Copia de Seguridad: ", error)
-            msg.exec()
+            eventos.Eventos.error("Aviso", "Error al crear backup")
 
     def restaurarbackup(self):
         try:
-            filename = var.dlgabrir.getOpenFileName(None,"Restaurar Copia de Seguridad", '', '*.zip;;All Files(*)')
+            filename = var.dlgabrir.getOpenFileName(None, 'Restaurar copia de seguridad', '', '*.zip;;All Files(*)')
             file = filename[0]
-            if file:
+            if filename[0]:
                 with zipfile.ZipFile(str(file), 'r') as bbdd:
                     bbdd.extractall(pwd=None)
                 bbdd.close()
-                msg = QtWidgets.QMessageBox()
-                msg.setModal(True)
-                msg.setWindowTitle("Aviso")
-                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                msg.setText("Copia de Seguridad Restaurada!")
-                msg.exec()
-                conexion.Conexion.mostrardrivers(self)
+                eventos.Eventos.mensaje("Aviso", "Copia de seguridad restaurada")
         except Exception as error:
-            msg = QtWidgets.QMessageBox()
-            msg.setWindowTitle("Aviso")
-            msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-            msg.setText("Error al restaurar Copia de Seguridad: ", error)
-            msg.exec()
+            eventos.Eventos.error("Aviso", "Error al restaurar el backup")
 
-    def exportardatosxls(self):
+    def exportardatosclientesxls(self):
         try:
             fecha = datetime.today()
             fecha = fecha.strftime('%Y_%m_%d_%H_%M_%S')
-            file = (str(fecha)+'_Datos.xls')
-            directorio, filename = var.dlgabrir.getSaveFileName(None, "Exportar Datos en XLS", file, '.xls')
-            if filename:
+            file = str(fecha) + '_Datosclientes.xls'
+            directorio, filename = var.dlgabrir.getSaveFileName(None, 'Exportar Datos en xls', file, '.xls')
+            if var.dlgabrir.accept and filename:
                 wb = xlwt.Workbook()
-                sheet1 = wb.add_sheet('Conductores')
-                sheet1.write(0, 0, 'ID')
+                sheet1 = wb.add_sheet('Clientes')
+                sheet1.write(0, 0, 'Codigo')
                 sheet1.write(0, 1, 'DNI')
-                sheet1.write(0, 2, 'Fecha Alta')
-                sheet1.write(0, 3, 'Apellidos')
-                sheet1.write(0, 4, 'Nombre')
-                sheet1.write(0, 5, 'Dirección')
-                sheet1.write(0, 6, 'Provincia')
-                sheet1.write(0, 7, 'Municipio')
-                sheet1.write(0, 8, 'Móvil')
-                sheet1.write(0, 9, 'Salario')
-                sheet1.write(0, 10, 'Carnet')
-                registros = conexion.Conexion.selectDriverstodos()
+                sheet1.write(0, 2, 'Razon Social')
+                sheet1.write(0, 3, 'Dirección')
+                sheet1.write(0, 4, 'Provincia')
+                sheet1.write(0, 5, 'Municipio')
+                sheet1.write(0, 6, 'Telefono')
+                registros = conexion.Conexion.selectClientestodos()
                 for fila, registro in enumerate(registros, 1):
                     for i, valor in enumerate(registro[:-1]):
                         sheet1.write(fila, i, str(valor))
                 wb.save(directorio)
-                msg = QtWidgets.QMessageBox()
-                msg.setModal(True)
-                msg.setWindowTitle("Aviso")
-                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                msg.setText("Exportación de datos realizada!")
-                msg.exec()
+                eventos.Eventos.mensaje("Aviso", "Exportacion completada exitosamente")
         except Exception as error:
-            msg = QtWidgets.QMessageBox()
-            msg.setWindowTitle("Aviso")
-            msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-            msg.setText("Error al exportar datos en hoja de cálculo: ", error)
-            msg.exec()
+            eventos.Eventos.error("Aviso", "Error al exportar datos")
 
-    def importardatosxls(self):
+    def importarDatosclientesExcel(self):
         try:
-            estado = 0
-            drivers.Drivers.limpiapanel(self)
-            filename, _ = var.dlgabrir.getOpenFileName(None, "Importar datos", '', '*.xls;;All Files (*)')
-            if filename:
-                file = filename
+            filename = var.dlgabrir.getOpenFileName(None, "Importar datos", "", "*.xls;;All File(*)")
+            clientes.Clientes.limpiapanel2()
+            if filename[0]:
+                file = filename[0]
                 documento = xlrd.open_workbook(file)
                 datos = documento.sheet_by_index(0)
                 filas = datos.nrows
                 columnas = datos.ncols
+                numFallo = 0
                 for i in range(filas):
                     if i == 0:
                         pass
                     else:
                         new = []
                         for j in range(columnas):
-                            if j == 1:
-                                dato = xlrd.xldate_as_datetime(datos.cell_value(i, j), documento.datemode)
-                                dato = dato.strftime('%d/%m/%Y')
-                                new.append(str(dato))
-                            else:
+                            if j != 0:
                                 new.append(str(datos.cell_value(i, j)))
-                        if drivers.Drivers.validarDNI(str(new[0])):
-                            conexion.Conexion.guardardri(new)
-                        elif estado == 0:
-                            estado = 1
-                            msg = QtWidgets.QMessageBox()
-                            msg.setModal(True)
-                            msg.setWindowTitle("Aviso")
-                            msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-                            msg.setText("Hay DNIs incorrectos")
-                            msg.exec()
-                var.ui.lblValidardni.setText('')
-                var.ui.txtDni.setText('')
-                msg = QtWidgets.QMessageBox()
-                msg.setModal(True)
-                msg.setWindowTitle("Aviso")
-                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                msg.setText("Importación de datos realizada!")
-                var.ui.lblValidardni.setText('')
-                msg.exec()
-            conexion.Conexion.selectDrivers(1)
-        except Exception as error:
-            msg = QtWidgets.QMessageBox()
-            msg.setModal(True)
-            msg.setWindowTitle("Aviso")
-            msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-            msg.setText("Error al importar datos en hoja de cálculo: ", error)
-            msg.exec()
 
-    # Examen
+                        conexion.Conexion.guardarcli(new)
+
+                        if i == filas - 1:
+                            mbox = QtWidgets.QMessageBox()
+                            mbox.setWindowTitle('Aviso')
+                            mbox.setModal(True)
+                            mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                            mbox.setText("Importacion exitosa,clientes no insertados " + str(numFallo))
+                            mbox.exec()
+                conexion.Conexion.mostrarclientes()
+        except Exception as error:
+            mbox = QtWidgets.QMessageBox()
+            mbox.setWindowTitle('Aviso')
+            mbox.setModal(True)
+            mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            mbox.setText('Error al importar datos')
+            mbox.exec()
 
     def formatCajamovil2(self=None):
         try:
@@ -304,3 +260,19 @@ class Eventos():
             var.ui.txtRazonSocial.setText(var.ui.txtRazonSocial.text().title())
         except Exception as error:
             print("Error al poner letra capital en cajas de texto: ", error)
+
+    def mensaje(title, text):
+        mbox = QtWidgets.QMessageBox()
+        mbox.setWindowTitle(title)
+        mbox.setWindowIcon(QtGui.QIcon("img/limpiar.png"))
+        mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+        mbox.setText(text)
+        mbox.exec()
+
+    def error(title, text):
+        mbox = QtWidgets.QMessageBox()
+        mbox.setWindowTitle(title)
+        mbox.setWindowIcon(QtGui.QIcon("img/limpiar.png"))
+        mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+        mbox.setText(text)
+        mbox.exec()

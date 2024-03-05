@@ -4,7 +4,6 @@ from PIL import Image
 from reportlab.pdfgen import canvas
 from datetime import datetime
 import conexion
-
 import eventos
 
 
@@ -368,8 +367,6 @@ class Informes:
                     j = j - 20
         except Exception as error:
             print('Error LISTADO conductores :', error)
-
-
 
     @staticmethod
     def reportfactura():

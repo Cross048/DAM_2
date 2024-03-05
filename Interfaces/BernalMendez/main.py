@@ -2,10 +2,7 @@ import locale
 import sys
 
 import clientes
-import conexion
-import drivers
-import eventos
-import var
+import informes
 from MainWindow import *
 from drivers import *
 from windowaux import *
@@ -35,14 +32,18 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnBuscadri.clicked.connect(drivers.Drivers.buscaDri)
         var.ui.btnModifDriver.clicked.connect(drivers.Drivers.modifDri)
         var.ui.btnBajaDriver.clicked.connect(drivers.Drivers.borraDriv)
+        var.ui.btnAltaDriver_2.clicked.connect(clientes.Clientes.altaCliente)
+        var.ui.btnModifDriver_2.clicked.connect(clientes.Clientes.modifCliente)
 
         ''' zona de eventos del menubar '''
         var.ui.actionSalir.triggered.connect(eventos.Eventos.mostrarsalir)
         var.ui.actionAcerca_de.triggered.connect(eventos.Eventos.acercade)
         var.ui.actionCrear_Copia_Seguridad.triggered.connect(eventos.Eventos.crearbackup)
         var.ui.actionRestaurar_Copia_Seguridad.triggered.connect(eventos.Eventos.restaurarbackup)
-        var.ui.actionExportar_Datos_Excel.triggered.connect(eventos.Eventos.exportardatosxls)
-        var.ui.actionImportar_Datos_XLS.triggered.connect(eventos.Eventos.importardatosxls)
+        var.ui.actionExportar_Datos_Excel.triggered.connect(eventos.Eventos.exportardatosclientesxls)
+        var.ui.actionImportar_Datos_XLS.triggered.connect(eventos.Eventos.importarDatosclientesExcel)
+        var.ui.actionGenerar_informe.triggered.connect(informes.Informes.reportdrivers)
+        var.ui.actionGenerar_informe_clientes.triggered.connect(informes.Informes.reportclientes)
 
         ''' zona eventos cajas de texto '''
         var.ui.txtDni.editingFinished.connect(lambda: drivers.Drivers.validarDNI(var.ui.txtDni.text()))

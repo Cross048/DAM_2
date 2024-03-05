@@ -1,10 +1,10 @@
-from datetime import datetime
-
 from PyQt6 import QtSql
 
 import clientes
-import drivers
-import var
+from windowaux import *
+from PyQt6 import QtSql
+
+import clientes
 from windowaux import *
 
 
@@ -455,3 +455,63 @@ class Conexion():
             return registro
         except Exception as error:
             print("Error en fichero conexion datos de un driver: ", error)
+
+    @staticmethod
+    def selectClientestodos():
+        try:
+            registros = []
+            query1 = QtSql.QSqlQuery()
+            query1.prepare('SELECT * FROM ListadoClientes ORDER BY RazonSocial')
+            if query1.exec():
+                while query1.next():
+                    row = [query1.value(i) for i in range(query1.record().count())]
+                    registros.append(row)
+            return registros
+        except Exception as error:
+
+            print('Error al seleccionar los clientes: ', error)
+
+    @staticmethod
+    def guardarcli(Cliente):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare('INSERT INTO ListadoClientes (DNI, RazonSocial, Direccion, Provincia, '
+                          'Municipio, Telefono) VALUES(:dni, :social, :direccion, '
+                          ':provincia, :municipio, :movil)')
+            query.bindValue(':dni', str(Cliente[0]))
+            query.bindValue(':social', str(Cliente[1]))
+            query.bindValue(':direccion', str(Cliente[2]))
+            query.bindValue(':provincia', str(Cliente[3]))
+            query.bindValue(':municipio', str(Cliente[4]))
+            query.bindValue(':movil', str(Cliente[5]))
+            if query.exec():
+                return True
+            else:
+                return False
+
+        except Exception as error:
+            print(error, " al guardar Cliente.")
+
+    def modifCliente(Cliente):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare('UPDATE ListadoClientes SET DNI= :dni, RazonSocial= :social, '
+                          ' Direccion= :direccion, Provincia= :provincia, Municipio= :municipio, '
+                          ' Telefono= :movil WHERE Codigo= :codigo')
+            query.bindValue(':codigo', int(Cliente[0]))
+            query.bindValue(':dni', str(Cliente[1]))
+            query.bindValue(':social', str(Cliente[2]))
+            query.bindValue(':direccion', str(Cliente[3]))
+            query.bindValue(':provincia', str(Cliente[4]))
+            query.bindValue(':municipio', str(Cliente[5]))
+            query.bindValue(':movil', str(Cliente[6]))
+            if query.exec():
+                eventos.Eventos.mensaje("Aviso", "Cliente modificado con exito")
+            else:
+                eventos.Eventos.error("Aviso", query.lastError().text())
+
+        except Exception as error:
+            print('Error al modificar cliente: ', error)
+
+    # Facturas
+

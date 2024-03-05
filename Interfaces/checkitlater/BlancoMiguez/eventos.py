@@ -1,18 +1,16 @@
 import locale
 import os.path
-
 import xlrd
-
 import clientes
 import conexion
-
-locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
 import sys,zipfile,shutil
 from auxiliar import *
 from datetime import  datetime
 import xlwt
 import drivers
 import var
+locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
+
 class Eventos():
 
     @staticmethod
@@ -51,6 +49,7 @@ class Eventos():
             var.acercaDe.hide()
         except Exception as error:
             print(error , " en modulo eventos")
+
     def abrirAcercaDe(self):
         """
         Abre la ventana Acerca De.
@@ -123,6 +122,7 @@ class Eventos():
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
         except Exception as error:
             print(error," en resizetabdrivers")
+
     @staticmethod
     def formatCajaTexto(self = None):
         """
@@ -158,6 +158,7 @@ class Eventos():
 
         except Exception as error:
             eventos.Eventos.error("Aviso", "Error al crear backup")
+
     def  restaurarBackup(self):
         """
         Restaura una copia de seguridad de la base de datos.
@@ -275,6 +276,7 @@ class Eventos():
             mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
             mbox.setText('Error al importar datos en hoja de cálculo')
             mbox.exec()
+
     @staticmethod
     def abrirCalendarBaja():
         """
@@ -303,6 +305,7 @@ class Eventos():
                 eventos.Eventos.error("Aviso", "Conductor no dado de baja")
         except Exception as error:
             print(error," en modulo eventos")
+
     @staticmethod
     def resizeTabclientes(self):
         """
@@ -402,6 +405,7 @@ class Eventos():
 
         except Exception as error:
             eventos.Eventos.error("Aviso", "Error al exportar datos")
+
     def importarDatosclientesExcel(self):
         """
         Importa datos desde un archivo xls a la base de datos de clientes.
@@ -507,6 +511,7 @@ class Eventos():
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
         except Exception as error:
             print(error, " en resize fact")
+
     @staticmethod
     def resizeTabViajes():
         """

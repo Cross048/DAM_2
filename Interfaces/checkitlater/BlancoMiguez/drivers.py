@@ -288,8 +288,6 @@ class Drivers():
         except Exception as error:
             print(error, " en modifdri")
 
-
-
     def borraDri(qDate):
         """
         Borra un conductor de la base de datos.

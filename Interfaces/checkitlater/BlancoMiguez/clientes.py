@@ -1,10 +1,10 @@
-
 from PyQt6.QtGui import QPixmap
 from PyQt6 import QtWidgets, QtCore, QtGui
 from PyQt6.QtCore import Qt
 import conexion
 import var
 import eventos
+
 class Clientes():
     def limpiarPanel2(self=None):
         """
@@ -142,7 +142,6 @@ class Clientes():
         except Exception as error:
             print(str(error) + " en validar drivers")
 
-
     def validarMovil2(self=None):
         """
         Valida el número de teléfono ingresado en el campo txtmovil2.
@@ -200,6 +199,7 @@ class Clientes():
 
         except Exception as error:
             print(str(error) + " en altacliente clientes")
+
     def modifCli(self):
         """
         Modifica la información de un cliente existente.
