@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ciclos">
+        <item>DAM</item>
+        <item>DAW</item>
+        <item>ASIR</item>
+    </string-array>
+    <string-array name="cursos">
+        <item>ESO</item>
+        <item>Bach.</item>
+        <item>Ciclos</item>
+    </string-array>
+    <color name="black">#FF000000</color>
+    <color name="blue">#2528c8</color>
+    <color name="gray">#4a4349</color>
+    <color name="main_color">#fef6cf</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="alumno">Alumno: </string>
+    <string name="app_name">RepasoExamen2</string>
+    <string name="app_title">ALUMNOS</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="curso">Curso: </string>
+    <string name="curso_eso">ESO</string>
+    <style name="Base.Theme.RepasoExamen2" parent="Theme.Material3.DayNight.NoActionBar">
+        
+        
+    </style>
+    <style name="Theme.RepasoExamen2" parent="Base.Theme.RepasoExamen2"/>
+</resources>
