@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">RepasoExamen2</string>
+    <string name="app_title">ALUMNOS</string>
+    <string name="curso">Curso: </string>
+    <string name="confirmar">Confirmar</string>
+    <string name="alumno">Alumno: </string>
+    <string name="curso_eso">ESO</string>
+</resources>
