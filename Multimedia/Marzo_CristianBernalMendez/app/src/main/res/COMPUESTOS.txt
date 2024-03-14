@@ -1,0 +1,8 @@
+Acido sulfúrico		SO4H2
+Agua			H2O
+Carbonato cálcico	CO3CA
+Anhídrido carbónico	CO2
+Monóxido de carbono	CO
+Oxido de calcio		CAO
+Nitrato potásico	NO3K
+Agua oxigenada		H2O2

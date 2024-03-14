@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="compuestos">
+        <item>Acido sulfúrico</item>
+        <item>Agua</item>
+        <item>Agua oxigenada</item>
+        <item>Anhídrido carbónico</item>
+        <item>Carbonato cálcico</item>
+        <item>Monóxido de carbono</item>
+        <item>Nitrato potásico</item>
+        <item>Oxido de calcio</item>
+    </string-array>
+    <string-array name="formulas">
+        <item>SO4H2</item>
+        <item>H2O</item>
+        <item>CO3CA</item>
+        <item>CO2</item>
+        <item>CO</item>
+        <item>CAO</item>
+        <item>NO3K</item>
+        <item>H2O2</item>
+    </string-array>
+</resources>
+
+
+
+
+
+
+
+

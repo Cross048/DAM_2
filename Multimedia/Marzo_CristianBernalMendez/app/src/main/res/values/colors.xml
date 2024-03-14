@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="azul_oscuro">#FF1210FF</color>
+    <color name="azul_medio">#FF87D0FD</color>
+    <color name="azul_claro">#FFC7FFEE</color>
+    <color name="white">#FFFFFF</color>
+    <color name="my_light_primary">#009688</color>
+</resources>
