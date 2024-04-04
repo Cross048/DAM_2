@@ -30,8 +30,8 @@ class Ui_dlgCalendar(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.Calendar.sizePolicy().hasHeightForWidth())
         self.Calendar.setSizePolicy(sizePolicy)
-        self.Calendar.setMinimumSize(QtCore.QSize(0, 0))
-        self.Calendar.setMaximumSize(QtCore.QSize(1024, 768))
+        self.Calendar.setMinimumSize(QtCore.QSize(400, 300))
+        self.Calendar.setMaximumSize(QtCore.QSize(400, 300))
         self.Calendar.setObjectName("Calendar")
         self.gridLayout.addWidget(self.Calendar, 0, 0, 1, 1)
 
