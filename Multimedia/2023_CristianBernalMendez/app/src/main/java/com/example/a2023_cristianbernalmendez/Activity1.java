@@ -54,16 +54,5 @@ public class Activity1 extends AppCompatActivity {
                 }
             }
         });
-
-        btnFinApp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.getId() == R.id.btnFinApp) {
-                    Intent intent = new Intent();
-                    setResult(RESULT_OK, intent);
-                    finish();
-                }
-            }
-        });
     }
 }
