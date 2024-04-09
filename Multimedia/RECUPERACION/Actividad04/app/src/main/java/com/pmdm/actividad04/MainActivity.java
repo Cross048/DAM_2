@@ -1,4 +1,4 @@
-package com.pmdm.actividad03;
+package com.pmdm.actividad04;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -45,6 +45,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Activity3.class);
                 startActivityForResult(intent, CODIGO_LLAMADA_ACT1);
+            }
+        });
+
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Activity4.class);
+                startActivity(intent);
             }
         });
     }

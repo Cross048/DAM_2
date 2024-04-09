@@ -9,27 +9,15 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btn1"
+        android:id="@+id/btnVolver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pantalla 1" />
+        android:text="Volver atrás" />
 
     <Button
-        android:id="@+id/btn2"
+        android:id="@+id/btnVolverInicio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pantalla 2" />
-
-    <Button
-        android:id="@+id/btn3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pantalla 3" />
-
-    <Button
-        android:id="@+id/btn4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pantalla 4" />
+        android:text="Volver a inicio" />
 
 </LinearLayout>

@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.pmdm.actividad03"
+    namespace = "com.pmdm.actividad04"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.pmdm.actividad03"
+        applicationId = "com.pmdm.actividad04"
         minSdk = 22
         targetSdk = 33
         versionCode = 1
@@ -19,10 +19,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
