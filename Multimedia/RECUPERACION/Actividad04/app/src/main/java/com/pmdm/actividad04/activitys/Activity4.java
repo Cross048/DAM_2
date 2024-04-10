@@ -1,4 +1,4 @@
-package com.pmdm.actividad04;
+package com.pmdm.actividad04.activitys;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,6 +8,9 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
+import com.pmdm.actividad04.retornos.ActivityD;
+import com.pmdm.actividad04.R;
 
 public class Activity4 extends AppCompatActivity {
     private static final int REQUEST_CODE_COLOR_CHANGED = 1;
@@ -134,5 +137,4 @@ public class Activity4 extends AppCompatActivity {
             }
         }
     }
-
 }

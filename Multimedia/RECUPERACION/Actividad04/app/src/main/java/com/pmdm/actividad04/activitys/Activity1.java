@@ -1,4 +1,4 @@
-package com.pmdm.actividad04;
+package com.pmdm.actividad04.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
+import com.pmdm.actividad04.retornos.ActivityA;
+import com.pmdm.actividad04.R;
 
 public class Activity1 extends AppCompatActivity {
     private View rojo;

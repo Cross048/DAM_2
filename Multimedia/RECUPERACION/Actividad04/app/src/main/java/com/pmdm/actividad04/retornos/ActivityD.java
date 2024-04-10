@@ -1,4 +1,4 @@
-package com.pmdm.actividad04;
+package com.pmdm.actividad04.retornos;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,6 +9,8 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.pmdm.actividad04.R;
 
 public class ActivityD extends AppCompatActivity {
     private View pickedColorView;
@@ -48,6 +50,5 @@ public class ActivityD extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 }

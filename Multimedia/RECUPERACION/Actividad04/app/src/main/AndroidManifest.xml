@@ -22,35 +22,35 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity1"
+            android:name=".activitys.Activity1"
             android:exported="false"
             android:label="Pantalla1" />
         <activity
-            android:name=".Activity2"
+            android:name=".activitys.Activity2"
             android:exported="false"
             android:label="Pantalla2" />
         <activity
-            android:name=".Activity3"
+            android:name=".activitys.Activity3"
             android:exported="false"
             android:label="Pantalla3" />
         <activity
-            android:name=".Activity4"
+            android:name=".activitys.Activity4"
             android:exported="false"
             android:label="Pantalla4" />
         <activity
-            android:name=".ActivityA"
+            android:name=".retornos.ActivityA"
             android:exported="false"
             android:label="E4_Activitys" />
         <activity
-            android:name=".ActivityB"
+            android:name=".retornos.ActivityB"
             android:exported="false"
             android:label="E4_Activitys" />
         <activity
-            android:name=".ActivityC"
+            android:name=".retornos.ActivityC"
             android:exported="false"
             android:label="E4_Activitys" />
         <activity
-            android:name=".ActivityD"
+            android:name=".retornos.ActivityD"
             android:exported="false"
             android:label="E4_Activitys" />
     </application>

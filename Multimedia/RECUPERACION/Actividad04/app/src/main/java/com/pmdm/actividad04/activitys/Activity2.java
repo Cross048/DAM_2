@@ -1,4 +1,4 @@
-package com.pmdm.actividad04;
+package com.pmdm.actividad04.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
+import com.pmdm.actividad04.retornos.ActivityB;
+import com.pmdm.actividad04.R;
 
 public class Activity2 extends AppCompatActivity {
     private static final int CODIGO_LLAMADA_ACT1 = 0;

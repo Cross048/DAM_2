@@ -1,4 +1,4 @@
-package com.pmdm.actividad04;
+package com.pmdm.actividad04.retornos;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.pmdm.actividad04.R;
 
 public class ActivityA extends AppCompatActivity {
     private Button btnVolver;
