@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.pmdm.actividad04.R;
+import com.pmdm.actividad05.R;
 
 public class ActivityA extends AppCompatActivity {
     private Button btnVolver;

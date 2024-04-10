@@ -8,8 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.pmdm.actividad04.R;
-import com.pmdm.actividad04.retornos.ActivityB;
+import com.pmdm.actividad05.R;
+import com.pmdm.actividad05.retornos.ActivityB;
 
 public class Activity2 extends AppCompatActivity {
     private static final int CODIGO_LLAMADA_ACT1 = 0;

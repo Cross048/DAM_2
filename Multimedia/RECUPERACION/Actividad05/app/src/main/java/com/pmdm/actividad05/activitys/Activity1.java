@@ -7,8 +7,8 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.pmdm.actividad04.R;
-import com.pmdm.actividad04.retornos.ActivityA;
+import com.pmdm.actividad05.R;
+import com.pmdm.actividad05.retornos.ActivityA;
 
 public class Activity1 extends AppCompatActivity {
     private View rojo;

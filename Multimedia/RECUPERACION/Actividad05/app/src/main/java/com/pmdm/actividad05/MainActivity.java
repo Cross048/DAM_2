@@ -7,10 +7,10 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.pmdm.actividad04.activitys.Activity1;
-import com.pmdm.actividad04.activitys.Activity2;
-import com.pmdm.actividad04.activitys.Activity3;
-import com.pmdm.actividad04.activitys.Activity4;
+import com.pmdm.actividad05.activitys.Activity1;
+import com.pmdm.actividad05.activitys.Activity2;
+import com.pmdm.actividad05.activitys.Activity3;
+import com.pmdm.actividad05.activitys.Activity4;
 
 public class MainActivity extends AppCompatActivity {
     private static final int CODIGO_LLAMADA_ACT1 = 0;
