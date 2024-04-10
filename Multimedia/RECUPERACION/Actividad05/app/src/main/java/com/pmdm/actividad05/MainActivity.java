@@ -3,7 +3,6 @@ package com.pmdm.actividad05;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,60 +12,50 @@ import com.pmdm.actividad05.activitys.Activity3;
 import com.pmdm.actividad05.activitys.Activity4;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int CODIGO_LLAMADA_ACT1 = 0;
-    private Button btn1;
-    private Button btn2;
-    private Button btn3;
-    private Button btn4;
+    private static final int CODIGO_LLAMADA_ACT3 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btn1 = findViewById(R.id.btn1);
-        btn2 = findViewById(R.id.btn2);
-        btn3 = findViewById(R.id.btn3);
-        btn4 = findViewById(R.id.btn4);
+        // Inicialización de botones
+        findViewById(R.id.btn1).setOnClickListener(this::handleButtonClick);
+        findViewById(R.id.btn2).setOnClickListener(this::handleButtonClick);
+        findViewById(R.id.btn3).setOnClickListener(this::handleButtonClick);
+        findViewById(R.id.btn4).setOnClickListener(this::handleButtonClick);
+    }
 
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Activity1.class);
+    // Según el botón pulsado, va a un Activity u otro
+    private void handleButtonClick(View view) {
+        Intent intent = null;
+        boolean isStartActivityForResult = false;
+
+        if (view.getId() == R.id.btn1) {
+            intent = new Intent(MainActivity.this, Activity1.class);
+        } else if (view.getId() == R.id.btn2) {
+            intent = new Intent(MainActivity.this, Activity2.class);
+        } else if (view.getId() == R.id.btn3) {
+            intent = new Intent(MainActivity.this, Activity3.class);
+            isStartActivityForResult = true;
+        } else if (view.getId() == R.id.btn4) {
+            intent = new Intent(MainActivity.this, Activity4.class);
+        }
+
+        if (intent != null) {
+            if (isStartActivityForResult) {
+                startActivityForResult(intent, CODIGO_LLAMADA_ACT3);
+            } else {
                 startActivity(intent);
             }
-        });
-
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Activity2.class);
-                startActivity(intent);
-            }
-        });
-
-        btn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Activity3.class);
-                startActivityForResult(intent, CODIGO_LLAMADA_ACT1);
-            }
-        });
-
-        btn4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Activity4.class);
-                startActivity(intent);
-            }
-        });
+        }
     }
 
     // Espera el resultado de que hay que cerrar la App
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CODIGO_LLAMADA_ACT1) {
+        if (requestCode == CODIGO_LLAMADA_ACT3) {
             if (resultCode == RESULT_OK) {
                 finish();
             }

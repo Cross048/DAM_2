@@ -5,19 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/fondoazul"
     android:gravity="center"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnVolver"
+    <View
+        android:id="@+id/vPickedColor"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@color/rojo" />
+
+    <TextView
+        android:id="@+id/txtPregunta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Volver atrás" />
+        android:text="¿Te gusta este color?" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rbtnSi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sí" />
+
+        <RadioButton
+            android:id="@+id/rbtnNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No"
+            android:checked="true" />
+    </RadioGroup>
 
     <Button
-        android:id="@+id/btnVolverInicio"
+        android:id="@+id/btnEntendido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Volver a inicio" />
+        android:text="Entendido..." />
 
 </LinearLayout>

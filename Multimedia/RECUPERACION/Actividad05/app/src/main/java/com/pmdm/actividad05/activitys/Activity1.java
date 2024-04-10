@@ -11,59 +11,44 @@ import com.pmdm.actividad05.R;
 import com.pmdm.actividad05.retornos.ActivityA;
 
 public class Activity1 extends AppCompatActivity {
-    private View rojo;
-    private View amarillo;
-    private View verde;
-    private View azul;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity01);
 
-        rojo = findViewById(R.id.rojo);
-        amarillo = findViewById(R.id.amarillo);
-        verde = findViewById(R.id.verde);
-        azul = findViewById(R.id.azul);
+        // Asignación del mismo OnClickListener a todos los Views
+        findViewById(R.id.rojo).setOnClickListener(this::onColorClick);
+        findViewById(R.id.amarillo).setOnClickListener(this::onColorClick);
+        findViewById(R.id.verde).setOnClickListener(this::onColorClick);
+        findViewById(R.id.azul).setOnClickListener(this::onColorClick);
+    }
 
-        // Recoge el color del View seleccionado
-        rojo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int color = ContextCompat.getColor(Activity1.this, R.color.rojo);
-                enviarColor(color);
-            }
-        });
+    private void onColorClick(View view) {
+        int color = 0;
 
-        amarillo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int color = ContextCompat.getColor(Activity1.this, R.color.amarillo);
-                enviarColor(color);
-            }
-        });
+        // Determina el color basado en el View clickeado
+        if (view.getId() == R.id.rojo) {
+            color = ContextCompat.getColor(this, R.color.rojo);
+        } else if (view.getId() == R.id.amarillo) {
+            color = ContextCompat.getColor(this, R.color.amarillo);
+        } else if (view.getId() == R.id.verde) {
+            color = ContextCompat.getColor(this, R.color.verde);
+        } else if (view.getId() == R.id.azul) {
+            color = ContextCompat.getColor(this, R.color.azul);
+        }
 
-        verde.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int color = ContextCompat.getColor(Activity1.this, R.color.verde);
-                enviarColor(color);
-            }
-        });
-
-        azul.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int color = ContextCompat.getColor(Activity1.this, R.color.azul);
-                enviarColor(color);
-            }
-        });
+        // Si se encontró un color, envía el color a la siguiente Activity
+        if (color != 0) {
+            enviarColor(color);
+        }
     }
 
     // Abre la siguiente Activity mandándole el color del View seleccionado
     private void enviarColor(int color) {
         Intent intent = new Intent(this, ActivityA.class);
         intent.putExtra("color", color);
+        // 1 para solo el primer botón, 2 para los dos primeros, 3 para todos
+        intent.putExtra("tipoVista", 1);
         startActivity(intent);
     }
 }

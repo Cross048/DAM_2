@@ -12,86 +12,57 @@ import com.pmdm.actividad05.R;
 import com.pmdm.actividad05.retornos.ActivityB;
 
 public class Activity2 extends AppCompatActivity {
-    private static final int CODIGO_LLAMADA_ACT1 = 0;
-    private View rojo;
-    private View amarillo;
-    private View naranja;
-    private View verde;
-    private View azul;
-    private View morado;
+    private static final int CODIGO_LLAMADA_ACT2 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity02);
 
-        rojo = findViewById(R.id.rojo);
-        amarillo = findViewById(R.id.amarillo);
-        naranja = findViewById(R.id.naranja);
-        verde = findViewById(R.id.verde);
-        azul = findViewById(R.id.azul);
-        morado = findViewById(R.id.morado);
+        // Asigna el mismo OnClickListener a todos los Views
+        findViewById(R.id.rojo).setOnClickListener(this::onColorClick);
+        findViewById(R.id.amarillo).setOnClickListener(this::onColorClick);
+        findViewById(R.id.naranja).setOnClickListener(this::onColorClick);
+        findViewById(R.id.verde).setOnClickListener(this::onColorClick);
+        findViewById(R.id.azul).setOnClickListener(this::onColorClick);
+        findViewById(R.id.morado).setOnClickListener(this::onColorClick);
+    }
 
-        // Recoge el color del View seleccionado
-        rojo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int color = ContextCompat.getColor(Activity2.this, R.color.rojo);
-                enviarColor(color);
-            }
-        });
+    // Determina el color basado en el View clickeado
+    private void onColorClick(View view) {
+        int color = 0;
 
-        amarillo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int color = ContextCompat.getColor(Activity2.this, R.color.amarillo);
-                enviarColor(color);
-            }
-        });
+        if (view.getId() == R.id.rojo) {
+            color = ContextCompat.getColor(this, R.color.rojo);
+        } else if (view.getId() == R.id.amarillo) {
+            color = ContextCompat.getColor(this, R.color.amarillo);
+        } else if (view.getId() == R.id.naranja) {
+            color = ContextCompat.getColor(this, R.color.naranja);
+        } else if (view.getId() == R.id.verde) {
+            color = ContextCompat.getColor(this, R.color.verde);
+        } else if (view.getId() == R.id.azul) {
+            color = ContextCompat.getColor(this, R.color.azul);
+        } else if (view.getId() == R.id.morado) {
+            color = ContextCompat.getColor(this, R.color.morado);
+        }
 
-        naranja.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int color = ContextCompat.getColor(Activity2.this, R.color.naranja);
-                enviarColor(color);
-            }
-        });
-
-        verde.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int color = ContextCompat.getColor(Activity2.this, R.color.verde);
-                enviarColor(color);
-            }
-        });
-
-        azul.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int color = ContextCompat.getColor(Activity2.this, R.color.azul);
-                enviarColor(color);
-            }
-        });
-
-        morado.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int color = ContextCompat.getColor(Activity2.this, R.color.morado);
-                enviarColor(color);
-            }
-        });
+        // Si se encontró un color, envía el color a la siguiente Activity
+        if (color != 0) {
+            enviarColor(color);
+        }
     }
 
     private void enviarColor(int color) {
         Intent intent = new Intent(this, ActivityB.class);
         intent.putExtra("color", color);
-        startActivityForResult(intent, CODIGO_LLAMADA_ACT1);
+        intent.putExtra("tipoVista", 2);
+        startActivityForResult(intent, CODIGO_LLAMADA_ACT2);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CODIGO_LLAMADA_ACT1) {
+        if (requestCode == CODIGO_LLAMADA_ACT2) {
             if (resultCode == RESULT_OK) {
                 finish();
             }

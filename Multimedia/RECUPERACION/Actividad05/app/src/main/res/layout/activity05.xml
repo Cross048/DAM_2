@@ -14,4 +14,16 @@
         android:layout_height="wrap_content"
         android:text="Volver atrás" />
 
+    <Button
+        android:id="@+id/btnVolverInicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Volver a inicio" />
+
+    <Button
+        android:id="@+id/btnFinalizar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finalizar App" />
+
 </LinearLayout>

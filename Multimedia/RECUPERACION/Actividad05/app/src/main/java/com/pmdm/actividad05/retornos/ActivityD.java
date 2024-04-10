@@ -21,7 +21,7 @@ public class ActivityD extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity08);
+        setContentView(R.layout.activity06);
 
         pickedColorView = findViewById(R.id.vPickedColor);
         rbtnSi = findViewById(R.id.rbtnSi);
