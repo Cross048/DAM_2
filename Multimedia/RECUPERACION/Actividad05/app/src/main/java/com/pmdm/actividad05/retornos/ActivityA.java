@@ -2,9 +2,13 @@ package com.pmdm.actividad05.retornos;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pmdm.actividad05.R;
@@ -82,9 +86,34 @@ public class ActivityA extends AppCompatActivity {
         btnFinalizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setResult(RESULT_FINISH);
-                finish();
+                mostrarDialogoConfirmacion();
             }
         });
+    }
+
+    // Método para mostrar un cuadro de diálogo de confirmación
+    private void mostrarDialogoConfirmacion() {
+        // Inflar el diseño personalizado para el cuadro de diálogo
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.context_menu, null);
+
+        // Obtener referencias a los elementos de la vista
+        ImageView icono = dialogView.findViewById(R.id.icon);
+        TextView tituloDialogo = dialogView.findViewById(R.id.titulo);
+        TextView mensajeDialogo = dialogView.findViewById(R.id.mensaje);
+
+        // Configurar los valores del cuadro de diálogo de confirmación
+        icono.setImageResource(R.drawable.icon);
+        tituloDialogo.setText("CIERRE DE APP");
+        mensajeDialogo.setText("La App se va a cerrar\n¿Está seguro?");
+
+        // Crear el cuadro de diálogo de confirmación
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView)
+                .setPositiveButton("OK", (dialog, which) -> {
+                    setResult(RESULT_FINISH);
+                    finish();
+                })
+                .setNegativeButton("NO", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 }
