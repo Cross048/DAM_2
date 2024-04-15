@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.pmdm.actividad05.R;
 
 public class ActivityB extends AppCompatActivity {
+    private static final int RESULT_RETURN = 1;
+    private static final int RESULT_FINISH = 2;
     private Button btnVolver;
     private Button btnVolverInicio;
     private Button btnFinalizar;
@@ -44,7 +46,16 @@ public class ActivityB extends AppCompatActivity {
         btnVolverInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setResult(RESULT_OK);
+                setResult(RESULT_RETURN);
+                finish();
+            }
+        });
+
+        // Finaliza toda la cadena de Activitys
+        btnFinalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_FINISH);
                 finish();
             }
         });

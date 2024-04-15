@@ -12,8 +12,8 @@ import com.pmdm.actividad05.R;
 import com.pmdm.actividad05.retornos.ActivityC;
 
 public class Activity3 extends AppCompatActivity {
-    private static final int CODIGO_LLAMADA_ACT1 = 0;
-    private static final int RESULT_MAIN = 1;
+    private static final int CODIGO_LLAMADA_ACTB = 0;
+    private static final int RESULT_RETURN = 1;
     private static final int RESULT_FINISH = 2;
 
     @Override
@@ -56,13 +56,17 @@ public class Activity3 extends AppCompatActivity {
         Intent intent = new Intent(this, ActivityC.class);
         intent.putExtra("color", color);
         intent.putExtra("tipoVista", 3);
-        startActivityForResult(intent, CODIGO_LLAMADA_ACT1);
+        startActivityForResult(intent, CODIGO_LLAMADA_ACTB);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CODIGO_LLAMADA_ACT1 && resultCode == RESULT_OK) {
+        if (requestCode == CODIGO_LLAMADA_ACTB && resultCode == RESULT_RETURN) {
+            finish();
+        }
+        if (requestCode == CODIGO_LLAMADA_ACTB && resultCode == RESULT_FINISH) {
+            setResult(RESULT_OK);
             finish();
         }
     }
