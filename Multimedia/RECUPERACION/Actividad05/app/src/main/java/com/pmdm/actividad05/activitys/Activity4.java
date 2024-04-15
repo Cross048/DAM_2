@@ -1,6 +1,7 @@
 package com.pmdm.actividad05.activitys;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
@@ -12,8 +13,7 @@ import com.pmdm.actividad05.R;
 import com.pmdm.actividad05.retornos.ActivityD;
 
 public class Activity4 extends AppCompatActivity {
-    private static final int CODIGO_LLAMADA_ACT1 = 0;
-    private static final int RESULT_FINISH = 2;
+    private static final int CODIGO_LLAMADA_ACTD = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,22 +56,33 @@ public class Activity4 extends AppCompatActivity {
         }
 
         if (color != 0) {
-            enviarColor(color);
+            enviarColor(color, view.getId());
         }
     }
 
-    private void enviarColor(int color) {
+    // Método para enviar el color a la siguiente Activity
+    private void enviarColor(int color, int viewId) {
         Intent intent = new Intent(this, ActivityD.class);
         intent.putExtra("color", color);
-        startActivityForResult(intent, CODIGO_LLAMADA_ACT1);
+        intent.putExtra("viewId", viewId);
+        startActivityForResult(intent, CODIGO_LLAMADA_ACTD);
     }
 
+    // Método para borrar el color
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CODIGO_LLAMADA_ACT1 && resultCode == RESULT_FINISH) {
-            setResult(RESULT_OK);
-            finish();
+        if (requestCode == CODIGO_LLAMADA_ACTD && resultCode == RESULT_OK) {
+            boolean changeColorToTransparent = data.getBooleanExtra("changeColorToTransparent", false);
+            if (changeColorToTransparent) {
+                int viewId = data.getIntExtra("viewId", -1);
+                if (viewId != -1) {
+                    View view = findViewById(viewId);
+                    if (view != null) {
+                        view.setBackgroundColor(Color.TRANSPARENT);
+                    }
+                }
+            }
         }
     }
 }

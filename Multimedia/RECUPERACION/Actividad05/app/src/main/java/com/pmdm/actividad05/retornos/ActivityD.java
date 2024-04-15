@@ -37,12 +37,11 @@ public class ActivityD extends AppCompatActivity {
             public void onClick(View v) {
                 Intent returnIntent = new Intent();
                 if (rbtnNo.isChecked()) {
-                    // El usuario no gusta del color, indicamos cambiar a transparente
+                    // Indicamos cambiar a transparente
                     returnIntent.putExtra("changeColorToTransparent", true);
-                    // Asegúrate de enviar de vuelta el ID del View que fue originalmente seleccionado
                     returnIntent.putExtra("viewId", getIntent().getIntExtra("viewId", -1));
                 } else if (rbtnSi.isChecked()){
-                    // El usuario gusta del color, no hay necesidad de cambiar
+                    // No hay necesidad de cambiar
                     returnIntent.putExtra("changeColorToTransparent", false);
                     Toast.makeText(getApplicationContext(), "Me alegro que te guste :)", Toast.LENGTH_SHORT).show();
                 }
@@ -51,4 +50,5 @@ public class ActivityD extends AppCompatActivity {
             }
         });
     }
+
 }
