@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.pmdm.actividad05.R;
-import com.pmdm.actividad05.retornos.ActivityC;
+import com.pmdm.actividad05.retornos.ActivityA;
 
 public class Activity3 extends AppCompatActivity {
     private static final int CODIGO_LLAMADA_ACTB = 0;
@@ -53,7 +53,7 @@ public class Activity3 extends AppCompatActivity {
     }
 
     private void enviarColor(int color) {
-        Intent intent = new Intent(this, ActivityC.class);
+        Intent intent = new Intent(this, ActivityA.class);
         intent.putExtra("color", color);
         intent.putExtra("tipoVista", 3);
         startActivityForResult(intent, CODIGO_LLAMADA_ACTB);

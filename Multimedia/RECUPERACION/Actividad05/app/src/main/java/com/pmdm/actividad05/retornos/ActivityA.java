@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.pmdm.actividad05.R;
 
 public class ActivityA extends AppCompatActivity {
+    private static final int RESULT_MAIN = 1;
+    private static final int RESULT_FINISH = 2;
     private Button btnVolver;
     private Button btnVolverInicio;
     private Button btnFinalizar;
@@ -19,6 +21,7 @@ public class ActivityA extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity05);
 
+        // Inicializa los botones
         btnVolver = findViewById(R.id.btnVolver);
         btnVolverInicio = findViewById(R.id.btnVolverInicio);
         btnFinalizar = findViewById(R.id.btnFinalizar);
@@ -31,11 +34,8 @@ public class ActivityA extends AppCompatActivity {
         // Configura la visibilidad de los botones
         configureButtonVisibility(getIntent().getIntExtra("tipoVista", 0));
 
-        // Volvemos a la Activity anterior terminando la actual
-        btnVolver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { finish(); }
-        });
+        // Configura los clics de los botones
+        configureButtonClicks();
     }
 
     // Método para configurar la visibilidad de los botones
@@ -57,5 +57,34 @@ public class ActivityA extends AppCompatActivity {
                 btnFinalizar.setVisibility(View.GONE);
                 break;
         }
+    }
+
+    // Método para configurar los clics de los botones
+    private void configureButtonClicks() {
+        // Volvemos a la Activity anterior terminando la actual
+        btnVolver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        // Finaliza la Activity y la manda al MainActivity
+        btnVolverInicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_MAIN);
+                finish();
+            }
+        });
+
+        // Finaliza la Activity y la manda al MainActivity, finalizando esta también
+        btnFinalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_FINISH);
+                finish();
+            }
+        });
     }
 }

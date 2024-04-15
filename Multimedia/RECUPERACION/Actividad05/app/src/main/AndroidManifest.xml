@@ -45,14 +45,6 @@
             android:name=".retornos.ActivityB"
             android:exported="false"
             android:label="E5_Activitys" />
-        <activity
-            android:name=".retornos.ActivityC"
-            android:exported="false"
-            android:label="E5_Activitys" />
-        <activity
-            android:name=".retornos.ActivityD"
-            android:exported="false"
-            android:label="E5_Activitys" />
     </application>
 
 </manifest>

@@ -9,10 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.pmdm.actividad05.R;
-import com.pmdm.actividad05.retornos.ActivityB;
+import com.pmdm.actividad05.retornos.ActivityA;
 
 public class Activity2 extends AppCompatActivity {
     private static final int CODIGO_LLAMADA_ACT2 = 0;
+    private static final int RESULT_MAIN = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class Activity2 extends AppCompatActivity {
     }
 
     private void enviarColor(int color) {
-        Intent intent = new Intent(this, ActivityB.class);
+        Intent intent = new Intent(this, ActivityA.class);
         intent.putExtra("color", color);
         intent.putExtra("tipoVista", 2);
         startActivityForResult(intent, CODIGO_LLAMADA_ACT2);
@@ -63,7 +64,7 @@ public class Activity2 extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CODIGO_LLAMADA_ACT2) {
-            if (resultCode == RESULT_OK) {
+            if (resultCode == RESULT_MAIN) {
                 finish();
             }
         }

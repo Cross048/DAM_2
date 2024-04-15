@@ -10,10 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.pmdm.actividad05.R;
-import com.pmdm.actividad05.retornos.ActivityD;
+import com.pmdm.actividad05.retornos.ActivityB;
 
 public class Activity4 extends AppCompatActivity {
-    private static final int CODIGO_LLAMADA_ACTD = 0;
+    private static final int CODIGO_LLAMADA_ACTB = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,17 +62,17 @@ public class Activity4 extends AppCompatActivity {
 
     // Método para enviar el color a la siguiente Activity
     private void enviarColor(int color, int viewId) {
-        Intent intent = new Intent(this, ActivityD.class);
+        Intent intent = new Intent(this, ActivityB.class);
         intent.putExtra("color", color);
         intent.putExtra("viewId", viewId);
-        startActivityForResult(intent, CODIGO_LLAMADA_ACTD);
+        startActivityForResult(intent, CODIGO_LLAMADA_ACTB);
     }
 
     // Método para borrar el color
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CODIGO_LLAMADA_ACTD && resultCode == RESULT_OK) {
+        if (requestCode == CODIGO_LLAMADA_ACTB && resultCode == RESULT_OK) {
             boolean changeColorToTransparent = data.getBooleanExtra("changeColorToTransparent", false);
             if (changeColorToTransparent) {
                 int viewId = data.getIntExtra("viewId", -1);

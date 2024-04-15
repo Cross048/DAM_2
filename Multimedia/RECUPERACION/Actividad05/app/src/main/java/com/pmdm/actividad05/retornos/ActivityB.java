@@ -1,84 +1,54 @@
 package com.pmdm.actividad05.retornos;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pmdm.actividad05.R;
 
 public class ActivityB extends AppCompatActivity {
-    private static final int RESULT_RETURN = 1;
-    private static final int RESULT_FINISH = 2;
-    private Button btnVolver;
-    private Button btnVolverInicio;
-    private Button btnFinalizar;
+    private View pickedColorView;
+    private RadioButton rbtnSi;
+    private RadioButton rbtnNo;
+    private Button btnEntendido;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity05);
+        setContentView(R.layout.activity06);
 
-        // Inicializa los botones
-        btnVolver = findViewById(R.id.btnVolver);
-        btnVolverInicio = findViewById(R.id.btnVolverInicio);
-        btnFinalizar = findViewById(R.id.btnFinalizar);
+        pickedColorView = findViewById(R.id.vPickedColor);
+        rbtnSi = findViewById(R.id.rbtnSi);
+        rbtnNo = findViewById(R.id.rbtnNo);
+        btnEntendido = findViewById(R.id.btnEntendido);
 
         // Recibe el color de la Activity anterior y la establece de color de fondo
         int color = getIntent().getIntExtra("color", Color.WHITE);
-        View view = findViewById(android.R.id.content);
-        view.setBackgroundColor(color);
+        pickedColorView.setBackgroundColor(color);
 
-        // Configura la visibilidad de los botones
-        configureButtonVisibility(getIntent().getIntExtra("tipoVista", 0));
-
-        // Volvemos a la Activity anterior terminando la actual
-        btnVolver.setOnClickListener(new View.OnClickListener() {
+        btnEntendido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-            }
-        });
-
-        // Finaliza la Activity y la manda al MainActivity
-        btnVolverInicio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setResult(RESULT_RETURN);
-                finish();
-            }
-        });
-
-        // Finaliza toda la cadena de Activitys
-        btnFinalizar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setResult(RESULT_FINISH);
+                Intent returnIntent = new Intent();
+                if (rbtnNo.isChecked()) {
+                    // Indicamos cambiar a transparente
+                    returnIntent.putExtra("changeColorToTransparent", true);
+                    returnIntent.putExtra("viewId", getIntent().getIntExtra("viewId", -1));
+                } else if (rbtnSi.isChecked()){
+                    // No hay necesidad de cambiar
+                    returnIntent.putExtra("changeColorToTransparent", false);
+                    Toast.makeText(getApplicationContext(), "Me alegro que te guste :)", Toast.LENGTH_SHORT).show();
+                }
+                setResult(RESULT_OK, returnIntent);
                 finish();
             }
         });
     }
 
-    // Método para configurar la visibilidad de los botones
-    private void configureButtonVisibility(int tipoVista) {
-        switch (tipoVista) {
-            case 1:
-                btnVolverInicio.setVisibility(View.GONE);
-                btnFinalizar.setVisibility(View.GONE);
-                break;
-            case 2:
-                btnFinalizar.setVisibility(View.GONE);
-                break;
-            case 3:
-                // No es necesario modificar la visibilidad
-                break;
-            default:
-                btnVolver.setVisibility(View.GONE);
-                btnVolverInicio.setVisibility(View.GONE);
-                btnFinalizar.setVisibility(View.GONE);
-                break;
-        }
-    }
 }
