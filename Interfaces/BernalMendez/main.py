@@ -11,6 +11,7 @@ from windowaux import *
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
 
+
 class Main(QtWidgets.QMainWindow):
     def __init__(self):
         super(Main, self).__init__()
@@ -58,7 +59,6 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actioncrearbackup.triggered.connect(eventos.Eventos.crearbackup)
         var.ui.actionrestaurarbackup.triggered.connect(eventos.Eventos.restaurarbackup)
 
-
         ''' eventos de tablas '''
         eventos.Eventos.resizeTabdrivers(self)
         var.ui.tabDrivers.clicked.connect(drivers.Drivers.cargadriver)
@@ -81,6 +81,7 @@ class Main(QtWidgets.QMainWindow):
             event.accept()
         else:
             event.ignore()
+
 
 if __name__ == '__main__':
     try:
