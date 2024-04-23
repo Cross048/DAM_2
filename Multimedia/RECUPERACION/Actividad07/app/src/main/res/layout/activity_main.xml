@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/mainBody"
-    android:background="@drawable/background01">
+    android:background="@color/fondoazul">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -16,33 +15,34 @@
         app:titleTextColor="@color/white"
         app:popupTheme="@color/white"
         android:popupTheme="@style/AppTheme.PopupOverlay"
-        android:elevation="4dp" />
+        android:elevation="4dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical"
-        android:gravity="center">
+        >
 
         <TextView
-            android:id="@+id/tvBienvenido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="BIENVENIDO"
-            android:background="@color/white"
+            android:text="ELIGE TU PANTALLA"
             android:textSize="30sp"
-            android:padding="10dp"
-            android:layout_margin="10dp"/>
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"/>
 
-        <TextView
-            android:id="@+id/tvJugamos"
+        <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="¿JUGAMOS?"
-            android:background="@color/white"
-            android:textSize="30sp"
-            android:padding="10dp"
-            android:layout_margin="10dp" />
+            android:layout_margin="20dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¡Adelante!"
+            android:layout_margin="20dp"/>
 
     </LinearLayout>
 
