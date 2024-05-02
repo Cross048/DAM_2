@@ -1,5 +1,8 @@
-import sys, var, locale
-from PyQt6 import QtWidgets, QtCore, QtGui
+import sys
+import var
+
+from PyQt6 import QtWidgets, QtGui
+
 
 class Events:
     def salir(self=None):
@@ -15,6 +18,7 @@ class Events:
         mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Yes)
         mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.No)
         if mbox.exec() == QtWidgets.QMessageBox.StandardButton.Yes:
+            print("Programa cerrado")
             sys.exit()
         else:
             mbox.hide()
@@ -28,3 +32,19 @@ class Events:
                 header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
         except Exception as error:
             print("Error en el resize en la tabla Clientes: ", error)
+
+    @staticmethod
+    def abrirCalendar(self):
+        try:
+            var.calendar.show()
+            print("Calendario abierto")
+        except Exception as error:
+            print("Error al abrir calendario: ", error)
+
+    def error(title, text):
+        mbox = QtWidgets.QMessageBox()
+        mbox.setWindowTitle(title)
+        mbox.setWindowIcon(QtGui.QIcon("img/limpiar.png"))
+        mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+        mbox.setText(text)
+        mbox.exec()

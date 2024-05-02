@@ -1,4 +1,4 @@
-from PyQt6 import QtSql, QtWidgets, QtCore
+from PyQt6 import QtSql, QtWidgets
 
 import clients
 import var
@@ -22,8 +22,14 @@ class Connection():
         try:
             registros = []
             query = QtSql.QSqlQuery()
-            query.prepare(
-                'SELECT id_cliente, nombre, apellido, fecha_nacimiento, telefono, email, categoria FROM Cliente')
+            if var.ui.chkHistorico.isChecked():
+                # Si el checkBox está marcado, selecciona todos los clientes
+                query.prepare(
+                    'SELECT id_cliente, nombre, apellido, fecha_nacimiento, telefono, email, categoria, alta FROM Cliente')
+            else:
+                # Si el checkBox no está marcado, selecciona solo los clientes dados de alta (alta = 1)
+                query.prepare(
+                    'SELECT id_cliente, nombre, apellido, fecha_nacimiento, telefono, email, categoria, alta FROM Cliente WHERE alta = 1')
             if query.exec():
                 while query.next():
                     row = [query.value(i) for i in range(query.record().count())]
@@ -34,9 +40,38 @@ class Connection():
                     var.ui.tableClientes.setRowCount(0)
             else:
                 var.ui.tableClientes.setRowCount(0)
+            print("Tabla cargada!")
         except Exception as error:
             msg = QtWidgets.QMessageBox()
             msg.setWindowTitle("Aviso")
             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
             msg.setText("Error en cargar tabla o selección de datos")
             msg.exec()
+
+    @staticmethod
+    def mostrarclientes(self):
+        try:
+            registros = []
+            estado = 1
+            Connection.selectClientes(estado)
+            if registros:
+                clients.Clients.cargarTablaClientes(registros)
+                return registros
+            else:
+                var.ui.tableClientes.setRowCount(0)
+        except Exception as error:
+            print("Error al mostrar resultados: ", error)
+
+    def onecliente(id_cliente):
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare('SELECT * FROM Cliente WHERE id_cliente = :id_cliente')
+            query.bindValue(':id_cliente', int(id_cliente))
+            if query.exec():
+                while query.next():
+                    for i in range(9):
+                        registro.append(str(query.value(i)))
+            return registro
+        except Exception as error:
+            print("Error en fichero conexion datos de un driver: ", error)
