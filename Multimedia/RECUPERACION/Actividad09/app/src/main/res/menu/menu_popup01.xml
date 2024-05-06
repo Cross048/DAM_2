@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_4" android:title="Mostrar fondo 4 botones" />
+    <item android:id="@+id/menu_6" android:title="Mostrar fondo 6 botones" />
+    <item android:id="@+id/menu_9" android:title="Mostrar fondo 9 botones" />
+</menu>

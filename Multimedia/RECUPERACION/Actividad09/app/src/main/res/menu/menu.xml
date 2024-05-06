@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/navPantallas" android:title="PANTALLAS">
+        <menu>
+            <item android:id="@+id/navPantalla1" android:title="Pantalla 1" />
+            <item android:id="@+id/navPantalla2" android:title="Pantalla 2" />
+            <item android:id="@+id/navPantalla3" android:title="Pantalla 3" />
+            <item android:id="@+id/navPantalla4" android:title="Pantalla 4" />
+        </menu>
+    </item>
+    <item android:id="@+id/navFinalizar" android:title="Finalizar" />
+    <item android:id="@+id/navAcercaDe" android:title="Acerca de" />
+</menu>
