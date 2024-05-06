@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Actividad08</string>
+    <string-array name="lista1">
+        <item>4 colores</item>
+        <item>6 colores</item>
+        <item>9 colores</item>
+    </string-array>
+</resources>
