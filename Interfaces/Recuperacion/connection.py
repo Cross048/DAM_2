@@ -1,6 +1,7 @@
 from PyQt6 import QtSql, QtWidgets
 
 import clients
+import products
 import var
 
 
@@ -48,6 +49,30 @@ class Connection():
             msg.setText("Error en cargar tabla o selección de datos")
             msg.exec()
 
+    def selectProductos(self):
+        # Carga los datos de los productos para añadirlos a la tabla Productos
+        try:
+            registros = []
+            query = QtSql.QSqlQuery()
+            query.prepare('SELECT id_producto, nombre, precio, stock FROM Producto')
+            if query.exec():
+                while query.next():
+                    row = [query.value(i) for i in range(query.record().count())]
+                    registros.append(row)
+                if registros:
+                    products.Products.cargarTablaProductos(registros)
+                else:
+                    var.ui.tableProductos.setRowCount(0)
+            else:
+                var.ui.tableProductos.setRowCount(0)
+            print("Tabla cargada!")
+        except Exception as error:
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowTitle("Aviso")
+            msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            msg.setText("Error en cargar tabla o selección de datos")
+            msg.exec()
+
     @staticmethod
     def mostrarclientes(self):
         try:
@@ -59,6 +84,20 @@ class Connection():
                 return registros
             else:
                 var.ui.tableClientes.setRowCount(0)
+        except Exception as error:
+            print("Error al mostrar resultados: ", error)
+
+    @staticmethod
+    def mostrarproductos(self):
+        try:
+            registros = []
+            estado = 1
+            Connection.selectProductos(estado)
+            if registros:
+                products.Products.cargarTablaProductos(registros)
+                return registros
+            else:
+                var.ui.tableProductos.setRowCount(0)
         except Exception as error:
             print("Error al mostrar resultados: ", error)
 
@@ -74,4 +113,18 @@ class Connection():
                         registro.append(str(query.value(i)))
             return registro
         except Exception as error:
-            print("Error en fichero conexion datos de un driver: ", error)
+            print("Error en fichero conexion datos de un Cliente: ", error)
+
+    def onecliente(id_producto):
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare('SELECT * FROM Productos WHERE id_producto = :id_producto')
+            query.bindValue(':id_producto', int(id_producto))
+            if query.exec():
+                while query.next():
+                    for i in range(9):
+                        registro.append(str(query.value(i)))
+            return registro
+        except Exception as error:
+            print("Error en fichero conexion datos de un Producto: ", error)

@@ -3,6 +3,7 @@ import events
 import locale
 import sys
 
+import products
 from MainWindow import *
 from windowsaux import *
 
@@ -17,6 +18,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui = Ui_MainWindow()
         var.calendar = Calendar()
         self.clients = clients.Clients()
+        self.products = products.Products()
         var.ui.setupUi(self)
 
         # Conexión a la base de datos
@@ -44,6 +46,13 @@ class Main(QtWidgets.QMainWindow):
         var.ui.chkHistorico.clicked.connect(self.connection.selectClientes)
         # Carga todos los datos de un cliente en el formulario
         var.ui.tableClientes.clicked.connect(clients.Clients.cargarCliente)
+
+        # Reajusta las dimensiones de la tabla Clientes
+        events.Events.resizeTableProductos()
+        # Cargar los datos de los clientes al abrir el programa y meterlos en la tabla Clientes
+        self.connection.selectProductos()
+        # Carga todos los datos de un cliente en el formulario
+        var.ui.tableProductos.clicked.connect(products.Products.cargarProducto)
 
     def closeEvent(self, event):
         # Ventana de emergencia al intentar salir del programa
