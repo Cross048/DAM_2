@@ -16,7 +16,8 @@ import com.pmdm.actividad09.activitys.Activity4;
 
 public class MainActivity extends AppCompatActivity {
     private static final int CODIGO_LLAMADA_ACT3 = 0;
-    private ListView lista;
+    private ListView lista1;
+    private ListView lista2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +26,16 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(findViewById(R.id.toolbar));
 
-        lista = findViewById(R.id.lista);
+        lista1 = findViewById(R.id.lista1);
+        lista2 = findViewById(R.id.lista2);
 
-        String[] elementosLista = getResources().getStringArray(R.array.lista1);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item, R.id.textView, elementosLista);
-        lista.setAdapter(adapter);
+        String[] lista1array = getResources().getStringArray(R.array.lista1);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this, R.layout.list_item, R.id.textView, lista1array
+        );
+        lista1.setAdapter(adapter);
 
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lista1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 switch (position) {
@@ -39,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this, Activity1.class));
                         break;
                     case 1:
-                        mostrarLista2(lista); // Pasar la referencia del ListView como parámetro
+                        mostrarLista2(lista1, lista2);
                         break;
                     case 2:
                         startActivity(new Intent(MainActivity.this, Activity4.class));
@@ -51,13 +55,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void mostrarLista2(ListView listView) {
-        // Segunda lista con Adapter
-        String[] options = {"Sin padding", "Con padding"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.textView, options);
-        listView.setAdapter(adapter);
+    private void mostrarLista2(ListView lista1, ListView lista2) {
+        lista1.setVisibility(View.GONE);
+        lista2.setVisibility(View.VISIBLE);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        String[] lista2array = getResources().getStringArray(R.array.lista2);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this, R.layout.list_item,R.id.textView, lista2array
+        );
+        lista2.setAdapter(adapter);
+
+        lista2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 switch (position) {
@@ -65,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this, Activity2.class));
                         break;
                     case 1:
-                        startActivity(new Intent(MainActivity.this, Activity3.class));
+                        startActivityForResult(new Intent(MainActivity.this, Activity3.class), CODIGO_LLAMADA_ACT3);
                         break;
                     default:
                         break;

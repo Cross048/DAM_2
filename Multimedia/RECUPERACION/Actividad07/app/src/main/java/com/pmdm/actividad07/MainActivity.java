@@ -73,39 +73,23 @@ public class MainActivity extends AppCompatActivity {
                 int opcionSeleccionadaSpinner1 = spinner1.getSelectedItemPosition();
                 int opcionSeleccionadaSpinner2 = spinner2.getSelectedItemPosition();
 
-                Class<?> nextActivity = null;
-
-                // Verificar si la opción seleccionada en spinner2 es la segunda opción y
-                // la opción seleccionada en spinner1 es la segunda opción
-                if (opcionSeleccionadaSpinner2 == 1 && opcionSeleccionadaSpinner1 == 0) {
-                    nextActivity = Activity2.class;
-                }
-                // Verificar si la opción seleccionada en spinner2 es la segunda opción y
-                // la opción seleccionada en spinner1 es la tercera opción
-                else if (opcionSeleccionadaSpinner2 == 1 && opcionSeleccionadaSpinner1 == 1) {
-                    nextActivity = Activity3.class;
-                }
-                // Si spinner2 no está seleccionado,
-                // abrir la actividad basada en la selección de spinner1
-                else {
-                    switch (opcionSeleccionadaSpinner1) {
-                        case 0:
-                            nextActivity = Activity1.class;
-                            break;
-                        case 1:
-                            nextActivity = Activity2.class;
-                            break;
-                        case 2:
-                            nextActivity = Activity3.class;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-
-                if (nextActivity != null) {
-                    Intent intent = new Intent(MainActivity.this, nextActivity);
-                    startActivity(intent);
+                switch (opcionSeleccionadaSpinner1) {
+                    case 0:
+                        startActivity(new Intent(MainActivity.this, Activity1.class));
+                        break;
+                    case 1:
+                        if (opcionSeleccionadaSpinner2 == 0) {
+                            startActivity(new Intent(MainActivity.this, Activity2.class));
+                        }
+                        else if (opcionSeleccionadaSpinner2 == 1) {
+                            startActivityForResult(new Intent(MainActivity.this, Activity3.class), CODIGO_LLAMADA_ACT3);
+                        }
+                        break;
+                    case 2:
+                        startActivity(new Intent(MainActivity.this, Activity4.class));
+                        break;
+                    default:
+                        break;
                 }
             }
         });

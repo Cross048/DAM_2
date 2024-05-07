@@ -26,18 +26,31 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ELIGE TU PANTALLA"
+            android:text="@string/encabezado"
             android:textSize="30sp"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:layout_margin="20dp"/>
 
         <ListView
-            android:id="@+id/lista"
+            android:id="@+id/lista1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:divider="@color/naranja"
+            android:background="@color/azulito"
+            android:dividerHeight="1dp"
             android:entries="@array/lista1"/>
+
+        <ListView
+            android:id="@+id/lista2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:divider="@color/azulito"
+            android:background="@color/naranja"
+            android:dividerHeight="1dp"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

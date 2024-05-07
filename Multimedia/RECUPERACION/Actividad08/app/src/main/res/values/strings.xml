@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">Actividad08</string>
+    <string name="encabezado">ELIGE TU PANTALLA</string>
     <string-array name="lista1">
         <item>4 colores</item>
         <item>6 colores</item>
         <item>9 colores</item>
+    </string-array>
+    <string-array name="lista2">
+        <item>Sin padding</item>
+        <item>Con padding</item>
     </string-array>
 </resources>

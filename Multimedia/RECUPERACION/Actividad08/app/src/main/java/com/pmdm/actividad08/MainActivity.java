@@ -14,8 +14,12 @@ import com.pmdm.actividad08.activitys.Activity2;
 import com.pmdm.actividad08.activitys.Activity3;
 import com.pmdm.actividad08.activitys.Activity4;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private static final int CODIGO_LLAMADA_ACT3 = 0;
+    private ListView lista1;
+    private ListView lista2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +28,10 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(findViewById(R.id.toolbar));
 
-        ListView lista = findViewById(R.id.lista);
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lista1 = findViewById(R.id.lista1);
+        lista2 = findViewById(R.id.lista2);
+
+        lista1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 switch (position) {
@@ -33,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this, Activity1.class));
                         break;
                     case 1:
-                        mostrarLista2();
+                        mostrarLista2(lista1, lista2);
                         break;
                     case 2:
                         startActivity(new Intent(MainActivity.this, Activity4.class));
@@ -45,15 +51,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void mostrarLista2() {
-        ListView listView = findViewById(R.id.lista);
+    private void mostrarLista2(ListView lista1, ListView lista2) {
+        lista1.setVisibility(View.GONE);
+        lista2.setVisibility(View.VISIBLE);
+        String[] lista2array = getResources().getStringArray(R.array.lista2);
 
-        // Segunda lista con Adapter
-        String[] options = {"Sin padding", "Con padding"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, options);
-        listView.setAdapter(adapter);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1, lista2array
+        );
+        lista2.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lista2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 switch (position) {
@@ -61,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this, Activity2.class));
                         break;
                     case 1:
-                        startActivity(new Intent(MainActivity.this, Activity3.class));
+                        startActivityForResult(new Intent(MainActivity.this, Activity3.class), CODIGO_LLAMADA_ACT3);
                         break;
                     default:
                         break;
