@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +12,8 @@ import com.pmdm.actividad13.activitys.Activity1;
 import com.pmdm.actividad13.activitys.Activity2;
 import com.pmdm.actividad13.activitys.Activity3;
 import com.pmdm.actividad13.activitys.Activity4;
+import com.pmdm.actividad13.adapters.CustomAdapter1;
+import com.pmdm.actividad13.adapters.CustomAdapter2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         String[] lista1array = getResources().getStringArray(R.array.lista1);
         List<ElementoLista> elementosLista = new ArrayList<>();
+        int imagen = -1;
 
         for (String elemento : lista1array) {
             String[] partes = elemento.split("\\|");
@@ -41,13 +43,14 @@ public class MainActivity extends AppCompatActivity {
                 String titulo = partes[0];
                 String cuerpo = partes[1];
                 String footer = partes[2];
+                imagen += 1;
 
-                ElementoLista elementoLista = new ElementoLista(titulo, cuerpo, footer);
+                ElementoLista elementoLista = new ElementoLista(titulo, cuerpo, footer, imagen);
                 elementosLista.add(elementoLista);
             }
         }
 
-        CustomAdapter adapter = new CustomAdapter(
+        CustomAdapter1 adapter = new CustomAdapter1(
                 this, R.layout.list_item, elementosLista
         );
         lista1.setAdapter(adapter);
@@ -77,8 +80,16 @@ public class MainActivity extends AppCompatActivity {
         lista2.setVisibility(View.VISIBLE);
 
         String[] lista2array = getResources().getStringArray(R.array.lista2);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this, R.layout.list_item2,R.id.titulo, lista2array
+        List<ElementoLista> lista2Elementos = new ArrayList<>();
+        int imagen = -1;
+
+        for (String elemento : lista2array) {
+            imagen += 1;
+            ElementoLista elementoLista = new ElementoLista(elemento, imagen);
+            lista2Elementos.add(elementoLista);
+        }
+        CustomAdapter2 adapter = new CustomAdapter2(
+                this, R.layout.list_item2, lista2Elementos
         );
         lista2.setAdapter(adapter);
 

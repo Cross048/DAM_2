@@ -4,15 +4,20 @@ public class ElementoLista {
     private String titulo;
     private String cuerpo;
     private String footer;
+    private int imagen;
 
-    public ElementoLista(String titulo) {
+    public ElementoLista(String titulo, int imagen) {
         this.titulo = titulo;
+        this.cuerpo = "";
+        this.footer = "";
+        this.imagen = imagen;
     }
 
-    public ElementoLista(String titulo, String cuerpo, String footer) {
+    public ElementoLista(String titulo, String cuerpo, String footer, int imagen) {
         this.titulo = titulo;
         this.cuerpo = cuerpo;
         this.footer = footer;
+        this.imagen = imagen;
     }
 
     public String getTitulo() {
@@ -37,5 +42,13 @@ public class ElementoLista {
 
     public void setFooter(String footer) {
         this.footer = footer;
+    }
+
+    public int getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(int imagen) {
+        this.imagen = imagen;
     }
 }
