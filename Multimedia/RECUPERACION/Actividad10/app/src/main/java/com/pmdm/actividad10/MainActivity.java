@@ -1,19 +1,12 @@
 package com.pmdm.actividad10;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import java.util.Arrays;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pmdm.actividad10.activitys.Activity1;
@@ -22,6 +15,7 @@ import com.pmdm.actividad10.activitys.Activity3;
 import com.pmdm.actividad10.activitys.Activity4;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     private static final int CODIGO_LLAMADA_ACT3 = 0;
@@ -38,12 +32,14 @@ public class MainActivity extends AppCompatActivity {
         lista1 = findViewById(R.id.lista1);
         lista2 = findViewById(R.id.lista2);
 
+        // Obtener la lista de recursos
         String[] lista1array = getResources().getStringArray(R.array.lista1);
 
-        // Utiliza tu adaptador personalizado
+        // Crear el adaptador personalizado
         CustomAdapter adapter = new CustomAdapter(
                 this, R.layout.list_item, new ArrayList<>(Arrays.asList(lista1array))
         );
+
         lista1.setAdapter(adapter);
 
         lista1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -72,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         String[] lista2array = getResources().getStringArray(R.array.lista2);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this, R.layout.list_item,R.id.textView, lista2array
+                this, R.layout.list_item2,R.id.titulo, lista2array
         );
         lista2.setAdapter(adapter);
 
@@ -91,41 +87,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    public class CustomAdapter extends ArrayAdapter<String> {
-
-        private Context mContext;
-        private int mResource;
-        private ArrayList<String> mData;
-
-        public CustomAdapter(Context context, int resource, ArrayList<String> data) {
-            super(context, resource, data);
-            mContext = context;
-            mResource = resource;
-            mData = data;
-        }
-
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            if (convertView == null) {
-                convertView = LayoutInflater.from(mContext).inflate(mResource, parent, false);
-            }
-
-            // Obtener el elemento actual
-            String item = mData.get(position);
-
-            // Obtener la referencia al TextView en el layout personalizado
-            TextView textView = convertView.findViewById(R.id.textView);
-
-            // Establecer el texto del TextView
-            textView.setText(item);
-
-            // Aquí puedes personalizar más la apariencia del elemento si lo necesitas
-
-            return convertView;
-        }
     }
 
     @Override

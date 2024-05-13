@@ -2,10 +2,11 @@
     <string name="app_name">Actividad10</string>
     <string name="encabezado">ELIGE TU PANTALLA</string>
     <string-array name="lista1">
-        <item>4 colores</item>
-        <item>6 colores</item>
-        <item>9 colores</item>
+        <item>4 colores|Pantalla de 4 colores|4</item>
+        <item>6 colores|Pantalla de 6 colores|6</item>
+        <item>9 colores|Pantalla de 9 colores|9</item>
     </string-array>
+
     <string-array name="lista2">
         <item>Sin padding</item>
         <item>Con padding</item>
