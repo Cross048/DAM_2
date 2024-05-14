@@ -1,8 +1,8 @@
-import connection
-import events
 import locale
 import sys
 
+import connection
+import events
 import products
 from MainWindow import *
 from windowsaux import *
@@ -26,8 +26,12 @@ class Main(QtWidgets.QMainWindow):
         self.connection.conexion()
 
         ''' Eventos de Botones '''
-        # Abrir calendario con su botón asignado
+        # Clientes: Abrir calendario con su botón asignado
         var.ui.btnCalendar.clicked.connect(events.Events.abrirCalendar)
+        # Clientes: Modifica los datos del Cliente que se está editando en formulario
+        var.ui.btnMod.clicked.connect(connection.Connection.modificarCliente)
+        # Productos: Modifica los datos del Producto que se está editando en formulario
+        var.ui.btnMod_2.clicked.connect(connection.Connection.modificarProducto)
 
         ''' Eventos del Menubar '''
         # Confirmar salida
@@ -38,20 +42,19 @@ class Main(QtWidgets.QMainWindow):
         ''' Eventos del Toolbar '''
 
         ''' Eventos de Tablas '''
-        # Reajusta las dimensiones de la tabla Clientes
+        # Clientes: Reajusta las dimensiones de la tabla Clientes
         events.Events.resizeTableClientes()
-        # Cargar los datos de los clientes al abrir el programa y meterlos en la tabla Clientes
+        # Clientes: Cargar los datos de los clientes al abrir el programa y meterlos en la tabla Clientes
         self.connection.selectClientes()
-        # Al cambiar el estado de Histórico, actualiza la tabla
+        # Clientes: Al cambiar el estado de Histórico, actualiza la tabla
         var.ui.chkHistorico.clicked.connect(self.connection.selectClientes)
-        # Carga todos los datos de un cliente en el formulario
+        # Clientes: Carga todos los datos de un cliente en el formulario
         var.ui.tableClientes.clicked.connect(clients.Clients.cargarCliente)
-
-        # Reajusta las dimensiones de la tabla Clientes
+        # Productos: Reajusta las dimensiones de la tabla Productos
         events.Events.resizeTableProductos()
-        # Cargar los datos de los clientes al abrir el programa y meterlos en la tabla Clientes
+        # Productos: Cargar los datos de los clientes al abrir el programa y meterlos en la tabla Productos
         self.connection.selectProductos()
-        # Carga todos los datos de un cliente en el formulario
+        # Productos: Carga todos los datos de un producto en el formulario
         var.ui.tableProductos.clicked.connect(products.Products.cargarProducto)
 
     def closeEvent(self, event):
