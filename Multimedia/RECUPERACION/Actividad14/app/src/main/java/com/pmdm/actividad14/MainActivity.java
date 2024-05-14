@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setSupportActionBar(findViewById(R.id.toolbar));
 
-        // Buscar los elementos por su ID
+        // ID de elementos
         spCurso = findViewById(R.id.spCurso);
         spCiclo = findViewById(R.id.spCiclo);
         tvCiclo = findViewById(R.id.tvCiclo);
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                //
+                // En caso de no seleccionar nada. Método por defecto.
             }
         });
 
@@ -85,33 +85,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void guardarAlumno() {
-        // Obtener el nombre ingresado en el EditText
+        // Obtenemos los datos del alumno
         String nombre = txtNombre.getText().toString().trim();
-
-        // Obtener el curso seleccionado en el Spinner
         String curso = spCurso.getSelectedItem().toString();
-
-        // Obtener el ciclo seleccionado en el Spinner de ciclos, si es visible
         String ciclo = "";
         if (tvCiclo.getVisibility() == View.VISIBLE) {
+            // Si es visible el TextView Ciclo, entonces obtenemos los datos del Spinner
             ciclo = spCiclo.getSelectedItem().toString();
         }
 
-        // Crear un nuevo objeto Alumno con los datos obtenidos
+        // Creamos un nuevo Alumno con los datos obtenidos
         Alumno nuevoAlumno;
         if (!ciclo.isEmpty()) {
+            // En caso de tener Ciclo
             nuevoAlumno = new Alumno(nombre, curso, ciclo);
         } else {
+            // Si no, usamos el otro constructor
             nuevoAlumno = new Alumno(nombre, curso);
         }
 
-        // Agregar el nuevo alumno a la lista
+        // Agregamos el nuevo alumno a la lista alumnosList
         alumnosList.add(nuevoAlumno);
 
-        // Notificar al adaptador que los datos han cambiado
+        // Notificamos al adaptador que los datos han cambiado
         alumnosAdapter.notifyDataSetChanged();
 
-        // Limpiar el EditText después de guardar
+        // Limpia el EditText Nombre después de guardar los datos
         txtNombre.getText().clear();
     }
 }
