@@ -74,7 +74,7 @@ class Connection():
             msg.exec()
 
     @staticmethod
-    def mostrarclientes(self):
+    def mostrarClientes(self):
         try:
             registros = []
             estado = 1
@@ -88,7 +88,7 @@ class Connection():
             print("Error al mostrar resultados: ", error)
 
     @staticmethod
-    def mostrarproductos(self):
+    def mostrarProductos(self):
         try:
             registros = []
             estado = 1
@@ -111,20 +111,86 @@ class Connection():
                 while query.next():
                     for i in range(9):
                         registro.append(str(query.value(i)))
+            print("Registro obtenido de la base de datos:", registro)
             return registro
         except Exception as error:
             print("Error en fichero conexion datos de un Cliente: ", error)
 
-    def onecliente(id_producto):
+    def oneproducto(id_producto):
         try:
             registro = []
             query = QtSql.QSqlQuery()
-            query.prepare('SELECT * FROM Productos WHERE id_producto = :id_producto')
+            query.prepare('SELECT * FROM Producto WHERE id_producto = :id_producto')
             query.bindValue(':id_producto', int(id_producto))
             if query.exec():
                 while query.next():
-                    for i in range(9):
+                    for i in range(4):
                         registro.append(str(query.value(i)))
+            print("Registro obtenido de la base de datos:", registro)
             return registro
         except Exception as error:
             print("Error en fichero conexion datos de un Producto: ", error)
+
+    @staticmethod
+    def modificarCliente(self):
+        try:
+            id_cliente = var.ui.lblCodBD.text()
+            dni = var.ui.txtDNI.text()
+            nombre = var.ui.txtNombre.text()
+            apellido = var.ui.txtApel.text()
+            direccion = var.ui.txtDir.text()
+            fecha_nacimiento = var.ui.txtData.text()
+            telefono = var.ui.txtMovil.text()
+            email = var.ui.txtEmail.text()
+            categoria = "Particular" if var.ui.rbtnParticular.isChecked() else "Empresa"
+
+            query = QtSql.QSqlQuery()
+            query.prepare('UPDATE Cliente '
+                          'SET dni = :dni, nombre = :nombre, apellido = :apellido, '
+                          'direccion = :direccion, fecha_nacimiento = :fecha_nacimiento, '
+                          'telefono = :telefono, email = :email, categoria = :categoria '
+                          'WHERE id_cliente = :id_cliente')
+            query.bindValue(':dni', dni)
+            query.bindValue(':nombre', nombre)
+            query.bindValue(':apellido', apellido)
+            query.bindValue(':direccion', direccion)
+            query.bindValue(':fecha_nacimiento', fecha_nacimiento)
+            query.bindValue(':telefono', telefono)
+            query.bindValue(':email', email)
+            query.bindValue(':categoria', categoria)
+            query.bindValue(':id_cliente', id_cliente)
+
+            if query.exec():
+                print("Registro actualizado correctamente.")
+                connection_instance = Connection()
+                connection_instance.selectClientes()
+            else:
+                print("Error al actualizar el registro:", query.lastError().text())
+        except Exception as error:
+            print("Error al modificar cliente: ", error)
+
+    @staticmethod
+    def modificarProducto(self):
+        try:
+            id_producto = var.ui.lblCodBD_2.text()
+            nombre = var.ui.txtNombre_2.text()
+            precio = var.ui.txtPrecio.text()
+            stock = var.ui.spinStock.value()
+
+            query = QtSql.QSqlQuery()
+            query.prepare('UPDATE Producto '
+                          'SET nombre = :nombre, precio = :precio, stock = :stock '
+                          'WHERE id_producto = :id_producto')
+            query.bindValue(':nombre', nombre)
+            query.bindValue(':precio', precio)
+            query.bindValue(':stock', stock)
+            query.bindValue(':id_producto', id_producto)
+
+            if query.exec():
+                print("Registro de producto actualizado correctamente.")
+                connection_instance = Connection()
+                connection_instance.selectProductos()
+            else:
+                print("Error al actualizar el registro de producto:", query.lastError().text())
+        except Exception as error:
+            print("Error al modificar producto: ", error)

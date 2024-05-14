@@ -29,7 +29,7 @@ class Products():
             var.ui.lblCodBD_2.setText(str(registro[0]))
             var.ui.txtNombre_2.setText(str(registro[1]))
             var.ui.txtPrecio.setText(str(registro[2]))
-            var.ui.spinStock.setText(str(registro[3]))
+            var.ui.spinStock.setValue(int(registro[3]))
         except Exception as error:
             print("Error al cargar datos en panel gestión: ", error)
 
@@ -48,7 +48,7 @@ class Products():
         try:
             row = var.ui.tableProductos.selectedItems()
             fila = [dato.text() for dato in row]
-            registro = connection.Connection.onecliente(fila[0])
+            registro = connection.Connection.oneproducto(fila[0])
             Products.cargarDatos(registro)
         except Exception as error:
             print("Error al cargar los datos de un cliente marcando en la tabla: ", error)
