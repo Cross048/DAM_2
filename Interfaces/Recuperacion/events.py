@@ -1,7 +1,8 @@
 import sys
-import var
 
 from PyQt6 import QtWidgets, QtGui
+
+import var
 
 
 class Events:
