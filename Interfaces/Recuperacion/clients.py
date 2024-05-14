@@ -38,7 +38,7 @@ class Clients():
     def cargarDatos(registro):
         try:
             datos = [var.ui.lblCodBD, var.ui.txtDNI, var.ui.txtData, var.ui.txtNombre, var.ui.txtApel, var.ui.txtDir,
-                     var.ui.txtMovil]
+                     var.ui.txtMovil, var.ui.txtEmail]
             var.ui.lblCodBD.setText(str(registro[0]))
             var.ui.txtDNI.setText(str(registro[1]))
             var.ui.txtNombre.setText(str(registro[2]))
@@ -46,6 +46,7 @@ class Clients():
             var.ui.txtDir.setText(str(registro[4]))
             var.ui.txtData.setText(str(registro[5]))
             var.ui.txtMovil.setText(str(registro[6]))
+            var.ui.txtEmail.setText(str(registro[7]))
             categoria = str(registro[8])
             if categoria == "Particular":
                 var.ui.rbtnParticular.setChecked(True)
@@ -83,8 +84,6 @@ class Clients():
             row = var.ui.tableClientes.selectedItems()
             fila = [dato.text() for dato in row]
             registro = connection.Connection.onecliente(fila[0])
-            # Clients.auxiliar(registro)
-            # connection.Connection.mostrarclientes(self)
             Clients.cargarDatos(registro)
         except Exception as error:
             print("Error al cargar los datos de un cliente marcando en la tabla: ", error)
