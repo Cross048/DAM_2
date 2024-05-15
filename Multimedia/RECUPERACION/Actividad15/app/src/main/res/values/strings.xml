@@ -2,6 +2,7 @@
     <string name="app_name">Actividad15</string>
     <string name="encabezado">ELIGE TU PANTALLA</string>
     <string name="hint">Nombre</string>
+    <string name="check">Recordar nombre</string>
     <string name="ok">OK</string>
     <string-array name="lista1">
         <item>4 colores|Pantalla de 4 colores|4</item>
