@@ -14,8 +14,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView listAlumnos;
     private List<Alumno> alumnosList;
     private AlumnoAdapter alumnosAdapter;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +41,11 @@ public class MainActivity extends AppCompatActivity {
         btnGuardar = findViewById(R.id.btnGuardar);
         listAlumnos = findViewById(R.id.listAlumnos);
 
-        // Adaptador de ListView alumnos
-        alumnosList = new ArrayList<>();
+        // Inicializar DatabaseHelper
+        databaseHelper = new DatabaseHelper(this);
+
+        // Cargar alumnos desde la base de datos
+        alumnosList = databaseHelper.getAllAlumnos();
         alumnosAdapter = new AlumnoAdapter(this, alumnosList);
         listAlumnos.setAdapter(alumnosAdapter);
 
@@ -84,12 +86,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String nombre = txtNombre.getText().toString().trim();
                 if (!nombre.isEmpty()) {
-                    // Método para guardar el Alumno en la Lista
+                    // Método para guardar el Alumno en la Lista y base de datos
                     guardarAlumno();
                 } else {
                     // El usuario no introdujo ningún nombre
-                    Toast.makeText(MainActivity.this,
-                            "Es necesario introducir un nombre", Toast.LENGTH_SHORT).show();
+                    mostrarDialogoError("Es necesario introducir un nombre");
                 }
             }
         });
@@ -98,15 +99,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Alumno alumnoSeleccionado = alumnosList.get(position);
-
-                String mensaje = "Nombre: " + alumnoSeleccionado.getNombre() +
-                        "\nCurso: " + alumnoSeleccionado.getCurso();
-                if (alumnoSeleccionado.tieneCiclo()) {
-                    mensaje += "\nCiclo: " + alumnoSeleccionado.getCiclo();
-                }
-
-                // Muestra un Toast con la información del Alumno
-                Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+                mostrarDialogoAlumno(alumnoSeleccionado);
             }
         });
 
@@ -127,15 +120,10 @@ public class MainActivity extends AppCompatActivity {
                         switch (which) {
                             case 0:
                                 // Opción Borrar
-                                alumnosList.remove(alumnoSeleccionado);
-                                alumnosAdapter.notifyDataSetChanged();
-                                Toast.makeText(MainActivity.this,
-                                        "Alumno borrado", Toast.LENGTH_SHORT).show();
+                                mostrarDialogoConfirmacionEliminar(alumnoSeleccionado);
                                 break;
                             case 1:
                                 // Opción Otros
-                                Toast.makeText(MainActivity.this,
-                                        "Función no implementada", Toast.LENGTH_SHORT).show();
                                 break;
                         }
                     }
@@ -170,13 +158,87 @@ public class MainActivity extends AppCompatActivity {
             nuevoAlumno = new Alumno(nombre, curso);
         }
 
-        // Agregamos el nuevo alumno a la lista alumnosList
+        // Agregamos el nuevo alumno a la lista alumnosList y base de datos
         alumnosList.add(nuevoAlumno);
-
-        // Notificamos al adaptador que los datos han cambiado
         alumnosAdapter.notifyDataSetChanged();
+        databaseHelper.addAlumno(nuevoAlumno);
+
+        // Mostrar dialogo de confirmación
+        mostrarDialogoAlumnoGuardado(nuevoAlumno.getNombre(), nuevoAlumno.getCurso(), nuevoAlumno.getCiclo());
 
         // Limpia el EditText Nombre después de guardar los datos
         txtNombre.getText().clear();
+    }
+
+    private void eliminarAlumno(Alumno alumno) {
+        // Eliminar alumno de la lista y base de datos
+        alumnosList.remove(alumno);
+        alumnosAdapter.notifyDataSetChanged();
+        databaseHelper.deleteAlumno(alumno.getNombre());
+    }
+
+    private void mostrarDialogoAlumnoGuardado(String nombre, String curso, String ciclo) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Alumno Guardado");
+
+        // Establece el ícono basado en el curso
+        if ("ESO".equals(curso)) {
+            builder.setIcon(R.drawable.icono_eso);
+        } else {
+            builder.setIcon(R.drawable.icono_resto);
+        }
+
+        String mensaje = "Nombre: " + nombre + "\nCurso: " + curso;
+        if (ciclo != null) {
+            mensaje += "\nCiclo: " + ciclo;
+        }
+        builder.setMessage(mensaje);
+        builder.setPositiveButton("OK", null);
+        builder.show();
+    }
+
+
+    private void mostrarDialogoError(String mensaje) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Error");
+        builder.setMessage(mensaje);
+        builder.setPositiveButton("OK", null);
+        builder.show();
+    }
+
+    private void mostrarDialogoAlumno(Alumno alumno) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(alumno.getNombre());
+
+        // Establece el ícono basado en el curso
+        if ("ESO".equals(alumno.getCurso())) {
+            builder.setIcon(R.drawable.icono_eso);
+        } else {
+            builder.setIcon(R.drawable.icono_resto);
+        }
+
+        String mensaje = "Curso: " + alumno.getCurso();
+        if (alumno.tieneCiclo()) {
+            mensaje += "\nCiclo: " + alumno.getCiclo();
+        }
+        builder.setMessage(mensaje);
+        builder.setPositiveButton("OK", null);
+        builder.show();
+    }
+
+
+    private void mostrarDialogoConfirmacionEliminar(final Alumno alumno) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Eliminar Alumno");
+        builder.setMessage("¿Estás seguro de que deseas eliminar a " + alumno.getNombre() + "?");
+        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                eliminarAlumno(alumno);
+                Toast.makeText(MainActivity.this, "Alumno eliminado", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("No", null);
+        builder.show();
     }
 }
