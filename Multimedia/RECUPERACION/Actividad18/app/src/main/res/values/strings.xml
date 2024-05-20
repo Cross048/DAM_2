@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Actividad18</string>
+    <string name="verTodo">VER DATOS DEL FESTIVAL</string>
+    <string name="escogePais">Escoge país</string>
+    <string name="pais">País</string>
+    <string name="comprobar">Comprobar</string>
+</resources>
