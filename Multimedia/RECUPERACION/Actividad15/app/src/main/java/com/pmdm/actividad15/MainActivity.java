@@ -10,8 +10,6 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.pmdm.actividad15.activitys.Activity3;
-
 public class MainActivity extends AppCompatActivity {
     private EditText txtNombre;
     private CheckBox chkRecordar;

@@ -1,7 +1,8 @@
 package com.pmdm.actividad17;
 
-import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 import android.content.Context;
+
+import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 public class DatabaseHelper extends SQLiteAssetHelper {
     private static final String DATABASE_NAME = "personas.db";
