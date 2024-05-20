@@ -1,0 +1,21 @@
+<resources>
+    <!-- Strings -->
+    <string name="app_name">Actividad16</string>
+    <string name="title">ALUMNOS</string>
+    <string name="curso">Curso: </string>
+    <string name="ciclo">Ciclo: </string>
+    <string name="alumno">Alumno: </string>
+    <string name="hint_nombre">Nombre y Apellidos</string>
+    <string name="guardar">Guardar</string>
+    <!-- Arrays -->
+    <string-array name="curso">
+        <item>ESO</item>
+        <item>Bach</item>
+        <item>Ciclo</item>
+    </string-array>
+    <string-array name="ciclo">
+        <item>DAM</item>
+        <item>DAW</item>
+        <item>ASIR</item>
+    </string-array>
+</resources>
