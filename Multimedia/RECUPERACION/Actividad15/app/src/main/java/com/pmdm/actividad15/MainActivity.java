@@ -10,11 +10,15 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.pmdm.actividad15.activitys.Activity3;
+
 public class MainActivity extends AppCompatActivity {
     private EditText txtNombre;
     private CheckBox chkRecordar;
     private Button btnOk;
     private SharedPreferences sharedPreferences;
+    private static final int CODIGO_LLAMADA_SELECT = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +44,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 guardarNombre();
-                
-                Intent intent = new Intent(MainActivity.this, ActivitySelect.class);
-                startActivity(intent);
+
+                startActivityForResult(new Intent(MainActivity.this, ActivitySelect.class), CODIGO_LLAMADA_SELECT);
             }
         });
     }
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private void guardarNombre() {
         String nombre = txtNombre.getText().toString().trim();
         SharedPreferences.Editor editor = sharedPreferences.edit();
+
         if (chkRecordar.isChecked()) {
             // Si el CheckBox está marcado, guardar el nombre en SharedPreferences
             editor.putString("nombre", nombre);
@@ -58,6 +62,17 @@ public class MainActivity extends AppCompatActivity {
             // Si el CheckBox no está marcado, borrar el nombre de SharedPreferences
             editor.remove("nombre");
             editor.apply();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Espera el resultado de que hay que cerrar la App
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CODIGO_LLAMADA_SELECT) {
+            if (resultCode == RESULT_OK) {
+                finish();
+            }
         }
     }
 }
