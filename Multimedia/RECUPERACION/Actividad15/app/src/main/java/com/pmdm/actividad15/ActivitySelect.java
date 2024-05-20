@@ -116,6 +116,7 @@ public class ActivitySelect extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CODIGO_LLAMADA_ACT3) {
             if (resultCode == RESULT_OK) {
+                setResult(RESULT_OK);
                 finish();
             }
         }
