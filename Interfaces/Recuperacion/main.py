@@ -56,6 +56,10 @@ class Main(QtWidgets.QMainWindow):
         self.connection.selectProductos()
         # Productos: Carga todos los datos de un producto en el formulario
         var.ui.tableProductos.clicked.connect(products.Products.cargarProducto)
+        # Facturas: Reajusta las dimensiones de la tabla Facturas 1
+        events.Events.resizeTableFacturas1()
+        # Facturas: Cargar los datos de las facturas al abrir el programa y meterlas en la tabla Facturas 1
+        self.connection.selectFacturas1()
 
     def closeEvent(self, event):
         # Ventana de emergencia al intentar salir del programa

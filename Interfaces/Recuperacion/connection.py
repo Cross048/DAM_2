@@ -1,5 +1,6 @@
 from PyQt6 import QtSql, QtWidgets
 
+import bills
 import clients
 import products
 import var
@@ -65,6 +66,30 @@ class Connection():
                     var.ui.tableProductos.setRowCount(0)
             else:
                 var.ui.tableProductos.setRowCount(0)
+            print("Tabla cargada!")
+        except Exception as error:
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowTitle("Aviso")
+            msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            msg.setText("Error en cargar tabla o selección de datos")
+            msg.exec()
+
+    def selectFacturas1(self):
+        # Carga los datos de las Facturas para añadirlas a la tabla Factura
+        try:
+            registros = []
+            query = QtSql.QSqlQuery()
+            query.prepare('SELECT num_factura, id_cliente, fecha FROM Factura')
+            if query.exec():
+                while query.next():
+                    row = [query.value(i) for i in range(query.record().count())]
+                    registros.append(row)
+                if registros:
+                    bills.Bills.cargarTablaFacturas1(registros)
+                else:
+                    var.ui.tableFacturas1.setRowCount(0)
+            else:
+                var.ui.tableFacturas1.setRowCount(0)
             print("Tabla cargada!")
         except Exception as error:
             msg = QtWidgets.QMessageBox()

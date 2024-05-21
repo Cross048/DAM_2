@@ -44,6 +44,16 @@ class Events:
         except Exception as error:
             print("Error en el resize en la tabla Productos: ", error)
 
+    @classmethod
+    def resizeTableFacturas1(cls):
+        # Redimensiona la tabla para ajustarla correctamente
+        try:
+            header = var.ui.tableFacturas1.horizontalHeader()
+            for i in range(header.count()):
+                header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+        except Exception as error:
+            print("Error en el resize en la tabla Clientes: ", error)
+
     @staticmethod
     def abrirCalendar(self):
         try:
