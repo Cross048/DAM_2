@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Walk My Dog!</string>
+    <string name="appBy">Cristian Bernal</string>
+    <string name="bienvenido">¡Bienvenido!</string>
+    <string name="usuario">Usuario</string>
+    <string name="pass">Contraseña</string>
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="registrarse">¿No tienes cuenta? Regístrate</string>
 </resources>
