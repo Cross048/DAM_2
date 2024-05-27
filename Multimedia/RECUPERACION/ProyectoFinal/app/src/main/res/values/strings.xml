@@ -6,4 +6,7 @@
     <string name="pass">Contraseña</string>
     <string name="iniciar_sesion">Iniciar sesión</string>
     <string name="registrarse">¿No tienes cuenta? Regístrate</string>
+    <string name="registrate_title">¿A qué estás esperando?</string>
+    <string name="registrate">¡Regístrate!</string>
+    <string name="registrarte_button">Registrarse</string>
 </resources>
