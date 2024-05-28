@@ -101,7 +101,7 @@
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="panelDrivers">
        <property name="sizePolicy">
@@ -2098,7 +2098,7 @@ background-color:rgb(100,100,100);
        <attribute name="title">
         <string>Facturación</string>
        </attribute>
-       <widget class="QTableWidget" name="tableWidget">
+       <widget class="QTableWidget" name="tableFacturas1">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -2127,7 +2127,7 @@ background-color:rgb(100,100,100);
          </property>
         </column>
        </widget>
-       <widget class="QTableWidget" name="tableWidget_2">
+       <widget class="QTableWidget" name="tableFacturas2">
         <property name="geometry">
          <rect>
           <x>330</x>
