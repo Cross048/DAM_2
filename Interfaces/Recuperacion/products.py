@@ -21,7 +21,7 @@ class Products():
                     var.ui.tableProductos.item(index, col).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 index += 1
         except Exception as error:
-            print("Error al cargar datos en la tabla: ", error)
+            print("Error al cargar datos en la tabla Productos: ", error)
 
     def cargarDatos(registro):
         try:
