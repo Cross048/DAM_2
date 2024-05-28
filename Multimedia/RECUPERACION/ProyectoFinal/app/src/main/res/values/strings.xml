@@ -1,12 +1,24 @@
 <resources>
     <string name="app_name">Walk My Dog!</string>
     <string name="appBy">Cristian Bernal</string>
-    <string name="bienvenido">¡Bienvenido!</string>
+    <!-- General -->
+    <string name="inicio_bottom">Inicio</string>
+    <string name="explorar_bottom">Explorar</string>
+    <string name="perfil_bottom">Perfil</string>
+    <!-- Login -->
+    <string name="bienvenido_message">¡Bienvenido!</string>
     <string name="usuario">Usuario</string>
     <string name="pass">Contraseña</string>
-    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="iniciar_sesion_button">Iniciar sesión</string>
+    <!-- Register -->
     <string name="registrarse">¿No tienes cuenta? Regístrate</string>
     <string name="registrate_title">¿A qué estás esperando?</string>
-    <string name="registrate">¡Regístrate!</string>
+    <string name="registrate_message">¡Regístrate!</string>
     <string name="registrarte_button">Registrarse</string>
+    <string name="type">¿En qué estás interesad@?</string>
+    <string-array name="type_options">
+        <item>Pasear mascotas</item>
+        <item>Paseen mi mascota</item>
+    </string-array>
+
 </resources>

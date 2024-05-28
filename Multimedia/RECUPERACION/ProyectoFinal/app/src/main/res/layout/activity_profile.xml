@@ -22,12 +22,7 @@
             app:titleTextColor="@color/black"
             app:popupTheme="@color/white" />
 
-        <!-- ListView -->
-        <ListView
-            android:id="@+id/listMain"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+        <!-- Perfil del usuario -->
 
     </LinearLayout>
 

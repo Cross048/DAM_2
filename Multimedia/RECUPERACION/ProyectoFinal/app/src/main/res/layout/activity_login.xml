@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="25dp">
 
         <ImageView
             android:layout_width="100dp"
@@ -33,7 +34,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bienvenido"
+            android:text="@string/bienvenido_message"
             android:textSize="20sp"
             android:textColor="@android:color/white"
             android:fontFamily="@font/poppins_regular"/>
@@ -45,8 +46,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingTop="30dp"
+        android:paddingBottom="30dp"
         android:paddingHorizontal="50dp"
-        android:elevation="2dp">
+        android:elevation="2dp"
+        android:background="@drawable/form_background">
 
         <EditText
             android:id="@+id/etUsuario"
@@ -75,8 +78,8 @@
             android:id="@+id/btnIniciar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/iniciar_sesion"
-            android:backgroundTint="@color/primaryColor"
+            android:text="@string/iniciar_sesion_button"
+            android:backgroundTint="@color/secondaryColor"
             android:textColor="@color/white"
             android:padding="12dp"
             android:layout_marginBottom="10dp"

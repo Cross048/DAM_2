@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private ListView listMascota;
+    private ListView listMain;
     private List<Mascota> mascotas;
     private MascotaAdapter adapter;
 
@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setSupportActionBar(findViewById(R.id.toolbar));
 
-        listMascota = findViewById(R.id.listMascota);
+        listMain = findViewById(R.id.listMain);
 
         // Crear la lista de mascotas y añadir algunos datos de ejemplo
         mascotas = new ArrayList<>();
@@ -29,6 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Crear un adaptador personalizado y asignarlo a la lista
         adapter = new MascotaAdapter(this, mascotas);
-        listMascota.setAdapter(adapter);
+        listMain.setAdapter(adapter);
     }
 }
