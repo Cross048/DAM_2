@@ -42,12 +42,12 @@ class Connection():
                     var.ui.tableClientes.setRowCount(0)
             else:
                 var.ui.tableClientes.setRowCount(0)
-            print("Tabla cargada!")
+            print("Tabla Clientes cargada!")
         except Exception as error:
             msg = QtWidgets.QMessageBox()
             msg.setWindowTitle("Aviso")
             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-            msg.setText("Error en cargar tabla o selección de datos")
+            msg.setText("Error en cargar tabla Clientes o selección de datos")
             msg.exec()
 
     def selectProductos(self):
@@ -66,20 +66,24 @@ class Connection():
                     var.ui.tableProductos.setRowCount(0)
             else:
                 var.ui.tableProductos.setRowCount(0)
-            print("Tabla cargada!")
+            print("Tabla Productos cargada!")
         except Exception as error:
             msg = QtWidgets.QMessageBox()
             msg.setWindowTitle("Aviso")
             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-            msg.setText("Error en cargar tabla o selección de datos")
+            msg.setText("Error en cargar tabla Productos o selección de datos")
             msg.exec()
 
     def selectFacturas1(self):
-        # Carga los datos de las Facturas para añadirlas a la tabla Factura
+        # Carga los datos de las Facturas para añadirlas a la tabla Factura1
         try:
             registros = []
             query = QtSql.QSqlQuery()
-            query.prepare('SELECT num_factura, id_cliente, fecha FROM Factura')
+            query.prepare('''
+                SELECT Factura.num_factura, Cliente.dni, Factura.fecha 
+                FROM Factura 
+                JOIN Cliente ON Factura.id_cliente = Cliente.id_cliente
+            ''')
             if query.exec():
                 while query.next():
                     row = [query.value(i) for i in range(query.record().count())]
@@ -90,12 +94,41 @@ class Connection():
                     var.ui.tableFacturas1.setRowCount(0)
             else:
                 var.ui.tableFacturas1.setRowCount(0)
-            print("Tabla cargada!")
+            print("Tabla Facturas1 cargada!")
         except Exception as error:
             msg = QtWidgets.QMessageBox()
             msg.setWindowTitle("Aviso")
             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-            msg.setText("Error en cargar tabla o selección de datos")
+            msg.setText("Error en cargar tabla Facturas1 o selección de datos")
+            msg.exec()
+
+    def selectFacturas2(self):
+        # Carga los datos de los Detalles para añadirlas a la tabla Factura2
+        # TODO: Hacer que cargue la tabla Facturas2
+        try:
+            registros = []
+            query = QtSql.QSqlQuery()
+            query.prepare('''
+                SELECT id_factura, id_producto, Producto.precio, cantidad, precio 
+                FROM Detalle 
+                JOIN Producto ON Detalle.id_producto = Producto.id_producto
+            ''')
+            if query.exec():
+                while query.next():
+                    row = [query.value(i) for i in range(query.record().count())]
+                    registros.append(row)
+                if registros:
+                    bills.Bills.cargarTablaFacturas2(registros)
+                else:
+                    var.ui.tableFacturas2.setRowCount(0)
+            else:
+                var.ui.tableFacturas2.setRowCount(0)
+            print("Tabla Facturas2 cargada!")
+        except Exception as error:
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowTitle("Aviso")
+            msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            msg.setText("Error en cargar tabla Facturas2 o selección de datos")
             msg.exec()
 
     @staticmethod
@@ -155,6 +188,21 @@ class Connection():
             return registro
         except Exception as error:
             print("Error en fichero conexion datos de un Producto: ", error)
+
+    def onefactura1(num_factura):
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare('SELECT * FROM Factura WHERE num_factura = :num_factura')
+            query.bindValue(':num_factura', int(num_factura))
+            if query.exec():
+                while query.next():
+                    for i in range(3):
+                        registro.append(str(query.value(i)))
+            print("Registro obtenido de la base de datos:", registro)
+            return registro
+        except Exception as error:
+            print("Error en fichero conexion datos de un Cliente: ", error)
 
     @staticmethod
     def modificarCliente(self):

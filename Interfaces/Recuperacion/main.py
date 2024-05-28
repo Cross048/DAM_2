@@ -1,6 +1,7 @@
 import locale
 import sys
 
+import bills
 import connection
 import events
 import products
@@ -19,6 +20,7 @@ class Main(QtWidgets.QMainWindow):
         var.calendar = Calendar()
         self.clients = clients.Clients()
         self.products = products.Products()
+        self.bills = bills.Bills()
         var.ui.setupUi(self)
 
         # Conexión a la base de datos
@@ -30,8 +32,12 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnCalendar.clicked.connect(events.Events.abrirCalendar)
         # Clientes: Modifica los datos del Cliente que se está editando en formulario
         var.ui.btnMod.clicked.connect(connection.Connection.modificarCliente)
+
         # Productos: Modifica los datos del Producto que se está editando en formulario
         var.ui.btnMod_2.clicked.connect(connection.Connection.modificarProducto)
+
+        # Facturas: Abrir calendario con su botón asignado
+        var.ui.btnCalendar_3.clicked.connect(events.Events.abrirCalendar)
 
         ''' Eventos del Menubar '''
         # Confirmar salida
@@ -50,16 +56,25 @@ class Main(QtWidgets.QMainWindow):
         var.ui.chkHistorico.clicked.connect(self.connection.selectClientes)
         # Clientes: Carga todos los datos de un cliente en el formulario
         var.ui.tableClientes.clicked.connect(clients.Clients.cargarCliente)
+
         # Productos: Reajusta las dimensiones de la tabla Productos
         events.Events.resizeTableProductos()
         # Productos: Cargar los datos de los clientes al abrir el programa y meterlos en la tabla Productos
         self.connection.selectProductos()
         # Productos: Carga todos los datos de un producto en el formulario
         var.ui.tableProductos.clicked.connect(products.Products.cargarProducto)
-        # Facturas: Reajusta las dimensiones de la tabla Facturas 1
+
+        # Facturas: Reajusta las dimensiones de la tabla Facturas1
         events.Events.resizeTableFacturas1()
-        # Facturas: Cargar los datos de las facturas al abrir el programa y meterlas en la tabla Facturas 1
+        # Facturas: Cargar los datos de las facturas al abrir el programa y meterlas en la tabla Facturas1
         self.connection.selectFacturas1()
+        # Facturas: Carga todos los datos de una factura en el formulario
+        var.ui.tableFacturas1.clicked.connect(bills.Bills.cargarFactura1)
+
+        # Facturas: Reajusta las dimensiones de la tabla Facturas2
+        events.Events.resizeTableFacturas2()
+        # Facturas: Cargar los datos de las facturas al abrir el programa y meterlas en la tabla Facturas2
+        self.connection.selectFacturas2()
 
     def closeEvent(self, event):
         # Ventana de emergencia al intentar salir del programa
