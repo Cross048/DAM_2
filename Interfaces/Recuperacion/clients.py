@@ -24,7 +24,7 @@ class Clients():
                     var.ui.tableClientes.item(index, col).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 index += 1
         except Exception as error:
-            print("Error al cargar datos en la tabla: ", error)
+            print("Error al cargar datos en la tabla Clientes: ", error)
 
     def cargarFecha(qDate):
         try:
