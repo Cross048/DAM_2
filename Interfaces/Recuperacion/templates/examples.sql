@@ -43,16 +43,16 @@ CREATE TABLE "Producto" (
 
 -- Insertar ejemplos en la tabla Producto
 INSERT INTO Producto (nombre, precio, stock) VALUES
-('Producto A', '10.00', 100),
-('Producto B', '20.00', 50),
-('Producto C', '15.00', 75),
-('Producto D', '25.00', 30),
-('Producto E', '12.50', 90),
-('Producto F', '18.00', 60),
-('Producto G', '30.00', 25),
-('Producto H', '22.00', 40),
-('Producto I', '17.50', 80),
-('Producto J', '28.00', 35);
+('El Quijote', '10.00', 100),
+('Cien Años de Soledad', '20.00', 50),
+('La Sombra del Viento', '15.00', 75),
+('1984', '25.00', 30),
+('Matar a un Ruiseñor', '12.50', 90),
+('El Principito', '18.00', 60),
+('Orgullo y Prejuicio', '30.00', 25),
+('Crimen y Castigo', '22.00', 40),
+('El Señor de los Anillos', '17.50', 80),
+('Don Juan Tenorio', '28.00', 35);
 
 -- Crear la tabla Factura
 CREATE TABLE "Factura" (
