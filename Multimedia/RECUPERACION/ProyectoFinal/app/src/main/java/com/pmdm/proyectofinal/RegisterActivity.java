@@ -17,6 +17,8 @@ import com.pmdm.proyectofinal.usuarios.UsuariosDBHelper;
 public class RegisterActivity extends AppCompatActivity {
     private EditText etUsuario;
     private EditText etPassword;
+    private EditText etNombre;
+    private EditText etApellidos;
     private Spinner spinnerType;
     private Button btnRegistrar;
     private UsuariosDBHelper dbHelper;
@@ -28,16 +30,15 @@ public class RegisterActivity extends AppCompatActivity {
 
         etUsuario = findViewById(R.id.etUsuario);
         etPassword = findViewById(R.id.etPassword);
+        etNombre = findViewById(R.id.etNombre);
+        etApellidos = findViewById(R.id.etApellidos);
         spinnerType = findViewById(R.id.spinnerType);
         btnRegistrar = findViewById(R.id.btnRegistrar);
 
         dbHelper = new UsuariosDBHelper(this);
 
-
         String[] typeOptions = getResources().getStringArray(R.array.type_options);
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, typeOptions);
-
         spinnerType.setAdapter(adapter);
 
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
@@ -45,24 +46,22 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String username = etUsuario.getText().toString();
                 String password = etPassword.getText().toString();
+                String nombre = etNombre.getText().toString();
+                String apellido = etApellidos.getText().toString();
 
-                // Obtener el índice seleccionado del Spinner
                 int spinnerIndex = spinnerType.getSelectedItemPosition();
+                int type = spinnerIndex == 0 ? 0 : 1;
 
-                // Determinar el valor a guardar en la base de datos en función del índice seleccionado
-                int type;
-                if (spinnerIndex == 0) {
-                    type = 0;
-                } else {
-                    type = 1;
-                }
+                if (!username.isEmpty() && !password.isEmpty() && !nombre.isEmpty() && !apellido.isEmpty()) {
+                    Usuario nuevoUsuario = new Usuario(username, password, nombre, apellido, type);
 
-                if (!username.isEmpty() && !password.isEmpty()) {
-                    // Crear un objeto Usuario con los datos proporcionados
-                    Usuario nuevoUsuario = new Usuario(username, password, type);
-
-                    // Añadir el usuario a la base de datos
-                    boolean isInserted = dbHelper.addUser(nuevoUsuario.getUsername(), nuevoUsuario.getPassword(), nuevoUsuario.getType());
+                    boolean isInserted = dbHelper.addUser(
+                            nuevoUsuario.getUsername(),
+                            nuevoUsuario.getPassword(),
+                            nuevoUsuario.getNombre(),
+                            nuevoUsuario.getApellido(),
+                            nuevoUsuario.getType()
+                    );
 
                     if (isInserted) {
                         Toast.makeText(RegisterActivity.this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
@@ -77,6 +76,11 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // Cambiar la transición al retroceder
     }
 }

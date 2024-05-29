@@ -16,12 +16,6 @@
         android:layout_marginTop="25dp"
         android:layout_marginBottom="25dp">
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/logo"
-            android:visibility="invisible"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,6 +57,7 @@
             android:padding="10dp"
             android:background="@drawable/edittext_background"
             android:layout_marginBottom="10dp"
+            android:inputType="text"
             android:drawablePadding="10dp"/>
 
 
@@ -71,6 +66,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/pass"
+            android:drawableStart="@drawable/ic_password"
+            android:padding="10dp"
+            android:background="@drawable/edittext_background"
+            android:layout_marginBottom="10dp"
+            android:inputType="textPassword"
+            android:drawablePadding="10dp"/>
+
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/nombre_register"
+            android:drawableStart="@drawable/ic_password"
+            android:padding="10dp"
+            android:background="@drawable/edittext_background"
+            android:layout_marginBottom="10dp"
+            android:inputType="textPassword"
+            android:drawablePadding="10dp"/>
+
+        <EditText
+            android:id="@+id/etApellidos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/apellidos_register"
             android:drawableStart="@drawable/ic_password"
             android:padding="10dp"
             android:background="@drawable/edittext_background"

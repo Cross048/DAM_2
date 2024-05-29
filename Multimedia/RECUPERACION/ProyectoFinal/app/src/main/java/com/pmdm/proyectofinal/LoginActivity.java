@@ -47,7 +47,12 @@ public class LoginActivity extends AppCompatActivity {
                     Usuario usuario = findUser(username);
                     if (usuario != null && usuario.getPassword().equals(password)) {
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("username", usuario.getUsername());
+                        intent.putExtra("firstName", usuario.getNombre());
+                        intent.putExtra("lastName", usuario.getApellido());
+                        intent.putExtra("userType", usuario.getType());
                         startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left); // Cambiar la transición
                         finish();
                     } else {
                         Toast.makeText(LoginActivity.this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
@@ -63,9 +68,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivityForResult(intent, REQUEST_CODE_REGISTER);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left); // Cambiar la transición
             }
         });
-
     }
 
     private Usuario findUser(String username) {
@@ -80,7 +85,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == REQUEST_CODE_REGISTER) {
             if (resultCode == RESULT_OK) {
                 userList = dbHelper.getAllUsers();
@@ -89,5 +93,4 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
-
 }

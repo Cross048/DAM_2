@@ -15,6 +15,8 @@
     <string name="registrate_title">¿A qué estás esperando?</string>
     <string name="registrate_message">¡Regístrate!</string>
     <string name="registrarte_button">Registrarse</string>
+    <string name="nombre_register">Nombre</string>
+    <string name="apellidos_register">Apellidos</string>
     <string name="type">¿En qué estás interesad@?</string>
     <string-array name="type_options">
         <item>Pasear mascotas</item>

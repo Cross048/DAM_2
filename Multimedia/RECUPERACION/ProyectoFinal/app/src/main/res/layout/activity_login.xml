@@ -60,6 +60,7 @@
             android:padding="10dp"
             android:background="@drawable/edittext_background"
             android:layout_marginBottom="10dp"
+            android:inputType="text"
             android:drawablePadding="10dp"/>
 
         <EditText
