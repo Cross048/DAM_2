@@ -3,42 +3,43 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primaryColor"
+        android:elevation="2dp"
+        app:titleTextColor="@color/black"
+        app:popupTheme="@color/white" />
+
+    <!-- Perfil del usuario -->
     <LinearLayout
-        android:id="@+id/contentLayout"
+        android:id="@+id/userProfileLayout"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/white">
+        android:orientation="horizontal"
+        android:padding="16dp">
 
-        <!-- Toolbar -->
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/primaryColor"
-            android:elevation="2dp"
-            app:titleTextColor="@color/black"
-            app:popupTheme="@color/white" />
+        <!-- Foto de perfil -->
+        <ImageView
+            android:id="@+id/imgPerfil"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/ic_user"
+            android:contentDescription="" />
 
-        <!-- Perfil del usuario -->
         <LinearLayout
-            android:id="@+id/userProfileLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <!-- Foto de perfil -->
-            <ImageView
-                android:id="@+id/imgPerfil"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="16dp"
-                android:src="@drawable/ic_user"
-                android:contentDescription="" />
+            android:orientation="vertical">
 
             <!-- Nombre -->
             <TextView

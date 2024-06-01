@@ -51,21 +51,24 @@ public class RegisterActivity extends AppCompatActivity {
 
                 int spinnerIndex = spinnerType.getSelectedItemPosition();
                 int type = spinnerIndex == 0 ? 0 : 1;
+                int profilePic = 0; // Valor por defecto
 
                 if (!username.isEmpty() && !password.isEmpty() && !nombre.isEmpty() && !apellido.isEmpty()) {
-                    Usuario nuevoUsuario = new Usuario(username, password, nombre, apellido, type);
+                    Usuario nuevoUsuario = new Usuario(username, password, nombre, apellido, type, profilePic);
 
                     boolean isInserted = dbHelper.addUser(
                             nuevoUsuario.getUsername(),
                             nuevoUsuario.getPassword(),
                             nuevoUsuario.getNombre(),
                             nuevoUsuario.getApellido(),
-                            nuevoUsuario.getType()
+                            nuevoUsuario.getType(),
+                            nuevoUsuario.getProfilePic()
                     );
 
                     if (isInserted) {
                         Toast.makeText(RegisterActivity.this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
                         Intent resultIntent = new Intent();
+                        resultIntent.putExtra("username", username);
                         setResult(RESULT_OK, resultIntent);
                         finish();
                     } else {

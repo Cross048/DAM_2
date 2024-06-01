@@ -1,9 +1,11 @@
 package com.pmdm.proyectofinal;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,8 +19,13 @@ import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_REGISTER = 1;
+    private static final String PREFS_NAME = "LoginPrefs";
+    private static final String KEY_USERNAME = "username";
+    private static final String KEY_REMEMBER_ME = "rememberMe";
+
     private EditText etUsuario;
     private EditText etPassword;
+    private CheckBox chkRecuerdame;
     private Button btnIniciar;
     private TextView tvRegistrarse;
     private UsuariosDBHelper dbHelper;
@@ -31,11 +38,21 @@ public class LoginActivity extends AppCompatActivity {
 
         etUsuario = findViewById(R.id.etUsuario);
         etPassword = findViewById(R.id.etPassword);
+        chkRecuerdame = findViewById(R.id.chkRecuerdame);
         btnIniciar = findViewById(R.id.btnIniciar);
         tvRegistrarse = findViewById(R.id.tvRegistrarse);
 
         dbHelper = new UsuariosDBHelper(this);
         userList = dbHelper.getAllUsers();
+
+        // Recuperar preferencias
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        boolean rememberMe = settings.getBoolean(KEY_REMEMBER_ME, false);
+        if (rememberMe) {
+            String savedUsername = settings.getString(KEY_USERNAME, "");
+            etUsuario.setText(savedUsername);
+            chkRecuerdame.setChecked(true);
+        }
 
         btnIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,11 +63,24 @@ public class LoginActivity extends AppCompatActivity {
                 if (!username.isEmpty() && !password.isEmpty()) {
                     Usuario usuario = findUser(username);
                     if (usuario != null && usuario.getPassword().equals(password)) {
+                        // Guardar preferencias
+                        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+                        SharedPreferences.Editor editor = settings.edit();
+                        if (chkRecuerdame.isChecked()) {
+                            editor.putString(KEY_USERNAME, username);
+                            editor.putBoolean(KEY_REMEMBER_ME, true);
+                        } else {
+                            editor.remove(KEY_USERNAME);
+                            editor.putBoolean(KEY_REMEMBER_ME, false);
+                        }
+                        editor.apply();
+
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("username", usuario.getUsername());
-                        intent.putExtra("firstName", usuario.getNombre());
-                        intent.putExtra("lastName", usuario.getApellido());
-                        intent.putExtra("userType", usuario.getType());
+                        intent.putExtra("nombre", usuario.getNombre());
+                        intent.putExtra("apellido", usuario.getApellido());
+                        intent.putExtra("type", usuario.getType());
+                        intent.putExtra("profile_pic", usuario.getProfilePic());
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left); // Cambiar la transición
                         finish();
@@ -88,6 +118,10 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE_REGISTER) {
             if (resultCode == RESULT_OK) {
                 userList = dbHelper.getAllUsers();
+                String username = data.getStringExtra("username");
+                if (username != null) {
+                    etUsuario.setText(username);
+                }
             } else {
                 // ERROR
             }

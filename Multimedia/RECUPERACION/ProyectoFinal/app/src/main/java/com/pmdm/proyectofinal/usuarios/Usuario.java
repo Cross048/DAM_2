@@ -6,14 +6,18 @@ public class Usuario {
     private String nombre;
     private String apellido;
     private int type;
+    private int profilePic;
 
-    public Usuario(String username, String password, String nombre, String apellido, int type) {
+    public Usuario(String username, String password, String nombre, String apellido, int type, int profilePic) {
         this.username = username;
         this.password = password;
         this.nombre = nombre;
         this.apellido = apellido;
         this.type = type;
+        this.profilePic = profilePic;
     }
+
+    // Getters and Setters for all fields including profilePic
 
     public String getUsername() {
         return username;
@@ -53,5 +57,13 @@ public class Usuario {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public int getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(int profilePic) {
+        this.profilePic = profilePic;
     }
 }

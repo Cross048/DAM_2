@@ -75,6 +75,13 @@
             android:inputType="textPassword"
             android:drawablePadding="10dp"/>
 
+        <CheckBox
+            android:id="@+id/chkRecuerdame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/recordar"
+            android:layout_marginBottom="10dp"/>
+
         <Button
             android:id="@+id/btnIniciar"
             android:layout_width="match_parent"
