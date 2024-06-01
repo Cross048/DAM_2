@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Walk My Dog!</string>
+    <string name="explorar_bottom">Explore</string>
+    <string name="perfil_bottom">Profile</string>
+    <string name="bienvenido_message">Welcome!</string>
+    <string name="usuario">Username</string>
+    <string name="pass">Password</string>
+    <string name="recordar">Remember me</string>
+    <string name="iniciar_sesion_button">Log in</string>
+    <string name="registrarse">Don\'t have an account? Register now</string>
+    <string name="registrate_title">What are you waiting for?</string>
+    <string name="registrate_message">Register now!</string>
+    <string name="registrarte_button">Register</string>
+    <string name="email">Email</string>
+    <string name="nombre_register">Name</string>
+    <string name="apellidos_register">Surname</string>
+    <string name="nombre_mascota">Name of your pet</string>
+    <string name="type">What are you interested in?</string>
+    <string name="appBy">Cristian Bernal</string>
+    <string name="inicio_bottom">Home</string>
+    <string-array name="type_options">
+        <item>Walk others dogs</item>
+        <item>Walk my dog, please</item>
+    </string-array>
+</resources>

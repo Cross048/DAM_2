@@ -7,13 +7,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.pmdm.proyectofinal.usuarios.Mascota;
 import com.pmdm.proyectofinal.usuarios.Usuario;
 import com.pmdm.proyectofinal.usuarios.UsuariosDBHelper;
 
@@ -25,6 +25,9 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView tvNombre;
     private TextView tvApellidos;
     private TextView tvType;
+    private ImageView imgMascota; // Agregar ImageView para la mascota
+    private TextView tvNombreMascota; // Agregar TextView para el nombre de la mascota
+    private TextView tvRazaMascota; // Agregar TextView para la raza de la mascota
     private BottomNavigationView bottomNavigationView;
     private UsuariosDBHelper dbHelper;
 
@@ -38,6 +41,9 @@ public class ProfileActivity extends AppCompatActivity {
         tvNombre = findViewById(R.id.tvNombre);
         tvApellidos = findViewById(R.id.tvApellidos);
         tvType = findViewById(R.id.tvType);
+        imgMascota = findViewById(R.id.imgMascota); // Inicializar ImageView para la mascota
+        tvNombreMascota = findViewById(R.id.tvNombreMascota); // Inicializar TextView para el nombre de la mascota
+        tvRazaMascota = findViewById(R.id.tvRazaMascota); // Inicializar TextView para la raza de la mascota
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         dbHelper = new UsuariosDBHelper(this);
@@ -73,9 +79,8 @@ public class ProfileActivity extends AppCompatActivity {
                     finish();
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // Cambiar la transición
                     return true;
-                } else if (item.getItemId() == R.id.action_search) {
-                    return true;
                 } else if (item.getItemId() == R.id.action_profile) {
+                    // Este activity
                 }
                 return false;
             }
@@ -184,6 +189,21 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    private String getRazaMascotaString(int raza) {
+        switch (raza) {
+            case 0:
+                return "Shiba";
+            case 1:
+                return "Husky";
+            case 2:
+                return "American";
+            case 3:
+                return "Golden";
+            default:
+                return "Desconocida";
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -191,14 +211,48 @@ public class ProfileActivity extends AppCompatActivity {
         if (user != null) {
             profile_pic = user.getProfilePic();
             setProfileImage(profile_pic);
+            // Comprobar si el usuario tiene una mascota
+            Mascota mascota = dbHelper.getMascotaByPropietario(username);
+            if (mascota != null) {
+                // Si el usuario tiene una mascota, mostrar los datos de la mascota en la interfaz
+                findViewById(R.id.layoutMascota).setVisibility(View.VISIBLE);
+                tvNombreMascota.setText(mascota.getNombre());
+                tvRazaMascota.setText(getRazaMascotaString(mascota.getRaza()));
+                setMascotaImage(mascota.getRaza()); // Establecer la imagen de la mascota según su raza
+            } else {
+                // Si el usuario no tiene una mascota, ocultar la sección de la mascota
+                findViewById(R.id.layoutMascota).setVisibility(View.GONE);
+            }
+        }
+    }
+
+    private void setMascotaImage(int raza) {
+        // Establecer la imagen de la mascota según su raza
+        switch (raza) {
+            case 0:
+                imgMascota.setImageResource(R.drawable.pic_shiba);
+                break;
+            case 1:
+                imgMascota.setImageResource(R.drawable.pic_husky);
+                break;
+            case 2:
+                imgMascota.setImageResource(R.drawable.pic_american);
+                break;
+            case 3:
+                imgMascota.setImageResource(R.drawable.pic_golden);
+                break;
+            default:
+                // Si la raza no coincide, puedes establecer una imagen predeterminada o manejarlo según tu lógica
+                imgMascota.setImageResource(R.drawable.pic_shiba);
+                break;
         }
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        setResult(RESULT_MAIN);
-        finish();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // Cambiar la transición
+        Intent resultIntent = new Intent();
+        setResult(RESULT_MAIN, resultIntent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // Cambiar la transición al retroceder
     }
 }

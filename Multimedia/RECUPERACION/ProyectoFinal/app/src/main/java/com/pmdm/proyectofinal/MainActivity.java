@@ -10,14 +10,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.pmdm.proyectofinal.adapters.MascotaAdapter;
+import com.pmdm.proyectofinal.adapters.PaseadorAdapter;
+import com.pmdm.proyectofinal.usuarios.Mascota;
 import com.pmdm.proyectofinal.usuarios.Usuario;
 import com.pmdm.proyectofinal.usuarios.UsuariosDBHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int CODIGO_LLAMADA_SEARCH = 1;
     private static final int CODIGO_LLAMADA_PROFILE = 2;
     private static final int RESULT_MAIN = 1;
     private ListView listMain;
@@ -52,9 +53,6 @@ public class MainActivity extends AppCompatActivity {
                 if (item.getItemId() == R.id.action_home) {
                     // Manejar la opción Home
                     return true;
-                } else if (item.getItemId() == R.id.action_search) {
-                    // Manejar la opción Search
-                    return true;
                 } else if (item.getItemId() == R.id.action_profile) {
                     // Manejar la opción Profile
                     Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
@@ -85,10 +83,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadUsersWithSpecificType() {
-        List<Usuario> userList = dbHelper.getAllUsersWithType(0); // Obtener todos los usuarios con type=0
+        Intent intent = getIntent();
+        int type = intent.getIntExtra("type", -1);
 
-        // Crear un adaptador personalizado para los paseadores y asignarlo a la lista
-        PaseadorAdapter paseadorAdapter = new PaseadorAdapter(this, userList);
-        listMain.setAdapter(paseadorAdapter);
+        // Verificar el tipo de usuario y cargar la lista correspondiente
+        if (type == 0) {
+            // Si el tipo es 0, cargar la lista de mascotas
+            List<Mascota> mascotaList = dbHelper.getAllMascotas();
+            MascotaAdapter mascotaAdapter = new MascotaAdapter(this, mascotaList, dbHelper);  // Asegurarse de pasar dbHelper aquí
+            listMain.setAdapter(mascotaAdapter);
+        } else if (type == 1) {
+            // Si el tipo es 1, cargar la lista de paseadores
+            List<Usuario> userList = dbHelper.getAllUsersWithType(0); // Obtener todos los usuarios con type=0
+            PaseadorAdapter paseadorAdapter = new PaseadorAdapter(this, userList);
+            listMain.setAdapter(paseadorAdapter);
+        }
     }
 }

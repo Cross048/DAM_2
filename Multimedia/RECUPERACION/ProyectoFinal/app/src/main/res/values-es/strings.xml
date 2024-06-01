@@ -1,16 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Walk My Dog!</string>
-    <!-- General -->
     <string name="inicio_bottom">Inicio</string>
     <string name="explorar_bottom">Explorar</string>
     <string name="perfil_bottom">Perfil</string>
-    <!-- Login -->
     <string name="bienvenido_message">¡Bienvenido/a!</string>
     <string name="usuario">Usuario</string>
     <string name="pass">Contraseña</string>
     <string name="recordar">Recuérdame</string>
     <string name="iniciar_sesion_button">Iniciar sesión</string>
-    <!-- Register -->
     <string name="registrarse">¿No tienes cuenta? Regístrate</string>
     <string name="registrate_title">¿A qué estás esperando?</string>
     <string name="registrate_message">¡Regístrate!</string>
@@ -19,16 +17,10 @@
     <string name="nombre_register">Nombre</string>
     <string name="apellidos_register">Apellidos</string>
     <string name="nombre_mascota">Nombre de tu mascota</string>
-    <string-array name="raza_mascota">
-        <item>Shiba Inu</item>
-        <item>Husky Siberiano</item>
-        <item>American Standford</item>
-        <item>Golden Retriever</item>
-    </string-array>
     <string name="type">¿En qué estás interesad@?</string>
+    <string name="appBy">Cristian Bernal</string>
     <string-array name="type_options">
         <item>Pasear mascotas</item>
         <item>Paseen mi mascota</item>
     </string-array>
-    <string name="appBy">Cristian Bernal</string>
 </resources>

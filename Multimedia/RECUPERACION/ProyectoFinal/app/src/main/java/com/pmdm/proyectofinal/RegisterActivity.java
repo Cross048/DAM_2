@@ -3,6 +3,7 @@ package com.pmdm.proyectofinal;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,10 +17,13 @@ import com.pmdm.proyectofinal.usuarios.UsuariosDBHelper;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText etUsuario;
+    private EditText etEmail;
     private EditText etPassword;
     private EditText etNombre;
     private EditText etApellidos;
+    private EditText etNombreMascota; // Añadido
     private Spinner spinnerType;
+    private Spinner spinnerRaza; // Añadido
     private Button btnRegistrar;
     private UsuariosDBHelper dbHelper;
 
@@ -29,11 +33,14 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         etUsuario = findViewById(R.id.etUsuario);
+        etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         etNombre = findViewById(R.id.etNombre);
         etApellidos = findViewById(R.id.etApellidos);
         spinnerType = findViewById(R.id.spinnerType);
         btnRegistrar = findViewById(R.id.btnRegistrar);
+        etNombreMascota = findViewById(R.id.etNombreMascota); // Inicialización añadida
+        spinnerRaza = findViewById(R.id.spinnerRaza); // Inicialización añadida
 
         dbHelper = new UsuariosDBHelper(this);
 
@@ -41,32 +48,86 @@ public class RegisterActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, typeOptions);
         spinnerType.setAdapter(adapter);
 
+        spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                if (position == 1) {
+                    etNombreMascota.setVisibility(View.VISIBLE);
+                    spinnerRaza.setVisibility(View.VISIBLE);
+
+                    // Cargar el array de raza_mascota en el spinnerRaza
+                    String[] razaMascotaOptions = getResources().getStringArray(R.array.raza_mascota);
+                    ArrayAdapter<String> razaAdapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.spinner_item, razaMascotaOptions); // Cambio aquí
+                    spinnerRaza.setAdapter(razaAdapter);
+                } else {
+                    etNombreMascota.setVisibility(View.GONE);
+                    spinnerRaza.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // No hacer nada aquí
+            }
+        });
+
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = etUsuario.getText().toString();
+                final String username = etUsuario.getText().toString();
                 String password = etPassword.getText().toString();
                 String nombre = etNombre.getText().toString();
                 String apellido = etApellidos.getText().toString();
+                final String email = etEmail.getText().toString(); // Obtener el valor del campo email
 
                 int spinnerIndex = spinnerType.getSelectedItemPosition();
-                int type = spinnerIndex == 0 ? 0 : 1;
+                final int type = spinnerIndex == 0 ? 0 : 1;
                 int profilePic = 0; // Valor por defecto
 
                 if (!username.isEmpty() && !password.isEmpty() && !nombre.isEmpty() && !apellido.isEmpty()) {
-                    Usuario nuevoUsuario = new Usuario(username, password, nombre, apellido, type, profilePic);
+                    Usuario nuevoUsuario = new Usuario(username, password, nombre, apellido, type, profilePic, email);
 
-                    boolean isInserted = dbHelper.addUser(
+                    boolean isUserInserted = dbHelper.addUser(
                             nuevoUsuario.getUsername(),
                             nuevoUsuario.getPassword(),
                             nuevoUsuario.getNombre(),
                             nuevoUsuario.getApellido(),
                             nuevoUsuario.getType(),
-                            nuevoUsuario.getProfilePic()
+                            nuevoUsuario.getProfilePic(),
+                            nuevoUsuario.getEmail()
                     );
 
-                    if (isInserted) {
+                    if (isUserInserted) {
                         Toast.makeText(RegisterActivity.this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
+
+                        if (type == 1) { // Si el tipo es 1, es decir, es un propietario de mascota
+                            final String nombreMascota = etNombreMascota.getText().toString();
+                            final int razaMascota = spinnerRaza.getSelectedItemPosition(); // Obtiene la posición seleccionada
+
+                            // Insertar la mascota en la tabla pets
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    boolean isPetInserted = dbHelper.addPet(nombreMascota, razaMascota, username);
+                                    if (isPetInserted) {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Toast.makeText(RegisterActivity.this, "Mascota registrada exitosamente", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    } else {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Toast.makeText(RegisterActivity.this, "Error al registrar la mascota", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    }
+                                }
+                            }).start();
+                        }
+
                         Intent resultIntent = new Intent();
                         resultIntent.putExtra("username", username);
                         setResult(RESULT_OK, resultIntent);

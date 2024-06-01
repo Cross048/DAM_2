@@ -60,6 +60,41 @@
             android:inputType="text"
             android:drawablePadding="10dp"/>
 
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email"
+            android:drawableStart="@drawable/ic_user"
+            android:padding="10dp"
+            android:background="@drawable/edittext_background"
+            android:layout_marginBottom="10dp"
+            android:inputType="text"
+            android:drawablePadding="10dp"/>
+
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/nombre_register"
+            android:drawableStart="@drawable/ic_user"
+            android:padding="10dp"
+            android:background="@drawable/edittext_background"
+            android:layout_marginBottom="10dp"
+            android:inputType="text"
+            android:drawablePadding="10dp"/>
+
+        <EditText
+            android:id="@+id/etApellidos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/apellidos_register"
+            android:drawableStart="@drawable/ic_user"
+            android:padding="10dp"
+            android:background="@drawable/edittext_background"
+            android:layout_marginBottom="10dp"
+            android:inputType="text"
+            android:drawablePadding="10dp"/>
 
         <EditText
             android:id="@+id/etPassword"
@@ -73,36 +108,32 @@
             android:inputType="textPassword"
             android:drawablePadding="10dp"/>
 
-        <EditText
-            android:id="@+id/etNombre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/nombre_register"
-            android:drawableStart="@drawable/ic_password"
-            android:padding="10dp"
-            android:background="@drawable/edittext_background"
-            android:layout_marginBottom="10dp"
-            android:inputType="text"
-            android:drawablePadding="10dp"/>
-
-        <EditText
-            android:id="@+id/etApellidos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/apellidos_register"
-            android:drawableStart="@drawable/ic_password"
-            android:padding="10dp"
-            android:background="@drawable/edittext_background"
-            android:layout_marginBottom="10dp"
-            android:inputType="text"
-            android:drawablePadding="10dp"/>
-
         <Spinner
             android:id="@+id/spinnerType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="@string/type"
             android:layout_marginBottom="10dp"/>
+
+        <EditText
+            android:id="@+id/etNombreMascota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/nombre_mascota"
+            android:drawableStart="@drawable/ic_paw"
+            android:padding="10dp"
+            android:background="@drawable/edittext_background"
+            android:layout_marginBottom="10dp"
+            android:inputType="text"
+            android:drawablePadding="10dp"
+            android:visibility="gone"/>
+
+        <Spinner
+            android:id="@+id/spinnerRaza"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/btnRegistrar"
@@ -116,14 +147,5 @@
             android:textSize="16sp"/>
 
     </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/appBy"
-        android:textColor="@color/white"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:gravity="end"/>
 
 </LinearLayout>

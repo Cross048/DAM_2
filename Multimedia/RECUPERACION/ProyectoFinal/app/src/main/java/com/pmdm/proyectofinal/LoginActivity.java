@@ -1,7 +1,10 @@
 package com.pmdm.proyectofinal;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.pmdm.proyectofinal.usuarios.Usuario;
 import com.pmdm.proyectofinal.usuarios.UsuariosDBHelper;
@@ -75,6 +80,9 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         editor.apply();
 
+                        // Enviar notificación
+                        sendLoginNotification(username);
+
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("username", usuario.getUsername());
                         intent.putExtra("nombre", usuario.getNombre());
@@ -110,6 +118,31 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
         return null;
+    }
+
+    private void sendLoginNotification(String username) {
+        createNotificationChannel();
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "channel_id")
+                .setSmallIcon(R.drawable.ic_user)
+                .setContentTitle("Inicio de sesión exitoso")
+                .setContentText("Ha iniciado sesión el usuario " + username)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(123, builder.build());
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Channel Name";
+            String description = "Channel Description";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("channel_id", name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     @Override
