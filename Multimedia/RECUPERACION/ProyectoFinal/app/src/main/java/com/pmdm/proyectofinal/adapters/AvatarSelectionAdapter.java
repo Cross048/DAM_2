@@ -1,4 +1,4 @@
-package com.pmdm.proyectofinal;
+package com.pmdm.proyectofinal.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.pmdm.proyectofinal.R;
 
 public class AvatarSelectionAdapter extends ArrayAdapter<String> {
     private Context mContext;

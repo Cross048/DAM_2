@@ -25,9 +25,9 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView tvNombre;
     private TextView tvApellidos;
     private TextView tvType;
-    private ImageView imgMascota; // Agregar ImageView para la mascota
-    private TextView tvNombreMascota; // Agregar TextView para el nombre de la mascota
-    private TextView tvRazaMascota; // Agregar TextView para la raza de la mascota
+    private ImageView imgMascota;
+    private TextView tvNombreMascota;
+    private TextView tvRazaMascota;
     private BottomNavigationView bottomNavigationView;
     private UsuariosDBHelper dbHelper;
 
@@ -41,9 +41,9 @@ public class ProfileActivity extends AppCompatActivity {
         tvNombre = findViewById(R.id.tvNombre);
         tvApellidos = findViewById(R.id.tvApellidos);
         tvType = findViewById(R.id.tvType);
-        imgMascota = findViewById(R.id.imgMascota); // Inicializar ImageView para la mascota
-        tvNombreMascota = findViewById(R.id.tvNombreMascota); // Inicializar TextView para el nombre de la mascota
-        tvRazaMascota = findViewById(R.id.tvRazaMascota); // Inicializar TextView para la raza de la mascota
+        imgMascota = findViewById(R.id.imgMascota);
+        tvNombreMascota = findViewById(R.id.tvNombreMascota);
+        tvRazaMascota = findViewById(R.id.tvRazaMascota);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         dbHelper = new UsuariosDBHelper(this);
@@ -102,34 +102,30 @@ public class ProfileActivity extends AppCompatActivity {
                 imgPerfil.setImageResource(R.drawable.pic_woman);
                 break;
             default:
-                imgPerfil.setImageResource(R.drawable.pic_boy); // Imagen por defecto
+                imgPerfil.setImageResource(R.drawable.pic_boy);
                 break;
         }
     }
 
     private void showAvatarSelectionDialog() {
-        // Crear un nuevo AlertDialog.Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Seleccione un avatar");
 
-        // Configurar el diálogo para mostrar los avatares y manejar la selección
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_avatar_selection, null);
         builder.setView(dialogView);
 
-        // Obtener referencias a las ImageView dentro del diálogo
         ImageView imageViewAvatar1 = dialogView.findViewById(R.id.imageViewAvatar1);
         ImageView imageViewAvatar2 = dialogView.findViewById(R.id.imageViewAvatar2);
         ImageView imageViewAvatar3 = dialogView.findViewById(R.id.imageViewAvatar3);
         ImageView imageViewAvatar4 = dialogView.findViewById(R.id.imageViewAvatar4);
 
-        // Crear el diálogo
         AlertDialog dialog = builder.create();
 
         // Configurar un OnClickListener para cada ImageView
         imageViewAvatar1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateAvatar(0); // Actualizar el avatar del usuario a 0
+                updateAvatar(0);
                 dialog.dismiss();
             }
         });
@@ -137,7 +133,7 @@ public class ProfileActivity extends AppCompatActivity {
         imageViewAvatar2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateAvatar(1); // Actualizar el avatar del usuario a 1
+                updateAvatar(1);
                 dialog.dismiss();
             }
         });
@@ -145,7 +141,7 @@ public class ProfileActivity extends AppCompatActivity {
         imageViewAvatar3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateAvatar(2); // Actualizar el avatar del usuario a 2
+                updateAvatar(2);
                 dialog.dismiss();
             }
         });
@@ -153,7 +149,7 @@ public class ProfileActivity extends AppCompatActivity {
         imageViewAvatar4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateAvatar(3); // Actualizar el avatar del usuario a 3
+                updateAvatar(3);
                 dialog.dismiss();
             }
         });
@@ -166,7 +162,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        // Mostrar el diálogo
         dialog.show();
     }
 
@@ -242,7 +237,6 @@ public class ProfileActivity extends AppCompatActivity {
                 imgMascota.setImageResource(R.drawable.pic_golden);
                 break;
             default:
-                // Si la raza no coincide, puedes establecer una imagen predeterminada o manejarlo según tu lógica
                 imgMascota.setImageResource(R.drawable.pic_shiba);
                 break;
         }
@@ -253,6 +247,6 @@ public class ProfileActivity extends AppCompatActivity {
         super.onBackPressed();
         Intent resultIntent = new Intent();
         setResult(RESULT_MAIN, resultIntent);
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // Cambiar la transición al retroceder
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

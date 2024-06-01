@@ -21,9 +21,9 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etPassword;
     private EditText etNombre;
     private EditText etApellidos;
-    private EditText etNombreMascota; // Añadido
+    private EditText etNombreMascota;
     private Spinner spinnerType;
-    private Spinner spinnerRaza; // Añadido
+    private Spinner spinnerRaza;
     private Button btnRegistrar;
     private UsuariosDBHelper dbHelper;
 
@@ -39,8 +39,8 @@ public class RegisterActivity extends AppCompatActivity {
         etApellidos = findViewById(R.id.etApellidos);
         spinnerType = findViewById(R.id.spinnerType);
         btnRegistrar = findViewById(R.id.btnRegistrar);
-        etNombreMascota = findViewById(R.id.etNombreMascota); // Inicialización añadida
-        spinnerRaza = findViewById(R.id.spinnerRaza); // Inicialización añadida
+        etNombreMascota = findViewById(R.id.etNombreMascota);
+        spinnerRaza = findViewById(R.id.spinnerRaza);
 
         dbHelper = new UsuariosDBHelper(this);
 

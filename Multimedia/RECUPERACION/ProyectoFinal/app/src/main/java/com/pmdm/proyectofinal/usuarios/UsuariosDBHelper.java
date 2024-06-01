@@ -35,7 +35,7 @@ public class UsuariosDBHelper extends SQLiteAssetHelper {
         values.put(COLUMN_SURNAME, apellido);
         values.put(COLUMN_TYPE, type);
         values.put(COLUMN_PROFILE_PIC, profilePic);
-        values.put(COLUMN_EMAIL, email); // Agregar el correo electrónico
+        values.put(COLUMN_EMAIL, email);
 
         long result = db.insert(TABLE_USERS, null, values);
         db.close();
@@ -57,7 +57,7 @@ public class UsuariosDBHelper extends SQLiteAssetHelper {
                 String apellido = cursor.getString(cursor.getColumnIndex(COLUMN_SURNAME));
                 int type = cursor.getInt(cursor.getColumnIndex(COLUMN_TYPE));
                 int profilePic = cursor.getInt(cursor.getColumnIndex(COLUMN_PROFILE_PIC));
-                String email = cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL)); // Obtener el correo electrónico de la base de datos
+                String email = cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL));
                 Usuario usuario = new Usuario(username, password, nombre, apellido, type, profilePic, email);
                 userList.add(usuario);
             } while (cursor.moveToNext());
@@ -76,7 +76,7 @@ public class UsuariosDBHelper extends SQLiteAssetHelper {
             String apellido = cursor.getString(cursor.getColumnIndex(COLUMN_SURNAME));
             int type = cursor.getInt(cursor.getColumnIndex(COLUMN_TYPE));
             int profilePic = cursor.getInt(cursor.getColumnIndex(COLUMN_PROFILE_PIC));
-            String email = cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL)); // Obtener el correo electrónico de la base de datos
+            String email = cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL));
             cursor.close();
             db.close();
             return new Usuario(username, password, nombre, apellido, type, profilePic, email);
@@ -109,7 +109,7 @@ public class UsuariosDBHelper extends SQLiteAssetHelper {
                 String apellido = cursor.getString(cursor.getColumnIndex(COLUMN_SURNAME));
                 int userType = cursor.getInt(cursor.getColumnIndex(COLUMN_TYPE));
                 int profilePic = cursor.getInt(cursor.getColumnIndex(COLUMN_PROFILE_PIC));
-                String email = cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL)); // Obtener el correo electrónico de la base de datos
+                String email = cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL));
                 Usuario usuario = new Usuario(username, password, nombre, apellido, userType, profilePic, email);
                 userList.add(usuario);
             } while (cursor.moveToNext());
@@ -184,7 +184,7 @@ public class UsuariosDBHelper extends SQLiteAssetHelper {
     public String getEmailByUsername(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
-        String email = "Correo no encontrado"; // Valor por defecto
+        String email = "Correo no encontrado";
 
         try {
             String query = "SELECT email FROM users WHERE username=?";

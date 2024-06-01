@@ -2,8 +2,8 @@ package com.pmdm.proyectofinal.usuarios;
 
 public class Mascota {
     private String nombre;
-    private int raza; // Cambiado a int para que coincida con el esquema de tu tabla
-    private String propietario; // Cambiado a coincidir con el esquema de tu tabla
+    private int raza;
+    private String propietario;
 
     public Mascota(String nombre, int raza, String propietario) {
         this.nombre = nombre;

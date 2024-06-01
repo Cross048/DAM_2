@@ -62,7 +62,23 @@ public class PaseadorAdapter extends ArrayAdapter<Usuario> {
     }
 
     private void setProfileImage(int profilePic, ImageView imgPerfil) {
-        // Implementa tu lógica para establecer la imagen de perfil aquí
+        switch (profilePic) {
+            case 0:
+                imgPerfil.setImageResource(R.drawable.pic_boy);
+                break;
+            case 1:
+                imgPerfil.setImageResource(R.drawable.pic_girl);
+                break;
+            case 2:
+                imgPerfil.setImageResource(R.drawable.pic_man);
+                break;
+            case 3:
+                imgPerfil.setImageResource(R.drawable.pic_woman);
+                break;
+            default:
+                imgPerfil.setImageResource(R.drawable.pic_boy);
+                break;
+        }
     }
 
     private void showPaseadorDetailsDialog(Usuario paseador) {
@@ -85,8 +101,8 @@ public class PaseadorAdapter extends ArrayAdapter<Usuario> {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Asunto del correo");
-        intent.putExtra(Intent.EXTRA_TEXT, "Cuerpo del correo");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Te necesito para pasear a mi mascota");
+        intent.putExtra(Intent.EXTRA_TEXT, "Buenos días, necesito que paseen a mi mascota y me ha gustado mucho tu perfil.");
 
         try {
             mContext.startActivity(Intent.createChooser(intent, "Enviar correo..."));

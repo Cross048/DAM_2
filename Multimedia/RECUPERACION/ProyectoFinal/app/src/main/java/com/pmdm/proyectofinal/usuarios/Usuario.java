@@ -19,8 +19,6 @@ public class Usuario {
         this.email = email;
     }
 
-    // Getters and Setters for all fields including email
-
     public String getUsername() {
         return username;
     }

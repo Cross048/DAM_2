@@ -20,13 +20,11 @@ import java.util.List;
 public class MascotaAdapter extends ArrayAdapter<Mascota> {
     private Context mContext;
     private List<Mascota> mMascotaList;
-    private UsuariosDBHelper dbHelper;
 
     public MascotaAdapter(Context context, List<Mascota> mascotaList, UsuariosDBHelper dbHelper) {
         super(context, 0, mascotaList);
         mContext = context;
         mMascotaList = mascotaList;
-        this.dbHelper = dbHelper;
     }
 
     @Override
@@ -89,11 +87,9 @@ public class MascotaAdapter extends ArrayAdapter<Mascota> {
                 "Raza: " + razas[mascota.getRaza()] + "\n" +
                 "Propietario: " + mascota.getPropietario());
         builder.setPositiveButton("Enviar Correo", (dialog, which) -> {
-            // Verificar si el propietario de la mascota no es nulo antes de acceder a su correo electrónico
             if (mascota.getPropietario() != null) {
                 sendEmailToOwner(mascota.getPropietario());
             } else {
-                // Manejar el caso en que el propietario sea nulo
                 Toast.makeText(mContext, "No se pudo obtener el correo electrónico del propietario", Toast.LENGTH_SHORT).show();
             }
         });
@@ -104,7 +100,7 @@ public class MascotaAdapter extends ArrayAdapter<Mascota> {
     private void sendEmailToOwner(String email) {
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setType("text/rfc822");
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { email }); // Asegúrate de que sea un arreglo
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { email });
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Interesado en pasear su mascota");
         emailIntent.putExtra(Intent.EXTRA_TEXT, "Buenos días, estoy interesado en pasear a su mascota con mucho gusto.");
 

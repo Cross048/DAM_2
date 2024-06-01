@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.action_home) {
-                    // Manejar la opción Home
+                    // Este activity
                     return true;
                 } else if (item.getItemId() == R.id.action_profile) {
                     // Manejar la opción Profile
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("type", type);
                     intent.putExtra("profile_pic", profile_pic);
                     startActivityForResult(intent, CODIGO_LLAMADA_PROFILE);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left); // Cambiar la transición
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     return true;
                 }
                 return false;
@@ -90,11 +90,11 @@ public class MainActivity extends AppCompatActivity {
         if (type == 0) {
             // Si el tipo es 0, cargar la lista de mascotas
             List<Mascota> mascotaList = dbHelper.getAllMascotas();
-            MascotaAdapter mascotaAdapter = new MascotaAdapter(this, mascotaList, dbHelper);  // Asegurarse de pasar dbHelper aquí
+            MascotaAdapter mascotaAdapter = new MascotaAdapter(this, mascotaList, dbHelper);
             listMain.setAdapter(mascotaAdapter);
         } else if (type == 1) {
             // Si el tipo es 1, cargar la lista de paseadores
-            List<Usuario> userList = dbHelper.getAllUsersWithType(0); // Obtener todos los usuarios con type=0
+            List<Usuario> userList = dbHelper.getAllUsersWithType(0);
             PaseadorAdapter paseadorAdapter = new PaseadorAdapter(this, userList);
             listMain.setAdapter(paseadorAdapter);
         }
