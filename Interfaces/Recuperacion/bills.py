@@ -6,6 +6,7 @@ import var
 
 
 class Bills():
+    # Tabla 1
     def cargarTablaFacturas1(registros):
         # Añade los datos a la tabla Factura
         try:
@@ -22,6 +23,25 @@ class Bills():
         except Exception as error:
             print("Error al cargar datos en la tabla Facturas1: ", error)
 
+    def cargarFactura1(self=None):
+        try:
+            row = var.ui.tableFacturas1.selectedItems()
+            fila = [dato.text() for dato in row]
+            registro = connection.Connection.onefactura1(fila[0])
+            Bills.cargarDatos1(registro)
+        except Exception as error:
+            print("Error al cargar los datos de un client")
+
+    def cargarDatos1(registro):
+        try:
+            datos = [var.ui.lblCodBD_3, var.ui.txtNombre_3, var.ui.txtAlta_3]
+            var.ui.lblCodBD_3.setText(str(registro[0]))
+            var.ui.txtNombre_3.setText(str(registro[1]))
+            var.ui.txtAlta_3.setText(str(registro[2]))
+        except Exception as error:
+            print("Error al cargar datos en panel gestión 1: ", error)
+
+    # Tabla 2
     def cargarTablaFacturas2(registros):
         # Añade los datos a la tabla Facturas2
         try:
@@ -40,24 +60,26 @@ class Bills():
         except Exception as error:
             print("Error al cargar datos en la tabla: ", error)
 
-    def cargarDatos(registro):
+    def cargarFactura2(self=None):
         try:
-            datos = [var.ui.lblCodBD_3, var.ui.txtNombre_3, var.ui.txtAlta_3]
-            var.ui.lblCodBD_3.setText(str(registro[0]))
-            var.ui.txtNombre_3.setText(str(registro[1]))
-            var.ui.txtAlta_3.setText(str(registro[2]))
-        except Exception as error:
-            print("Error al cargar datos en panel gestión: ", error)
-
-    def cargarFactura1(self=None):
-        try:
-            row = var.ui.tableFacturas1.selectedItems()
+            row = var.ui.tableFacturas2.selectedItems()
             fila = [dato.text() for dato in row]
-            registro = connection.Connection.onefactura1(fila[0])
-            Bills.cargarDatos(registro)
+            registro = connection.Connection.onefactura2(fila[0])
+            Bills.cargarDatos2(registro)
         except Exception as error:
             print("Error al cargar los datos de un client")
-                  
+
+    def cargarDatos2(registro):
+        try:
+            datos = [var.ui.lblCodBD_4, var.ui.txtProducto_4, var.ui.txtPrecio_4, var.ui.spinStock_4]
+            var.ui.lblCodBD_4.setText(str(registro[0]))
+            var.ui.txtProducto_4.setText(str(registro[1]))
+            var.ui.txtPrecio_4.setText(str(registro[2]))
+            var.ui.spinStock_4.setValue(int(registro[3]))
+        except Exception as error:
+            print("Error al cargar datos en panel gestión 2: ", error)
+
+    # ToDo: eliminar métodos varios
     '''
     def cargarDatos(registro):
         try:

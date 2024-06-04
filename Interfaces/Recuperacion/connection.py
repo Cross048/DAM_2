@@ -7,6 +7,7 @@ import var
 
 
 class Connection():
+    # Conectar base de datos
     def conexion(self = None):
         # Cargar la base de datos SQLite
         db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
@@ -19,6 +20,7 @@ class Connection():
             print("Base datos conectada!")
             return True
 
+    # Cargar Tablas
     def selectClientes(self):
         # Carga los datos de los clientes para añadirlos a la tabla Clientes
         try:
@@ -103,13 +105,12 @@ class Connection():
             msg.exec()
 
     def selectFacturas2(self):
-        # Carga los datos de los Detalles para añadirlas a la tabla Factura2
-        # TODO: Hacer que cargue la tabla Facturas2
+        # Carga los datos de los Detalles para añadirlos a la tabla Factura2
         try:
             registros = []
             query = QtSql.QSqlQuery()
             query.prepare('''
-                SELECT id_factura, id_producto, Producto.precio, cantidad, precio 
+                SELECT id_factura, Detalle.id_producto, Producto.precio, cantidad, Detalle.precio 
                 FROM Detalle 
                 JOIN Producto ON Detalle.id_producto = Producto.id_producto
             ''')
@@ -131,6 +132,8 @@ class Connection():
             msg.setText("Error en cargar tabla Facturas2 o selección de datos")
             msg.exec()
 
+    # ToDo: Borrar métodos mostrarClientes() y mostrarProductos()
+    '''
     @staticmethod
     def mostrarClientes(self):
         try:
@@ -158,7 +161,9 @@ class Connection():
                 var.ui.tableProductos.setRowCount(0)
         except Exception as error:
             print("Error al mostrar resultados: ", error)
+    '''
 
+    # Cargar datos en formulario
     def onecliente(id_cliente):
         try:
             registro = []
@@ -202,8 +207,28 @@ class Connection():
             print("Registro obtenido de la base de datos:", registro)
             return registro
         except Exception as error:
-            print("Error en fichero conexion datos de un Cliente: ", error)
+            print("Error en fichero conexion datos de una Factura: ", error)
 
+    def onefactura2(num_detalle):
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare('''
+                SELECT Detalle.id_factura, Detalle.id_producto, Producto.precio, Detalle.cantidad 
+                FROM Detalle 
+                JOIN Producto ON Detalle.id_producto = Producto.id_producto
+                WHERE num_detalle = :num_detalle''')
+            query.bindValue(':num_detalle', int(num_detalle))
+            if query.exec():
+                while query.next():
+                    for i in range(4):
+                        registro.append(str(query.value(i)))
+            print("Registro obtenido de la base de datos:", registro)
+            return registro
+        except Exception as error:
+            print("Error en fichero conexion datos de una Factura: ", error)
+
+    # Modificar base de datos
     @staticmethod
     def modificarCliente(self):
         try:

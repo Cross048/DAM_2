@@ -75,6 +75,8 @@ class Main(QtWidgets.QMainWindow):
         events.Events.resizeTableFacturas2()
         # Facturas: Cargar los datos de las facturas al abrir el programa y meterlas en la tabla Facturas2
         self.connection.selectFacturas2()
+        # Facturas: Carga todos los datos de una factura en el formulario
+        var.ui.tableFacturas2.clicked.connect(bills.Bills.cargarFactura2)
 
     def closeEvent(self, event):
         # Ventana de emergencia al intentar salir del programa
