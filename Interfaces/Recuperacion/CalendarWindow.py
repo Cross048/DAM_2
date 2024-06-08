@@ -7,7 +7,11 @@
 
 
 from PyQt6 import QtCore, QtGui, QtWidgets
+import sys
+from PyQt6.QtWidgets import QApplication
 
+app = QApplication(sys.argv)
+app.setStyle("Fusion")
 
 class Ui_dlgCalendar(object):
     def setupUi(self, dlgCalendar):
