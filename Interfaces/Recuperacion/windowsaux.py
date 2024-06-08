@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import bills
 import clients
 import var
 from CalendarWindow import *
@@ -26,6 +27,7 @@ class Calendar(QtWidgets.QDialog):
         ano = datetime.now().year
         var.calendar.Calendar.setSelectedDate((QtCore.QDate(ano,mes,dia)))
         var.calendar.Calendar.clicked.connect(clients.Clients.cargarFecha)
+        var.calendar.Calendar.clicked.connect(bills.Bills.cargarFecha)
 
 '''
 class FileDialogAbrir(QtWidgets.QFileDialog):
