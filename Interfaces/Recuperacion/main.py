@@ -1,17 +1,30 @@
 import locale
 import sys
 
+from PyQt6.QtGui import QIcon
+
 import bills
 import connection
 import events
 import products
 from MainWindow import *
 from windowsaux import *
+import ctypes
+
+# import sys
+# from PyQt6.QtWidgets import QApplication
+#
+# app = QApplication(sys.argv)
+# app.setStyle("Fusion")  # Establecer el estilo en Fusion
+
 
 # Establecer la configuración regional en español
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
 
+# Establecer icono en la barra de tareas
+myappid = 'cristianbernal.recuperacion'
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 class Main(QtWidgets.QMainWindow):
     def __init__(self):
@@ -30,14 +43,28 @@ class Main(QtWidgets.QMainWindow):
         ''' Eventos de Botones '''
         # Clientes: Abrir calendario con su botón asignado
         var.ui.btnCalendar.clicked.connect(events.Events.abrirCalendar)
+        # Clientes: Añadir los datos del Cliente que se está creando en formulario
+        var.ui.btnAlta.clicked.connect(connection.Connection.anyadirCliente)
         # Clientes: Modifica los datos del Cliente que se está editando en formulario
         var.ui.btnMod.clicked.connect(connection.Connection.modificarCliente)
+        # Clientes: Borrar los datos del Cliente que se está eliminando en formulario
+        var.ui.btnBaja.clicked.connect(connection.Connection.borrarCliente)
 
+        # Productos: Añadir los datos del Producto que se está creando en formulario
+        var.ui.btnAnyadir.clicked.connect(connection.Connection.anyadirProducto)
         # Productos: Modifica los datos del Producto que se está editando en formulario
         var.ui.btnMod_2.clicked.connect(connection.Connection.modificarProducto)
+        # Productos: Borrar los datos del Producto que se está eliminando en formulario
+        var.ui.btnEliminar.clicked.connect(connection.Connection.borrarProducto)
 
         # Facturas: Abrir calendario con su botón asignado
         var.ui.btnCalendar_3.clicked.connect(events.Events.abrirCalendar)
+        # Facturas: Crea la factura del cliente
+        var.ui.btnFacturar.clicked.connect(connection.Connection.crearFactura)
+        # Facturas: Añadir los detalles de la factura
+        var.ui.btnAnyadir_4.clicked.connect(connection.Connection.anyadirDetalle)
+        # Facturas: Modifica los detalles de la factura
+        var.ui.btnMod_4.clicked.connect(connection.Connection.modificarDetalle)
 
         ''' Eventos del Menubar '''
         # Confirmar salida
