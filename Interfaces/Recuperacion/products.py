@@ -25,11 +25,14 @@ class Products():
 
     def cargarDatos(registro):
         try:
-            datos = [var.ui.lblCodBD_2, var.ui.txtNombre_2, var.ui.txtPrecio, var.ui.spinStock]
             var.ui.lblCodBD_2.setText(str(registro[0]))
             var.ui.txtNombre_2.setText(str(registro[1]))
             var.ui.txtPrecio.setText(str(registro[2]))
-            var.ui.spinStock.setValue(int(registro[3]))
+
+            stock = registro[3]
+            if stock is None:  # Manejar caso donde stock pueda ser None
+                stock = 0
+            var.ui.spinStock.setValue(int(stock))
         except Exception as error:
             print("Error al cargar datos en panel gestión: ", error)
 
