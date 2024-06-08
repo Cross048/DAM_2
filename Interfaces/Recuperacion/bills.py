@@ -41,6 +41,15 @@ class Bills():
         except Exception as error:
             print("Error al cargar datos en panel gestión 1: ", error)
 
+    def cargarFecha(qDate):
+        try:
+            data = ('{:02d}/{:02d}/{:4d}'.format(qDate.day(), qDate.month(), qDate.year()))
+            var.ui.txtAlta_3.setText(str(data))
+            return data
+            var.calendar.hide()
+        except Exception as error:
+            print("Error en cargar fecha: ", error)
+
     # Tabla 2
     def cargarTablaFacturas2(registros):
         # Añade los datos a la tabla Facturas2
@@ -54,6 +63,7 @@ class Bills():
                 var.ui.tableFacturas2.setItem(index, 2, QtWidgets.QTableWidgetItem(str(registro[2])))
                 var.ui.tableFacturas2.setItem(index, 3, QtWidgets.QTableWidgetItem(str(registro[3])))
                 var.ui.tableFacturas2.setItem(index, 4, QtWidgets.QTableWidgetItem(str(registro[4])))
+                var.ui.tableFacturas2.setItem(index, 5, QtWidgets.QTableWidgetItem(str(registro[5])))
                 for col in range(var.ui.tableFacturas2.columnCount()):
                     var.ui.tableFacturas2.item(index, col).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 index += 1
