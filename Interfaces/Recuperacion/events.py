@@ -30,7 +30,11 @@ class Events:
         try:
             header = var.ui.tableClientes.horizontalHeader()
             for i in range(header.count()):
-                header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+                if i == 0:  # Establecer ancho fijo para la primera columna
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Fixed)
+                    header.resizeSection(i, 50)  # Ancho deseado para la primera columna
+                else:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
         except Exception as error:
             print("Error en el resize en la tabla Clientes: ", error)
 
@@ -40,7 +44,11 @@ class Events:
         try:
             header = var.ui.tableProductos.horizontalHeader()
             for i in range(header.count()):
-                header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+                if i == 0:  # Establecer ancho fijo para la primera columna
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Fixed)
+                    header.resizeSection(i, 50)  # Ancho deseado para la primera columna
+                else:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
         except Exception as error:
             print("Error en el resize en la tabla Productos: ", error)
 
@@ -50,9 +58,13 @@ class Events:
         try:
             header = var.ui.tableFacturas1.horizontalHeader()
             for i in range(header.count()):
-                header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+                if i == 0:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Fixed)
+                    header.resizeSection(i, 75)  # Ancho deseado para la primera columna
+                else:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
         except Exception as error:
-            print("Error en el resize en la tabla Clientes: ", error)
+            print("Error en el resize en la tabla Facturas1: ", error)
 
     @classmethod
     def resizeTableFacturas2(cls):
@@ -60,9 +72,13 @@ class Events:
         try:
             header = var.ui.tableFacturas2.horizontalHeader()
             for i in range(header.count()):
-                header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+                if i in (0, 1):
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Fixed)
+                    header.resizeSection(i, 100)  # Ancho deseado para la primera columna
+                else:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
         except Exception as error:
-            print("Error en el resize en la tabla Clientes: ", error)
+            print("Error en el resize en la tabla Facturas2: ", error)
 
     @staticmethod
     def abrirCalendar(self):
