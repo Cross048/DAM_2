@@ -7,7 +7,7 @@ import var
 
 class Products():
     def cargarTablaProductos(registros):
-        # Añade los datos a la tabla Clientes
+        # Añade los datos a la tabla Productos
         try:
             var.ui.tableProductos.clearContents()
             index = 0
@@ -15,26 +15,19 @@ class Products():
                 var.ui.tableProductos.setRowCount(index + 1)
                 var.ui.tableProductos.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
                 var.ui.tableProductos.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[1])))
-                var.ui.tableProductos.setItem(index, 2, QtWidgets.QTableWidgetItem(str(registro[2])))
+
+                # Formatear el precio con dos decimales y el símbolo del euro
+                precio = float(registro[2])
+                precio_formateado = f"{precio:.2f}€"
+                var.ui.tableProductos.setItem(index, 2, QtWidgets.QTableWidgetItem(precio_formateado))
+
                 var.ui.tableProductos.setItem(index, 3, QtWidgets.QTableWidgetItem(str(registro[3])))
+
                 for col in range(var.ui.tableProductos.columnCount()):
                     var.ui.tableProductos.item(index, col).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 index += 1
         except Exception as error:
             print("Error al cargar datos en la tabla Productos: ", error)
-
-    def cargarDatos(registro):
-        try:
-            var.ui.lblCodBD_2.setText(str(registro[0]))
-            var.ui.txtNombre_2.setText(str(registro[1]))
-            var.ui.txtPrecio.setText(str(registro[2]))
-
-            stock = registro[3]
-            if stock is None:  # Manejar caso donde stock pueda ser None
-                stock = 0
-            var.ui.spinStock.setValue(int(stock))
-        except Exception as error:
-            print("Error al cargar datos en panel gestión: ", error)
 
     def auxiliar(registro):
         # Rellena los campos del panel de clientes con los datos del cliente seleccionado.
@@ -55,3 +48,19 @@ class Products():
             Products.cargarDatos(registro)
         except Exception as error:
             print("Error al cargar los datos de un cliente marcando en la tabla: ", error)
+
+    def cargarDatos(registro):
+        try:
+            var.ui.lblCodBD_2.setText(str(registro[0]))
+            var.ui.txtNombre_2.setText(str(registro[1]))
+
+            # Formatear el precio con dos decimales
+            precio = float(registro[2])
+            var.ui.txtPrecio.setText(f"{precio:.2f}")
+
+            stock = registro[3]
+            if stock is None:  # Manejar caso donde stock pueda ser None
+                stock = 0
+            var.ui.spinStock.setValue(int(stock))
+        except Exception as error:
+            print("Error al cargar datos en panel gestión: ", error)

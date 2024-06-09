@@ -2535,12 +2535,36 @@ color: rgb(0, 0, 0);</string>
     </property>
     <addaction name="actionSalir"/>
    </widget>
+   <widget class="QMenu" name="menuInformes">
+    <property name="title">
+     <string>Informes</string>
+    </property>
+    <addaction name="actionGenerar_informe_Clientes"/>
+    <addaction name="actionGenerar_informe_Productos"/>
+    <addaction name="actionGenerar_informe_Factura"/>
+   </widget>
    <addaction name="menuArchivo"/>
+   <addaction name="menuInformes"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionSalir">
    <property name="text">
     <string>Salir</string>
+   </property>
+  </action>
+  <action name="actionGenerar_informe_Clientes">
+   <property name="text">
+    <string>Generar informe Clientes</string>
+   </property>
+  </action>
+  <action name="actionGenerar_informe_Productos">
+   <property name="text">
+    <string>Generar informe Productos</string>
+   </property>
+  </action>
+  <action name="actionGenerar_informe_Factura">
+   <property name="text">
+    <string>Generar informe Factura</string>
    </property>
   </action>
  </widget>

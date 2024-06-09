@@ -7,15 +7,10 @@ import bills
 import connection
 import events
 import products
+import reports
 from MainWindow import *
 from windowsaux import *
 import ctypes
-
-# import sys
-# from PyQt6.QtWidgets import QApplication
-#
-# app = QApplication(sys.argv)
-# app.setStyle("Fusion")  # Establecer el estilo en Fusion
 
 
 # Establecer la configuración regional en español
@@ -26,6 +21,7 @@ locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
 myappid = 'cristianbernal.recuperacion'
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
+
 class Main(QtWidgets.QMainWindow):
     def __init__(self):
         super(Main, self).__init__()
@@ -34,6 +30,7 @@ class Main(QtWidgets.QMainWindow):
         self.clients = clients.Clients()
         self.products = products.Products()
         self.bills = bills.Bills()
+        self.reports = reports.Reports()
         var.ui.setupUi(self)
 
         # Conexión a la base de datos
@@ -69,6 +66,12 @@ class Main(QtWidgets.QMainWindow):
         ''' Eventos del Menubar '''
         # Confirmar salida
         var.ui.actionSalir.triggered.connect(events.Events.salir)
+        # Informe de Clientes
+        var.ui.actionGenerar_informe_Clientes.triggered.connect(reports.Reports.reportclientes)
+        # Informe de Productos
+        var.ui.actionGenerar_informe_Productos.triggered.connect(reports.Reports.reportproductos)
+        # Informe de Factura
+        var.ui.actionGenerar_informe_Factura.triggered.connect(reports.Reports.reportfactura)
 
         ''' Eventos Cajas de Texto '''
 

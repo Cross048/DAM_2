@@ -7,7 +7,11 @@
 
 
 from PyQt6 import QtCore, QtGui, QtWidgets
+import sys
+from PyQt6.QtWidgets import QApplication
 
+app = QApplication(sys.argv)
+app.setStyle("Fusion")  # Establecer el estilo en Fusion
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -755,14 +759,26 @@ class Ui_MainWindow(object):
         self.menubar.setObjectName("menubar")
         self.menuArchivo = QtWidgets.QMenu(parent=self.menubar)
         self.menuArchivo.setObjectName("menuArchivo")
+        self.menuInformes = QtWidgets.QMenu(parent=self.menubar)
+        self.menuInformes.setObjectName("menuInformes")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(parent=MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.actionSalir = QtGui.QAction(parent=MainWindow)
         self.actionSalir.setObjectName("actionSalir")
+        self.actionGenerar_informe_Clientes = QtGui.QAction(parent=MainWindow)
+        self.actionGenerar_informe_Clientes.setObjectName("actionGenerar_informe_Clientes")
+        self.actionGenerar_informe_Productos = QtGui.QAction(parent=MainWindow)
+        self.actionGenerar_informe_Productos.setObjectName("actionGenerar_informe_Productos")
+        self.actionGenerar_informe_Factura = QtGui.QAction(parent=MainWindow)
+        self.actionGenerar_informe_Factura.setObjectName("actionGenerar_informe_Factura")
         self.menuArchivo.addAction(self.actionSalir)
+        self.menuInformes.addAction(self.actionGenerar_informe_Clientes)
+        self.menuInformes.addAction(self.actionGenerar_informe_Productos)
+        self.menuInformes.addAction(self.actionGenerar_informe_Factura)
         self.menubar.addAction(self.menuArchivo.menuAction())
+        self.menubar.addAction(self.menuInformes.menuAction())
 
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
@@ -855,4 +871,8 @@ class Ui_MainWindow(object):
         self.lblSubtotal.setText(_translate("MainWindow", "SUBTOTAL:  "))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Facturas), _translate("MainWindow", "Facturas"))
         self.menuArchivo.setTitle(_translate("MainWindow", "Archivo"))
+        self.menuInformes.setTitle(_translate("MainWindow", "Informes"))
         self.actionSalir.setText(_translate("MainWindow", "Salir"))
+        self.actionGenerar_informe_Clientes.setText(_translate("MainWindow", "Generar informe Clientes"))
+        self.actionGenerar_informe_Productos.setText(_translate("MainWindow", "Generar informe Productos"))
+        self.actionGenerar_informe_Factura.setText(_translate("MainWindow", "Generar informe Factura"))

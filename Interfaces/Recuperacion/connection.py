@@ -136,37 +136,6 @@ class Connection():
             msg.setText("Error en cargar tabla Facturas2 o selección de datos")
             msg.exec()
 
-    # ToDo: Borrar métodos mostrarClientes() y mostrarProductos()
-    '''
-    @staticmethod
-    def mostrarClientes(self):
-        try:
-            registros = []
-            estado = 1
-            Connection.selectClientes(estado)
-            if registros:
-                clients.Clients.cargarTablaClientes(registros)
-                return registros
-            else:
-                var.ui.tableClientes.setRowCount(0)
-        except Exception as error:
-            print("Error al mostrar resultados: ", error)
-
-    @staticmethod
-    def mostrarProductos(self):
-        try:
-            registros = []
-            estado = 1
-            Connection.selectProductos(estado)
-            if registros:
-                products.Products.cargarTablaProductos(registros)
-                return registros
-            else:
-                var.ui.tableProductos.setRowCount(0)
-        except Exception as error:
-            print("Error al mostrar resultados: ", error)
-    '''
-
     # Cargar datos en formulario
     def onecliente(id_cliente):
         try:
@@ -215,24 +184,42 @@ class Connection():
         except Exception as error:
             print("Error en fichero conexion datos de una Factura: ", error)
 
-    def onefactura2(id_factura):
+    def onefactura2(id_detalle):
         try:
             registro = []
             query = QtSql.QSqlQuery()
             query.prepare('''
-                SELECT Detalle.id_factura, Detalle.id_producto, Producto.precio, Detalle.cantidad 
+                SELECT id_factura, Producto.id_producto, Producto.precio, cantidad 
                 FROM Detalle 
                 JOIN Producto ON Detalle.id_producto = Producto.id_producto
-                WHERE id_factura = :id_factura''')
-            query.bindValue(':id_factura', int(id_factura))
+                WHERE id_detalle = :id_detalle''')
+            query.bindValue(':id_detalle', int(id_detalle))
             if query.exec():
                 while query.next():
                     for i in range(4):
                         registro.append(str(query.value(i)))
-            print("Registro obtenido de la base de datos:", registro)
+            print("Registro obtenido de la base de datos Detalle:", registro)
             return registro
         except Exception as error:
             print("Error en fichero conexión datos de una factura:", error)
+
+    def facturaTotal(id_factura):
+        try:
+            total = 0
+            query = QtSql.QSqlQuery()
+            query.prepare('''
+                SELECT SUM(precio) AS total
+                FROM Detalle
+                WHERE Detalle.id_factura = :id_factura
+            ''')
+            query.bindValue(':id_factura', int(id_factura))
+            if query.exec():
+                if query.next():
+                    total = query.value(0)
+            print("Total de la factura con id_factura", id_factura, "es:", total)
+            return total
+        except Exception as error:
+            print("Error al calcular el total de la factura:", error)
 
     # Añadir a la base de datos
     @staticmethod
