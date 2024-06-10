@@ -2474,6 +2474,11 @@ color: rgb(0, 0, 0);</string>
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Examen</string>
+       </attribute>
+      </widget>
      </widget>
     </item>
     <item row="0" column="0">
