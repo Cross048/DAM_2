@@ -30,9 +30,9 @@ class Events:
         try:
             header = var.ui.tableClientes.horizontalHeader()
             for i in range(header.count()):
-                if i == 0:  # Establecer ancho fijo para la primera columna
+                if i == 0:  # Establece ancho fijo para la primera columna
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Fixed)
-                    header.resizeSection(i, 50)  # Ancho deseado para la primera columna
+                    header.resizeSection(i, 50)
                 else:
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
         except Exception as error:
@@ -44,9 +44,9 @@ class Events:
         try:
             header = var.ui.tableProductos.horizontalHeader()
             for i in range(header.count()):
-                if i == 0:  # Establecer ancho fijo para la primera columna
+                if i == 0:  # Establece ancho fijo para la primera columna
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Fixed)
-                    header.resizeSection(i, 50)  # Ancho deseado para la primera columna
+                    header.resizeSection(i, 50)
                 else:
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
         except Exception as error:
@@ -60,7 +60,7 @@ class Events:
             for i in range(header.count()):
                 if i == 0:
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Fixed)
-                    header.resizeSection(i, 75)  # Ancho deseado para la primera columna
+                    header.resizeSection(i, 75)
                 else:
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
         except Exception as error:
@@ -74,14 +74,15 @@ class Events:
             for i in range(header.count()):
                 if i in (0, 1):
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Fixed)
-                    header.resizeSection(i, 100)  # Ancho deseado para la primera columna
+                    header.resizeSection(i, 100)
                 else:
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
         except Exception as error:
             print("Error en el resize en la tabla Facturas2: ", error)
 
     @staticmethod
-    def abrirCalendar(self):
+    def abrirCalendar():
+        # Abre la ventana del calendario
         try:
             var.calendar.show()
             print("Calendario abierto")
@@ -89,6 +90,7 @@ class Events:
             print("Error al abrir calendario: ", error)
 
     def error(title, text):
+        # Ventana de emergencia cuando hay un error
         mbox = QtWidgets.QMessageBox()
         mbox.setWindowTitle(title)
         mbox.setWindowIcon(QtGui.QIcon("img/limpiar.png"))

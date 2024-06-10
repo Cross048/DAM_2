@@ -1,17 +1,12 @@
+import ctypes
 import locale
-import sys
 
-from PyQt6.QtGui import QIcon
-
-import bills
 import connection
 import events
 import products
 import reports
 from MainWindow import *
 from windowsaux import *
-import ctypes
-
 
 # Establecer la configuración regional en español
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
@@ -72,10 +67,6 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionGenerar_informe_Productos.triggered.connect(reports.Reports.reportproductos)
         # Informe de Factura
         var.ui.actionGenerar_informe_Factura.triggered.connect(reports.Reports.reportfactura)
-
-        ''' Eventos Cajas de Texto '''
-
-        ''' Eventos del Toolbar '''
 
         ''' Eventos de Tablas '''
         # Clientes: Reajusta las dimensiones de la tabla Clientes

@@ -2,14 +2,8 @@ import os
 from datetime import datetime
 
 from PIL import Image
-from PyQt6.QtWidgets import QMessageBox
-from PyQt6 import QtGui
-from PyQt6 import QtSql
-from PyQt6.QtWidgets import QMessageBox
-from PyQt6.uic.properties import QtGui
+from PyQt6 import QtWidgets, QtGui, QtSql
 from reportlab.pdfgen import canvas
-from PyQt6.uic.properties import QtGui
-from PyQt6 import QtWidgets, QtGui
 
 import var
 
@@ -17,65 +11,74 @@ import var
 class Reports:
     @staticmethod
     def reportclientes():
+        # Reporte de todos los clientes
         try:
+            directory = './informes'
+            if not os.path.exists(directory):
+                os.makedirs(directory)
+
             fecha = datetime.today()
             fecha = fecha.strftime('%Y_%m_%d_%H_%M_%S')
             nombre = fecha + '_listadoclientes.pdf'
-            var.report = canvas.Canvas('informes/' + nombre)
+            var.report = canvas.Canvas(os.path.join(directory, nombre))
             titulo = 'LISTADO CLIENTES'
             Reports.topInforme(titulo)
             Reports.footInforme(titulo)
-            items = 'ID', 'NOMBRE', 'APELLIDO', 'CORREO', 'TELEFONO', 'CATEGORIA'
+            items = ['ID', 'NOMBRE', 'APELLIDO', 'CORREO', 'TELEFONO', 'CATEGORIA']
+
             var.report.setFont('Helvetica-Bold', size=9)
-            var.report.drawString(50, 675, str(items[0]))
-            var.report.drawString(120, 675, str(items[1]))
-            var.report.drawString(250, 675, str(items[2]))
-            var.report.drawString(350, 675, str(items[3]))
-            var.report.drawString(450, 675, str(items[4]))
-            var.report.drawString(525, 675, str(items[5]))
-            var.report.line(50, 670, 800, 670)
+            var.report.drawString(60, 675, str(items[0]))
+            var.report.drawString(100, 675, str(items[1]))
+            var.report.drawString(180, 675, str(items[2]))
+            var.report.drawString(260, 675, str(items[3]))
+            var.report.drawString(380, 675, str(items[4]))
+            var.report.drawString(460, 675, str(items[5]))
+            var.report.line(50, 670, 525, 670)
 
             query = QtSql.QSqlQuery()
-            query.prepare(
-                'SELECT id_cliente, nombre, apellido, email, telefono, categoria FROM Cliente ORDER BY apellido, nombre')
+            query.prepare('''
+                SELECT id_cliente, nombre, apellido, email, telefono, categoria 
+                FROM Cliente 
+                ORDER BY apellido, nombre
+            ''')
             var.report.setFont('Helvetica', size=9)
+
             if query.exec():
-                i = 60
                 j = 655
                 while query.next():
                     if j <= 80:
-                        var.report.drawString(750, 80, 'Pagina siguiente...')
+                        var.report.drawString(525, 80, 'Página siguiente...')
                         var.report.showPage()
                         Reports.topInforme(titulo)
                         Reports.footInforme(titulo)
-                        var.report.setFont('Helvetica', size=10)
-                        var.report.drawString(50, 675, str(items[0]))
-                        var.report.drawString(120, 675, str(items[1]))
-                        var.report.drawString(250, 675, str(items[2]))
-                        var.report.drawString(350, 675, str(items[3]))
-                        var.report.drawString(450, 675, str(items[4]))
-                        var.report.drawString(525, 675, str(items[5]))
-                        var.report.line(50, 670, 800, 670)
-                        i = 60
+                        var.report.setFont('Helvetica-Bold', size=9)
+                        var.report.drawString(60, 675, str(items[0]))
+                        var.report.drawString(100, 675, str(items[1]))
+                        var.report.drawString(180, 675, str(items[2]))
+                        var.report.drawString(260, 675, str(items[3]))
+                        var.report.drawString(380, 675, str(items[4]))
+                        var.report.drawString(460, 675, str(items[5]))
+                        var.report.line(50, 670, 525, 670)
                         j = 655
                     var.report.setFont('Helvetica', size=9)
-                    var.report.drawCentredString(i, j, str(query.value(0)))
-                    var.report.drawString(i + 70, j, str(query.value(1)))
-                    var.report.drawString(i + 200, j, str(query.value(2)))
-                    var.report.drawString(i + 300, j, str(query.value(3)))
-                    var.report.drawString(i + 400, j, str(query.value(4)))
-                    var.report.drawString(i + 475, j, str(query.value(5)))
-                    j = j - 20
+                    var.report.drawString(60, j, str(query.value(0)))
+                    var.report.drawString(100, j, str(query.value(1)))
+                    var.report.drawString(180, j, str(query.value(2)))
+                    var.report.drawString(260, j, str(query.value(3)))
+                    var.report.drawString(380, j, str(query.value(4)))
+                    var.report.drawString(460, j, str(query.value(5)))
+                    j -= 20
+
             var.report.save()
-            rootPath = '.\\informes'
-            for file in os.listdir(rootPath):
+            for file in os.listdir(directory):
                 if file.endswith(nombre):
-                    os.startfile('%s\\%s' % (rootPath, file))
+                    os.startfile(os.path.join(directory, file))
         except Exception as error:
             print('Error al listar clientes:', error)
 
     @staticmethod
     def reportproductos():
+        # Reporte de todos los productos
         try:
             fecha = datetime.today()
             fecha = fecha.strftime('%Y_%m_%d_%H_%M_%S')
@@ -85,11 +88,12 @@ class Reports:
             Reports.topInforme(titulo)
             Reports.footInforme(titulo)
             items = 'ID', 'NOMBRE', 'PRECIO', 'STOCK'
+
             var.report.setFont('Helvetica-Bold', size=9)
-            var.report.drawString(50, 675, str(items[0]))
-            var.report.drawString(120, 675, str(items[1]))
-            var.report.drawString(270, 675, str(items[2]))
-            var.report.drawString(390, 675, str(items[3]))
+            var.report.drawString(80, 675, str(items[0]))
+            var.report.drawString(150, 675, str(items[1]))
+            var.report.drawString(350, 675, str(items[2]))
+            var.report.drawString(460, 675, str(items[3]))
             var.report.line(50, 670, 525, 670)
 
             query = QtSql.QSqlQuery()
@@ -105,18 +109,18 @@ class Reports:
                         Reports.topInforme(titulo)
                         Reports.footInforme(titulo)
                         var.report.setFont('Helvetica', size=10)
-                        var.report.drawString(50, 675, str(items[0]))
-                        var.report.drawString(120, 675, str(items[1]))
-                        var.report.drawString(270, 675, str(items[2]))
-                        var.report.drawString(390, 675, str(items[3]))
+                        var.report.drawString(80, 675, str(items[0]))
+                        var.report.drawString(150, 675, str(items[1]))
+                        var.report.drawString(350, 675, str(items[2]))
+                        var.report.drawString(460, 675, str(items[3]))
                         var.report.line(50, 670, 525, 670)
                         i = 60
                         j = 655
                     var.report.setFont('Helvetica', size=9)
-                    var.report.drawCentredString(i, j, str(query.value(0)))
-                    var.report.drawString(i + 70, j, str(query.value(1)))
-                    var.report.drawString(i + 220, j, str(query.value(2)))
-                    var.report.drawString(i + 400, j, str(query.value(3)))
+                    var.report.drawString(80, j, str(query.value(0)))
+                    var.report.drawString(150,j, str(query.value(1)))
+                    var.report.drawString(350,j, str(query.value(2)))
+                    var.report.drawString(460,j, str(query.value(3)))
                     j = j - 20
             var.report.save()
             rootPath = '.\\informes'
@@ -128,6 +132,7 @@ class Reports:
 
     @staticmethod
     def reportfactura():
+        # Reporte de una factura seleccionada en la pestaña Facturas
         try:
             if var.ui.lblCodBD_3.text() == "":
                 mbox = QtWidgets.QMessageBox()
@@ -146,14 +151,16 @@ class Reports:
             Reports.topInforme(titulo)
             Reports.footInforme(titulo)
             items = 'ID', 'PRODUCTO', 'PRECIO', 'CANTIDAD', 'TOTAL'
-            var.report.setFont('Helvetica-Bold', size=9)
-            # Ajustar posiciones para centrar en la página
-            x_positions = [50, 200, 300, 400, 500]
-            for i, item in enumerate(items):
-                var.report.drawCentredString(x_positions[i], 675, str(item))
-            var.report.line(50, 670, 575, 670)
 
-            # Obtener el valor de id_factura desde var.ui.lblCodBD_3
+            var.report.setFont('Helvetica-Bold', size=9)
+            var.report.drawString(80, 675, str(items[0]))
+            var.report.drawString(130, 675, str(items[1]))
+            var.report.drawString(300, 675, str(items[2]))
+            var.report.drawString(370, 675, str(items[3]))
+            var.report.drawString(460, 675, str(items[4]))
+            var.report.line(50, 670, 525, 670)
+
+            # Obtiene el valor de id_factura desde var.ui.lblCodBD_3
             id_factura = var.ui.lblCodBD_3.text()
 
             query = QtSql.QSqlQuery()
@@ -175,14 +182,18 @@ class Reports:
                         Reports.topInforme(titulo)
                         Reports.footInforme(titulo)
                         var.report.setFont('Helvetica', size=10)
-                        # Reajustar posiciones centradas
-                        for i, item in enumerate(items):
-                            var.report.drawCentredString(x_positions[i], 675, str(item))
-                        var.report.line(50, 670, 575, 670)
+                        var.report.drawString(80, 675, str(items[0]))
+                        var.report.drawString(130, 675, str(items[1]))
+                        var.report.drawString(300, 675, str(items[2]))
+                        var.report.drawString(370, 675, str(items[3]))
+                        var.report.drawString(460, 675, str(items[4]))
                         j = 655
                     var.report.setFont('Helvetica', size=9)
-                    for k in range(query.record().count()):
-                        var.report.drawCentredString(x_positions[k], j, str(query.value(k)))
+                    var.report.drawString(80, j, str(query.value(0)))
+                    var.report.drawString(130, j, str(query.value(1)))
+                    var.report.drawString(300, j, str(query.value(2)))
+                    var.report.drawString(390, j, str(query.value(3)))
+                    var.report.drawString(460, j, str(query.value(4)))
                     j -= 20
             var.report.save()
             rootPath = '.\\informes'
@@ -193,6 +204,7 @@ class Reports:
             print('Error al generar el detalle de factura:', error)
 
     def topInforme(titulo):
+        # Header del informe con los datos de nuestra empresa
         try:
             ruta_logo = '.\\img\\logo.ico'
             logo = Image.open(ruta_logo)
@@ -218,6 +230,7 @@ class Reports:
             print('Error en cabecera informe:', error)
 
     def footInforme(titulo):
+        # Footer del informe con información de la página
         try:
             var.report.line(50, 50, 525, 50)
             fecha = datetime.today()

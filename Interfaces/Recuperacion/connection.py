@@ -1,9 +1,5 @@
-from PyQt6 import QtSql, QtWidgets
-from PyQt6.QtWidgets import QMessageBox
-from PyQt6.uic.properties import QtGui
-from PyQt6 import QtWidgets, QtGui
+from PyQt6 import QtWidgets, QtGui, QtSql
 
-import MainWindow
 import bills
 import clients
 import products
@@ -138,6 +134,7 @@ class Connection():
 
     # Cargar datos en formulario
     def onecliente(id_cliente):
+        # Carga los datos de un solo cliente
         try:
             registro = []
             query = QtSql.QSqlQuery()
@@ -153,6 +150,7 @@ class Connection():
             print("Error en fichero conexion datos de un Cliente: ", error)
 
     def oneproducto(id_producto):
+        # Carga los datos de un solo producto
         try:
             registro = []
             query = QtSql.QSqlQuery()
@@ -170,6 +168,7 @@ class Connection():
             print("Error en fichero conexion datos de un Producto: ", error)
 
     def onefactura1(num_factura):
+        # Carga los datos de una sola factura
         try:
             registro = []
             query = QtSql.QSqlQuery()
@@ -185,6 +184,7 @@ class Connection():
             print("Error en fichero conexion datos de una Factura: ", error)
 
     def onefactura2(id_detalle):
+        # Carga los datos de los detalles de una factura
         try:
             registro = []
             query = QtSql.QSqlQuery()
@@ -204,6 +204,7 @@ class Connection():
             print("Error en fichero conexión datos de una factura:", error)
 
     def facturaTotal(id_factura):
+        # Extra la suma total de una factura
         try:
             total = 0
             query = QtSql.QSqlQuery()
@@ -223,18 +224,21 @@ class Connection():
 
     # Añadir a la base de datos
     @staticmethod
-    def anyadirCliente(self):
+    def anyadirCliente():
+        # Añade un cliente a la base de datos
         try:
-            # Obtener los valores de los campos de texto
             nombre = var.ui.txtNombre.text()
             apellido = var.ui.txtApel.text()
             direccion = var.ui.txtDir.text()
             fecha_nacimiento = var.ui.txtData.text()
             telefono = var.ui.txtMovil.text()
             email = var.ui.txtEmail.text()
-            categoria = "Particular" if var.ui.rbtnParticular.isChecked() else "Empresa"
+            if var.ui.rbtnParticular.isChecked():
+                categoria = "Particular"
+            else:
+                categoria = "Empresa"
 
-            # Comprobar si el cliente ya existe en la base de datos
+            # Comprueba si el cliente ya existe en la base de datos
             dni = var.ui.txtDNI.text()
             query_check = QtSql.QSqlQuery()
             query_check.prepare('SELECT COUNT(*) FROM Cliente WHERE dni = :dni')
@@ -242,7 +246,7 @@ class Connection():
             if query_check.exec():
                 query_check.first()
                 if query_check.value(0) > 0:
-                    # Si el cliente ya existe, mostrar un mensaje y abortar la inserción
+                    # Muestra un mensaje y aborta la inserción
                     mbox = QtWidgets.QMessageBox()
                     mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
                     mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
@@ -254,20 +258,21 @@ class Connection():
                 print("Error al verificar la existencia del cliente:", query_check.lastError().text())
                 return
 
-            # Obtener el último ID de la tabla "Cliente"
+            # Carga el último ID disponible
             query_last_id = QtSql.QSqlQuery()
             query_last_id.exec('SELECT MAX(id_cliente) FROM Cliente')
             if query_last_id.next():
                 last_id = query_last_id.value(0)
                 next_id = last_id + 1
             else:
-                next_id = 1  # Si no hay ningún cliente en la tabla, comenzamos desde 1
+                next_id = 1
 
             # Insertar el nuevo cliente en la base de datos
             query_insert = QtSql.QSqlQuery()
-            query_insert.prepare(
-                'INSERT INTO Cliente (id_cliente, dni, nombre, apellido, direccion, fecha_nacimiento, telefono, email, categoria) '
-                'VALUES (:id_cliente, :dni, :nombre, :apellido, :direccion, :fecha_nacimiento, :telefono, :email, :categoria)')
+            query_insert.prepare('''
+                INSERT INTO Cliente (id_cliente, dni, nombre, apellido, direccion, fecha_nacimiento, telefono, email, categoria) 
+                VALUES (:id_cliente, :dni, :nombre, :apellido, :direccion, :fecha_nacimiento, :telefono, :email, :categoria) 
+            ''')
             query_insert.bindValue(':id_cliente', next_id)
             query_insert.bindValue(':dni', dni)
             query_insert.bindValue(':nombre', nombre)
@@ -281,7 +286,7 @@ class Connection():
             if query_insert.exec():
                 print("Cliente añadido correctamente.")
                 connection_instance = Connection()
-                connection_instance.selectClientes()  # Actualizar la vista de clientes
+                connection_instance.selectClientes()
             else:
                 print("Error al añadir el cliente:", query_insert.lastError().text())
         except Exception as error:
@@ -289,19 +294,20 @@ class Connection():
 
     @staticmethod
     def anyadirProducto():
+        # Añade un producto a la base de datos
         try:
             nombre = var.ui.txtNombre_2.text()
             precio = var.ui.txtPrecio.text()
             stock = var.ui.spinStock.value()
 
-            # Comprobar si el producto ya existe en la base de datos
+            # Comprueba si el producto ya existe en la base de datos
             query_check = QtSql.QSqlQuery()
             query_check.prepare('SELECT COUNT(*) FROM Producto WHERE nombre = :nombre')
             query_check.bindValue(':nombre', nombre)
             if query_check.exec():
                 query_check.first()
                 if query_check.value(0) > 0:
-                    # Si el producto ya existe, mostrar un mensaje y abortar la inserción
+                    # Muestra un mensaje y aborta la inserción
                     mbox = QtWidgets.QMessageBox()
                     mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
                     mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
@@ -313,10 +319,12 @@ class Connection():
                 print("Error al verificar la existencia del producto:", query_check.lastError().text())
                 return
 
-            # Insertar el nuevo producto en la base de datos
+            # Añade el nuevo producto en la base de datos
             query_insert = QtSql.QSqlQuery()
-            query_insert.prepare('INSERT INTO Producto (nombre, precio, stock) '
-                                 'VALUES (:nombre, :precio, :stock)')
+            query_insert.prepare('''
+                INSERT INTO Producto (nombre, precio, stock) 
+                VALUES (:nombre, :precio, :stock)
+            ''')
             query_insert.bindValue(':nombre', nombre)
             query_insert.bindValue(':precio', precio)
             query_insert.bindValue(':stock', stock)
@@ -324,7 +332,7 @@ class Connection():
             if query_insert.exec():
                 print("Producto añadido correctamente.")
                 connection_instance = Connection()
-                connection_instance.selectProductos()  # Actualizar la vista de productos
+                connection_instance.selectProductos()
             else:
                 print("Error al añadir el producto:", query_insert.lastError().text())
         except Exception as error:
@@ -332,20 +340,24 @@ class Connection():
 
     @staticmethod
     def crearFactura():
+        # Crea una factura no existente
         try:
-            # Obtener los valores de los campos de texto
             id_cliente = var.ui.txtNombre_3.text()
             fecha = var.ui.txtAlta_3.text()
 
-            # Verificar si ya existe una factura con el mismo cliente y fecha
+            # Comprueba si ya existe una factura con el mismo cliente y fecha
             query_check = QtSql.QSqlQuery()
-            query_check.prepare('SELECT COUNT(*) FROM Factura WHERE id_cliente = :id_cliente AND fecha = :fecha')
+            query_check.prepare('''
+                SELECT COUNT(*) 
+                FROM Factura 
+                WHERE id_cliente = :id_cliente AND fecha = :fecha
+            ''')
             query_check.bindValue(':id_cliente', id_cliente)
             query_check.bindValue(':fecha', fecha)
             if query_check.exec():
                 query_check.first()
                 if query_check.value(0) > 0:
-                    # Si ya existe una factura con el mismo cliente y fecha, mostrar un mensaje y abortar la inserción
+                    # Muestra un mensaje y abortar la inserción
                     mbox = QtWidgets.QMessageBox()
                     mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
                     mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
@@ -354,16 +366,16 @@ class Connection():
                     mbox.exec()
                     return
 
-            # Obtener el valor del último número de factura
+            # Asigna el ID a la factura
             query_last_id = QtSql.QSqlQuery()
             query_last_id.exec('SELECT MAX(num_factura) FROM Factura')
             if query_last_id.next():
                 last_num_factura = query_last_id.value(0)
                 next_num_factura = last_num_factura + 1
             else:
-                next_num_factura = 1  # Si no hay ninguna factura en la tabla, comenzamos desde 1
+                next_num_factura = 1
 
-            # Crear la sentencia SQL para insertar una nueva factura
+            # Inserta la factura en la base de datos
             query_insert = QtSql.QSqlQuery()
             query_insert.prepare(
                 'INSERT INTO Factura (num_factura, id_cliente, fecha) '
@@ -373,11 +385,10 @@ class Connection():
             query_insert.bindValue(':id_cliente', id_cliente)
             query_insert.bindValue(':fecha', fecha)
 
-            # Ejecutar la consulta
             if query_insert.exec():
                 print("Factura creada correctamente.")
                 connection_instance = Connection()
-                connection_instance.selectFacturas1()  # Actualizar la vista de facturas
+                connection_instance.selectFacturas1()
             else:
                 print("Error al crear la factura:", query_insert.lastError().text())
         except Exception as error:
@@ -385,14 +396,33 @@ class Connection():
 
     @staticmethod
     def anyadirDetalle():
+        # Añade un detalle de factura en la base de datos
         try:
-            id_factura = var.ui.lblCodBD_4.text()  # Obtener el ID de la factura desde la interfaz de usuario
-            id_producto = var.ui.txtProducto_4.text()  # Obtener el ID del producto desde la interfaz de usuario
-            cantidad = var.ui.spinStock_4.value()  # Obtener la cantidad desde el QSpinBox
-            precio_unitario = float(
-                var.ui.txtPrecio_4.text())  # Obtener el precio unitario desde la interfaz de usuario
+            id_factura = var.ui.lblCodBD_4.text()
+            id_producto = var.ui.txtProducto_4.text()
+            cantidad = var.ui.spinStock_4.value()
 
-            # Calcular el precio total multiplicando el precio unitario por la cantidad
+            # Busca el precio del producto en la tabla Producto
+            query_product = QtSql.QSqlQuery()
+            query_product.prepare('''
+                SELECT precio 
+                FROM Producto 
+                WHERE id_producto = :id_producto
+            ''')
+            query_product.bindValue(':id_producto', int(id_producto))
+            if query_product.exec() and query_product.next():
+                precio_unitario = float(query_product.value(0))
+            else:
+                # Muestra mensaje de error si no se encuentra el producto
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
+                mbox.setWindowTitle("Producto no encontrado")
+                mbox.setText("No se encontró el producto con el ID proporcionado.")
+                mbox.exec()
+                return
+
+            # Calcula el precio total multiplicando el precio unitario por la cantidad
             precio_total = precio_unitario * cantidad
 
             # Buscar el detalle correspondiente en la tabla Detalle
@@ -405,7 +435,7 @@ class Connection():
             query_search.bindValue(':id_factura', int(id_factura))
             query_search.bindValue(':id_producto', int(id_producto))
             if query_search.exec() and query_search.next():
-                # Si ya existe un detalle, mostrar un mensaje de error
+                # Si ya existe un detalle, muestra un mensaje de error
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
                 mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
@@ -413,7 +443,7 @@ class Connection():
                 mbox.setText("Ya existe una factura con dicho producto.")
                 mbox.exec()
             else:
-                # Si no existe un detalle, insertar uno nuevo
+                # Si no existe un detalle, inserta uno nuevo
                 query_insert = QtSql.QSqlQuery()
                 query_insert.prepare('''
                     INSERT INTO Detalle (id_factura, id_producto, cantidad, precio) 
@@ -426,7 +456,7 @@ class Connection():
                 if query_insert.exec():
                     print("Nuevo detalle de factura agregado correctamente.")
                     connection_instance = Connection()
-                    connection_instance.selectFacturas2()  # Actualizar la vista de facturas
+                    connection_instance.selectFacturas2()
                 else:
                     print("Error al agregar el nuevo detalle de factura:", query_insert.lastError().text())
         except Exception as error:
@@ -435,6 +465,7 @@ class Connection():
     # Modificar la base de datos
     @staticmethod
     def modificarCliente():
+        # Modifica los datos de un cliente
         try:
             id_cliente = var.ui.lblCodBD.text()
             dni = var.ui.txtDNI.text()
@@ -444,14 +475,18 @@ class Connection():
             fecha_nacimiento = var.ui.txtData.text()
             telefono = var.ui.txtMovil.text()
             email = var.ui.txtEmail.text()
-            categoria = "Particular" if var.ui.rbtnParticular.isChecked() else "Empresa"
+            if var.ui.rbtnParticular.isChecked():
+                categoria = "Particular"
+            else:
+                categoria = "Empresa"
 
             query = QtSql.QSqlQuery()
-            query.prepare('UPDATE Cliente '
-                          'SET dni = :dni, nombre = :nombre, apellido = :apellido, '
-                          'direccion = :direccion, fecha_nacimiento = :fecha_nacimiento, '
-                          'telefono = :telefono, email = :email, categoria = :categoria '
-                          'WHERE id_cliente = :id_cliente')
+            query.prepare('''
+                UPDATE Cliente 
+                SET dni = :dni, nombre = :nombre, apellido = :apellido, direccion = :direccion, 
+                fecha_nacimiento = :fecha_nacimiento, telefono = :telefono, email = :email, categoria = :categoria 
+                WHERE id_cliente = :id_cliente
+            ''')
             query.bindValue(':dni', dni)
             query.bindValue(':nombre', nombre)
             query.bindValue(':apellido', apellido)
@@ -473,6 +508,7 @@ class Connection():
 
     @staticmethod
     def modificarProducto():
+        # Modifica los datos de un producto
         try:
             id_producto = var.ui.lblCodBD_2.text()
             nombre = var.ui.txtNombre_2.text()
@@ -480,9 +516,11 @@ class Connection():
             stock = var.ui.spinStock.value()
 
             query = QtSql.QSqlQuery()
-            query.prepare('UPDATE Producto '
-                          'SET nombre = :nombre, precio = :precio, stock = :stock '
-                          'WHERE id_producto = :id_producto')
+            query.prepare('''
+                UPDATE Producto 
+                SET nombre = :nombre, precio = :precio, stock = :stock 
+                WHERE id_producto = :id_producto
+            ''')
             query.bindValue(':nombre', nombre)
             query.bindValue(':precio', precio)
             query.bindValue(':stock', stock)
@@ -499,13 +537,33 @@ class Connection():
 
     @staticmethod
     def modificarDetalle():
+        # Modifica los datos de un detalle de la factura
         try:
-            id_factura = var.ui.lblCodBD_4.text()  # Obtener el ID de la factura desde la interfaz de usuario
-            id_producto = var.ui.txtProducto_4.text()  # Obtener el ID del producto desde la interfaz de usuario
-            cantidad = var.ui.spinStock_4.value()  # Obtener la cantidad desde el QSpinBox
-            precio_unitario = float(var.ui.txtPrecio_4.text())  # Obtener el precio unitario desde la interfaz de usuario
+            id_factura = var.ui.lblCodBD_4.text()
+            id_producto = var.ui.txtProducto_4.text()
+            cantidad = var.ui.spinStock_4.value()
 
-            # Calcular el precio total multiplicando el precio unitario por la cantidad
+            # Buscar el precio del producto en la tabla Producto
+            query_product = QtSql.QSqlQuery()
+            query_product.prepare('''
+                SELECT precio 
+                FROM Producto 
+                WHERE id_producto = :id_producto
+            ''')
+            query_product.bindValue(':id_producto', int(id_producto))
+            if query_product.exec() and query_product.next():
+                precio_unitario = float(query_product.value(0))
+            else:
+                # Muestra mensaje de error si no se encuentra el producto
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
+                mbox.setWindowTitle("Producto no encontrado")
+                mbox.setText("No se encontró el producto con el ID proporcionado.")
+                mbox.exec()
+                return
+
+            # Calcula el precio total multiplicando el precio unitario por la cantidad
             precio_total = precio_unitario * cantidad
 
             # Buscar el detalle correspondiente en la tabla Detalle
@@ -519,7 +577,7 @@ class Connection():
             if query_search.exec() and query_search.next():
                 id_detalle = query_search.value(0)
 
-                # Actualizar el detalle en la tabla Detalle
+                # Modifica el detalle en la tabla Detalle
                 query_update = QtSql.QSqlQuery()
                 query_update.prepare('''
                     UPDATE Detalle 
@@ -527,12 +585,12 @@ class Connection():
                     WHERE id_detalle = :id_detalle
                 ''')
                 query_update.bindValue(':id_detalle', int(id_detalle))
-                query_update.bindValue(':precio', precio_total)  # Usar el precio total calculado
+                query_update.bindValue(':precio', precio_total)
                 query_update.bindValue(':cantidad', cantidad)
                 if query_update.exec():
                     print("Detalle de factura modificado correctamente.")
                     connection_instance = Connection()
-                    connection_instance.selectFacturas2()  # Actualizar la vista de facturas
+                    connection_instance.selectFacturas2()
                 else:
                     print("Error al modificar el detalle de factura:", query_update.lastError().text())
             else:
@@ -543,16 +601,18 @@ class Connection():
     # Borrar de la base de datos
     @staticmethod
     def borrarCliente():
+        # Borra un cliente
         try:
             id_cliente = var.ui.lblCodBD.text()
 
-            # Comprobar si el cliente existe en la base de datos
+            # Comprueba si el cliente existe en la base de datos
             query_check = QtSql.QSqlQuery()
             query_check.prepare('SELECT COUNT(*) FROM Cliente WHERE id_cliente = :id_cliente')
             query_check.bindValue(':id_cliente', id_cliente)
             if query_check.exec():
                 query_check.first()
                 if query_check.value(0) == 0:
+                    # Muestra un mensaje si no encuentra el cliente
                     mbox = QtWidgets.QMessageBox()
                     mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
                     mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
@@ -564,7 +624,7 @@ class Connection():
                 print("Error al verificar la existencia del cliente:", query_check.lastError().text())
                 return
 
-            # Eliminar el cliente de la base de datos
+            # Elimina el cliente de la base de datos
             query_delete = QtSql.QSqlQuery()
             query_delete.prepare('DELETE FROM Cliente WHERE id_cliente = :id_cliente')
             query_delete.bindValue(':id_cliente', id_cliente)
@@ -572,7 +632,7 @@ class Connection():
             if query_delete.exec():
                 print("Cliente borrado correctamente.")
                 connection_instance = Connection()
-                connection_instance.selectClientes()  # Actualizar la vista de clientes
+                connection_instance.selectClientes()
             else:
                 print("Error al borrar el cliente:", query_delete.lastError().text())
         except Exception as error:
@@ -580,6 +640,7 @@ class Connection():
 
     @staticmethod
     def borrarProducto():
+        # Borra un producto
         try:
             id_producto = var.ui.lblCodBD_2.text()
 
@@ -590,7 +651,7 @@ class Connection():
             if query.exec():
                 print("Producto eliminado correctamente.")
                 connection_instance = Connection()
-                connection_instance.selectProductos()  # Actualizar la vista de productos
+                connection_instance.selectProductos()
             else:
                 print("Error al eliminar el producto:", query.lastError().text())
         except Exception as error:
