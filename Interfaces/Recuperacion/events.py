@@ -80,6 +80,20 @@ class Events:
         except Exception as error:
             print("Error en el resize en la tabla Facturas2: ", error)
 
+    @classmethod
+    def resizeTableEmpleados(cls):
+        # Redimensiona la tabla para ajustarla correctamente
+        try:
+            header = var.ui.tableEmpleados.horizontalHeader()
+            for i in range(header.count()):
+                if i == 0:  # Establece ancho fijo para la primera columna
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Fixed)
+                    header.resizeSection(i, 50)
+                else:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+        except Exception as error:
+            print("Error en el resize en la tabla Empleados: ", error)
+
     @staticmethod
     def abrirCalendar():
         # Abre la ventana del calendario

@@ -2,6 +2,7 @@ import ctypes
 import locale
 
 import connection
+import employees
 import events
 import products
 import reports
@@ -22,14 +23,15 @@ class Main(QtWidgets.QMainWindow):
         super(Main, self).__init__()
         var.ui = Ui_MainWindow()
         var.calendar = Calendar()
+        self.connection = connection.Connection()
         self.clients = clients.Clients()
         self.products = products.Products()
         self.bills = bills.Bills()
         self.reports = reports.Reports()
+        self.employees = employees.Employees()
         var.ui.setupUi(self)
 
         # Conexión a la base de datos
-        self.connection = connection.Connection()
         self.connection.conexion()
 
         ''' Eventos de Botones '''
@@ -58,6 +60,13 @@ class Main(QtWidgets.QMainWindow):
         # Facturas: Modifica los detalles de la factura
         var.ui.btnMod_4.clicked.connect(connection.Connection.modificarDetalle)
 
+        # Empleados: Añadir los datos del Empleado que se está creando en formulario
+        var.ui.btnAlta_5.clicked.connect(connection.Connection.anyadirEmpleado)
+        # Empleados: Modifica los datos del Empleado que se está editando en formulario
+        var.ui.btnMod_5.clicked.connect(connection.Connection.modificarEmpleado)
+        # Empleados: Borrar los datos del Empleado que se está eliminando en formulario
+        var.ui.btnBaja_5.clicked.connect(connection.Connection.borrarEmpleado)
+
         ''' Eventos del Menubar '''
         # Confirmar salida
         var.ui.actionSalir.triggered.connect(events.Events.salir)
@@ -67,16 +76,21 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionGenerar_informe_Productos.triggered.connect(reports.Reports.reportproductos)
         # Informe de Factura
         var.ui.actionGenerar_informe_Factura.triggered.connect(reports.Reports.reportfactura)
+        # Informe de Empleados
+        var.ui.actionGenerar_informe_Empleados.triggered.connect(reports.Reports.reportempleados)
+        
+        ''' Eventos comboBox '''
+        self.connection.cargarDepartamento()
 
         ''' Eventos de Tablas '''
         # Clientes: Reajusta las dimensiones de la tabla Clientes
         events.Events.resizeTableClientes()
         # Clientes: Cargar los datos de los clientes al abrir el programa y meterlos en la tabla Clientes
         self.connection.selectClientes()
-        # Clientes: Al cambiar el estado de Histórico, actualiza la tabla
-        var.ui.chkHistorico.clicked.connect(self.connection.selectClientes)
         # Clientes: Carga todos los datos de un cliente en el formulario
         var.ui.tableClientes.clicked.connect(clients.Clients.cargarCliente)
+        # Clientes: Al cambiar el estado de Histórico, actualiza la tabla
+        var.ui.chkHistorico.clicked.connect(self.connection.selectClientes)
 
         # Productos: Reajusta las dimensiones de la tabla Productos
         events.Events.resizeTableProductos()
@@ -98,6 +112,15 @@ class Main(QtWidgets.QMainWindow):
         self.connection.selectFacturas2()
         # Facturas: Carga todos los datos de una factura en el formulario
         var.ui.tableFacturas2.clicked.connect(bills.Bills.cargarFactura2)
+
+        # Empleados: Reajusta las dimensiones de la tabla Empleados
+        events.Events.resizeTableEmpleados()
+        # Empleados: Cargar los datos de los empleados al abrir el programa y meterlos en la tabla Empleados
+        self.connection.selectEmpleados()
+        # Empleados: Carga todos los datos de un empleado en el formulario
+        var.ui.tableEmpleados.clicked.connect(employees.Employees.cargarEmpleado)
+        # Empleados: Al cambiar el estado de Histórico, actualiza la tabla
+        var.ui.chkHistorico_5.clicked.connect(self.connection.selectEmpleados)
 
     def closeEvent(self, event):
         # Ventana de emergencia al intentar salir del programa

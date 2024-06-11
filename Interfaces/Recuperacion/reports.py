@@ -203,6 +203,60 @@ class Reports:
         except Exception as error:
             print('Error al generar el detalle de factura:', error)
 
+    @staticmethod
+    def reportempleados():
+        # Reporte de todos los productos
+        try:
+            fecha = datetime.today()
+            fecha = fecha.strftime('%Y_%m_%d_%H_%M_%S')
+            nombre = fecha + '_listadoproductos.pdf'
+            var.report = canvas.Canvas('informes/' + nombre)
+            titulo = 'LISTADO EMPLEADOS'
+            Reports.topInforme(titulo)
+            Reports.footInforme(titulo)
+            items = 'ID', 'NOMBRE', 'DEPARTAMENTO', 'TELEFONO', 'TURNO'
+
+            var.report.setFont('Helvetica-Bold', size=9)
+            var.report.drawString(80, 675, str(items[0]))
+            var.report.drawString(150, 675, str(items[1]))
+            var.report.drawString(300, 675, str(items[2]))
+            var.report.drawString(460, 675, str(items[3]))
+            var.report.line(50, 670, 525, 670)
+
+            query = QtSql.QSqlQuery()
+            query.prepare('SELECT * FROM Empleados WHERE alta = 1 ORDER BY codigo')
+            var.report.setFont('Helvetica', size=9)
+            if query.exec():
+                i = 60
+                j = 655
+                while query.next():
+                    if j <= 80:
+                        var.report.drawString(450, 80, 'Página siguiente...')
+                        var.report.showPage()
+                        Reports.topInforme(titulo)
+                        Reports.footInforme(titulo)
+                        var.report.setFont('Helvetica', size=10)
+                        var.report.drawString(80, 675, str(items[0]))
+                        var.report.drawString(150, 675, str(items[1]))
+                        var.report.drawString(300, 675, str(items[2]))
+                        var.report.drawString(460, 675, str(items[3]))
+                        var.report.line(50, 670, 525, 670)
+                        i = 60
+                        j = 655
+                    var.report.setFont('Helvetica', size=9)
+                    var.report.drawString(80, j, str(query.value(0)))
+                    var.report.drawString(150, j, str(query.value(1)))
+                    var.report.drawString(300, j, str(query.value(2)))
+                    var.report.drawString(460, j, str(query.value(3)))
+                    j = j - 20
+            var.report.save()
+            rootPath = '.\\informes'
+            for file in os.listdir(rootPath):
+                if file.endswith(nombre):
+                    os.startfile('%s\\%s' % (rootPath, file))
+        except Exception as error:
+            print('Error al listar productos:', error)
+
     def topInforme(titulo):
         # Header del informe con los datos de nuestra empresa
         try:

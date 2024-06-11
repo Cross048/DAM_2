@@ -2,11 +2,12 @@ from PyQt6 import QtWidgets, QtGui, QtSql
 
 import bills
 import clients
+import employees
 import products
 import var
 
 
-class Connection():
+class Connection:
     # Conectar base de datos
     def conexion(self = None):
         # Cargar la base de datos SQLite
@@ -132,6 +133,35 @@ class Connection():
             msg.setText("Error en cargar tabla Facturas2 o selección de datos")
             msg.exec()
 
+    def selectEmpleados(self):
+        # Carga los datos de los empleados para añadirlos a la tabla Empleados
+        try:
+            registros = []
+            query = QtSql.QSqlQuery()
+            if var.ui.chkHistorico_5.isChecked():
+                # Si el checkBox está marcado, selecciona todos los empleados
+                query.prepare('SELECT * FROM Empleados')
+            else:
+                # Si el checkBox no está marcado, selecciona solo los empleados dados de alta (alta = 1)
+                query.prepare('SELECT * FROM Empleados WHERE alta = 1')
+            if query.exec():
+                while query.next():
+                    row = [query.value(i) for i in range(query.record().count())]
+                    registros.append(row)
+                if registros:
+                    employees.Employees.cargarTablaEmpleados(registros)
+                else:
+                    var.ui.tableEmpleados.setRowCount(0)
+            else:
+                var.ui.tableEmpleados.setRowCount(0)
+            print("Tabla Empleados cargada!")
+        except Exception as error:
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowTitle("Aviso")
+            msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            msg.setText("Error en cargar tabla Empleados o selección de datos")
+            msg.exec()
+
     # Cargar datos en formulario
     def onecliente(id_cliente):
         # Carga los datos de un solo cliente
@@ -157,7 +187,7 @@ class Connection():
             query.prepare('SELECT * FROM Producto WHERE id_producto = :id_producto')
             query.bindValue(':id_producto', int(id_producto))
             if query.exec():
-                if query.next():  # Solo esperamos un resultado
+                if query.next():
                     for i in range(4):
                         valor = query.value(i)
                         print(f"Valor en columna {i}: {valor} (Tipo: {type(valor)})")
@@ -192,7 +222,8 @@ class Connection():
                 SELECT id_factura, Producto.id_producto, Producto.precio, cantidad 
                 FROM Detalle 
                 JOIN Producto ON Detalle.id_producto = Producto.id_producto
-                WHERE id_detalle = :id_detalle''')
+                WHERE id_detalle = :id_detalle
+            ''')
             query.bindValue(':id_detalle', int(id_detalle))
             if query.exec():
                 while query.next():
@@ -221,6 +252,35 @@ class Connection():
             return total
         except Exception as error:
             print("Error al calcular el total de la factura:", error)
+
+    def oneempleado(codigo):
+        # Carga los datos de un solo cliente
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare('SELECT * FROM Empleados WHERE codigo = :codigo')
+            query.bindValue(':codigo', int(codigo))
+            if query.exec():
+                while query.next():
+                    for i in range(6):
+                        registro.append(str(query.value(i)))
+            print("Registro obtenido de la base de datos:", registro)
+            return registro
+        except Exception as error:
+            print("Error en fichero conexion datos de un Empleado: ", error)
+
+    def cargarDepartamento(self = None):
+        # Carga en el comboBox los departamentos disponibles
+        try:
+            var.ui.cboxDepartamento.clear()
+            query = QtSql.QSqlQuery()
+            query.prepare('SELECT departamento FROM Departamento')
+            if query.exec():
+                var.ui.cboxDepartamento.addItem('')
+                while query.next():
+                    var.ui.cboxDepartamento.addItem(query.value(0))
+        except Exception as error:
+            print("Error en la carga del comboBox de departamento: ", error)
 
     # Añadir a la base de datos
     @staticmethod
@@ -462,6 +522,88 @@ class Connection():
         except Exception as error:
             print("Error al agregar detalle de factura: ", error)
 
+    @staticmethod
+    def anyadirEmpleado():
+        # Añade un empleado a la base de datos
+        try:
+            nombre = var.ui.txtNombre_5.text()
+            departamento = var.ui.cboxDepartamento.currentText()
+            telefono = var.ui.txtTelefono_5.text()
+            if var.ui.rbtnManyana.isChecked():
+                turno = "Mañana"
+            else:
+                turno = "Tarde"
+
+            # Comprueba si el cliente ya existe en la base de datos
+            query_check = QtSql.QSqlQuery()
+            query_check.prepare('SELECT COUNT(*) FROM Empleados WHERE nombre = :nombre')
+            query_check.bindValue(':nombre', nombre)
+            if query_check.exec():
+                query_check.first()
+                if query_check.value(0) > 0:
+                    query_update = QtSql.QSqlQuery()
+                    query_update.prepare('UPDATE Empleados SET alta = 1 WHERE nombre = :nombre')
+                    query_update.bindValue(':nombre', nombre)
+                    if query_update.exec():
+                        # Muestra un mensaje y confirma la actualización
+                        mbox = QtWidgets.QMessageBox()
+                        mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                        mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
+                        mbox.setWindowTitle("Empleado dado de alta")
+                        mbox.setText("Este empleado ha sido dado de alta.")
+                        mbox.exec()
+                        return
+                    else:
+                        # Muestra un mensaje
+                        mbox = QtWidgets.QMessageBox()
+                        mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                        mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
+                        mbox.setWindowTitle("Empleado existente")
+                        mbox.setText("Este empleado ya tiene un ID asignado.")
+                        mbox.exec()
+                        return
+            else:
+                print("Error al verificar la existencia del empleado:", query_check.lastError().text())
+                return
+
+            # Carga el último ID disponible
+            query_last_id = QtSql.QSqlQuery()
+            query_last_id.exec('SELECT MAX(codigo) FROM Empleados')
+            if query_last_id.next():
+                last_id = query_last_id.value(0)
+                next_id = last_id + 1
+            else:
+                next_id = 1
+
+            # Insertar el nuevo empleado en la base de datos
+            query_insert = QtSql.QSqlQuery()
+            query_insert.prepare('''
+                INSERT INTO Empleados (codigo, nombre, departamento, telefono, turno, alta) 
+                VALUES (:codigo, :nombre, :departamento, :telefono, :turno, 1) 
+            ''')
+            query_insert.bindValue(':codigo', next_id)
+            query_insert.bindValue(':nombre', nombre)
+            query_insert.bindValue(':departamento', departamento)
+            query_insert.bindValue(':telefono', telefono)
+            query_insert.bindValue(':turno', turno)
+
+            if query_insert.exec():
+                # Muestra un mensaje y aborta la inserción
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
+                mbox.setWindowTitle("Empleado añadido")
+                mbox.setText("Ha sido añadido el empleado.")
+                mbox.exec()
+
+                print("Empleado añadido correctamente.")
+                connection_instance = Connection()
+                connection_instance.selectEmpleados()
+            else:
+                print("Error al añadir el empleado:", query_insert.lastError().text())
+        except Exception as error:
+            print("Error al añadir empleado: ", error)
+
     # Modificar la base de datos
     @staticmethod
     def modificarCliente():
@@ -569,7 +711,8 @@ class Connection():
             # Buscar el detalle correspondiente en la tabla Detalle
             query_search = QtSql.QSqlQuery()
             query_search.prepare('''
-                SELECT id_detalle FROM Detalle 
+                SELECT id_detalle 
+                FROM Detalle 
                 WHERE id_factura = :id_factura AND id_producto = :id_producto
             ''')
             query_search.bindValue(':id_factura', int(id_factura))
@@ -597,6 +740,49 @@ class Connection():
                 print("No se encontró el detalle en la base de datos.")
         except Exception as error:
             print("Error al modificar detalle de factura: ", error)
+
+    @staticmethod
+    def modificarEmpleado():
+        # Modifica los datos de un empleado
+        try:
+            codigo = var.ui.lblCodBD_5.text()
+            nombre = var.ui.txtNombre_5.text()
+            departamento = var.ui.cboxDepartamento.currentText()
+            telefono = var.ui.txtTelefono_5.text()
+            if var.ui.rbtnManyana.isChecked():
+                turno = "Mañana"
+            else:
+                turno = "Tarde"
+
+            query = QtSql.QSqlQuery()
+            query.prepare('''
+                UPDATE Empleados 
+                SET nombre = :nombre, departamento = :departamento, 
+                telefono = :telefono, turno = :turno 
+                WHERE codigo = :codigo
+            ''')
+            query.bindValue(':codigo', codigo)
+            query.bindValue(':nombre', nombre)
+            query.bindValue(':departamento', departamento)
+            query.bindValue(':telefono', telefono)
+            query.bindValue(':turno', turno)
+
+            if query.exec():
+                # Muestra un mensaje
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
+                mbox.setWindowTitle("Empleado modificado")
+                mbox.setText("Han sido actualizados los datos del empleado.")
+                mbox.exec()
+
+                print("Registro actualizado correctamente.")
+                connection_instance = Connection()
+                connection_instance.selectEmpleados()
+            else:
+                print("Error al actualizar el registro:", query.lastError().text())
+        except Exception as error:
+            print("Error al modificar cliente: ", error)
 
     # Borrar de la base de datos
     @staticmethod
@@ -630,6 +816,14 @@ class Connection():
             query_delete.bindValue(':id_cliente', id_cliente)
 
             if query_delete.exec():
+                # Muestra un mensaje
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
+                mbox.setWindowTitle("Cliente eliminado")
+                mbox.setText("El cliente ha sido eliminado con éxito.")
+                mbox.exec()
+
                 print("Cliente borrado correctamente.")
                 connection_instance = Connection()
                 connection_instance.selectClientes()
@@ -649,6 +843,14 @@ class Connection():
             query.bindValue(':id_producto', id_producto)
 
             if query.exec():
+                # Muestra un mensaje
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
+                mbox.setWindowTitle("Producto eliminado")
+                mbox.setText("El producto ha sido eliminado con éxito.")
+                mbox.exec()
+
                 print("Producto eliminado correctamente.")
                 connection_instance = Connection()
                 connection_instance.selectProductos()
@@ -656,3 +858,34 @@ class Connection():
                 print("Error al eliminar el producto:", query.lastError().text())
         except Exception as error:
             print("Error al eliminar producto: ", error)
+
+    @staticmethod
+    def borrarEmpleado():
+        # Borra un cliente
+        try:
+            codigo = var.ui.lblCodBD_5.text()
+
+            query = QtSql.QSqlQuery()
+            query.prepare('''
+                UPDATE Empleados 
+                SET alta = 0
+                WHERE codigo = :codigo
+            ''')
+            query.bindValue(':codigo', codigo)
+
+            if query.exec():
+                # Muestra un mensaje
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
+                mbox.setWindowTitle("Empleado dado de baja")
+                mbox.setText("El empleado ha sido dado de baja.")
+                mbox.exec()
+
+                print("Registro actualizado correctamente.")
+                connection_instance = Connection()
+                connection_instance.selectEmpleados()
+            else:
+                print("Error al actualizar el registro:", query.lastError().text())
+        except Exception as error:
+            print("Error al modificar cliente: ", error)
